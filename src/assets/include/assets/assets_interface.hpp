@@ -25,7 +25,7 @@
 
 class Assets_interface
 {
-    public:
+public:
     virtual ~Assets_interface() = default;
 };
 

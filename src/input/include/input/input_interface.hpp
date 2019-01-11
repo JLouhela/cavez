@@ -25,7 +25,7 @@
 
 class Input_interface
 {
-    public:
+public:
     virtual ~Input_interface() = default;
 };
 

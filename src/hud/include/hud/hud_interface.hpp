@@ -25,7 +25,7 @@
 
 class Hud_interface
 {
-    public:
+public:
     virtual ~Hud_interface() = default;
 };
 

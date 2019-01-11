@@ -25,7 +25,7 @@
 
 class Input_impl : public Input_interface
 {
-    public:
+public:
     Input_impl();
     ~Input_impl() override = default;
 };

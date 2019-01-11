@@ -25,7 +25,7 @@
 
 class Hud_impl : public Hud_interface
 {
-    public:
+public:
     Hud_impl();
     ~Hud_impl() override = default;
 };

@@ -25,7 +25,7 @@
 
 class Menu_interface
 {
-    public:
+public:
     virtual ~Menu_interface() = default;
 };
 

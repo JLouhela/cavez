@@ -25,7 +25,7 @@
 
 class Messaging_impl : public Messaging_interface
 {
-    public:
+public:
     Messaging_impl();
     ~Messaging_impl() override = default;
 };

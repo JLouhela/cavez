@@ -25,7 +25,7 @@
 
 class Game_impl : public Game_interface
 {
-    public:
+public:
     Game_impl();
     ~Game_impl() override = default;
 };

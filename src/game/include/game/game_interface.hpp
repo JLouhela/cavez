@@ -25,7 +25,7 @@
 
 class Game_interface
 {
-    public:
+public:
     virtual ~Game_interface() = default;
 };
 

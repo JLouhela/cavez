@@ -25,10 +25,9 @@
 
 class Menu_impl : public Menu_interface
 {
-    public:
+public:
     Menu_impl();
     ~Menu_impl() override = default;
-
 };
 
 #endif

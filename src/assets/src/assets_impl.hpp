@@ -25,7 +25,7 @@
 
 class Assets_impl : public Assets_interface
 {
-    public:
+public:
     Assets_impl();
     ~Assets_impl() override = default;
 };

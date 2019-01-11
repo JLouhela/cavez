@@ -25,7 +25,7 @@
 
 class Rendering_interface
 {
-    public:
+public:
     virtual ~Rendering_interface() = default;
 };
 

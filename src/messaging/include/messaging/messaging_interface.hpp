@@ -25,7 +25,7 @@
 
 class Messaging_interface
 {
-    public:
+public:
     virtual ~Messaging_interface() = default;
 };
 
