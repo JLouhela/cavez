@@ -1,1 +1,7 @@
+add_subdirectory(assets)
+add_subdirectory(game)
+add_subdirectory(hud)
+add_subdirectory(input)
+add_subdirectory(menu)
+add_subdirectory(messaging)
 add_subdirectory(rendering)
