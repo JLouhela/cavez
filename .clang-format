@@ -1,0 +1,22 @@
+---
+BasedOnStyle: Google
+AccessModifierOffset: '0'
+AllowShortBlocksOnASingleLine: 'false'
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: 'false'
+AllowShortLoopsOnASingleLine: 'false'
+BinPackParameters: 'false'
+BreakBeforeBinaryOperators: 'false'
+BreakBeforeBraces: Allman
+Cpp11BracedListStyle: 'true'
+IndentCaseLabels: 'false'
+IndentWidth: '4'
+Language: Cpp
+NamespaceIndentation: None
+SpaceInEmptyParentheses: 'false'
+SpacesInCStyleCastParentheses: 'false'
+SpacesInParentheses: 'false'
+UseTab: Never
+AccessModifierOffset: -4
+
+...
