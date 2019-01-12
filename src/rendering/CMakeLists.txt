@@ -9,5 +9,6 @@ target_link_libraries(rendering
     PUBLIC
         rendering_interface
     PRIVATE
+		logger
         sfml-window
         sfml-graphics)

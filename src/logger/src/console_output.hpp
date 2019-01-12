@@ -18,17 +18,22 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <memory>
-#include "logger/logger.hpp"
-#include "rendering_impl.hpp"
+#ifndef CONSOLE_OUTPUT_HPP
+#define CONSOLE_OUTPUT_HPP
 
-Rendering_impl::Rendering_impl()
-    : m_window{sf::VideoMode{800, 600}, "Cavez sandbox app"}
-{
-    LOG_DEBUG << "Rendering impl created";
-}
+#include "logger/output_interface.hpp"
 
-std::unique_ptr<Rendering_interface> make_rendering()
+namespace diagnostic
 {
-    return std::make_unique<Rendering_impl>();
-}
+namespace logger
+{
+class Console_output : public Output_interface
+{
+public:
+    virtual void write(std::ostringstream& string_stream);
+    virtual void flush() override;
+};
+}  // namespace logger
+}  // namespace diagnostic
+
+#endif
