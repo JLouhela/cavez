@@ -22,11 +22,29 @@
 #define ENTITY_CONTAINER_HPP
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include "entity.hpp"
 
-constexpr std::int16_t max_entities = 1000;
+constexpr std::size_t max_entities = 1000;
 
-using Entity_container = std::array<Entity, max_entities>;
+class Entity_container
+{
+public:
+    Entity_container();
+
+    Entity& operator[](const std::size_t idx);
+
+    const Entity& operator[](const std::size_t idx) const;
+
+    Entity& get_new_entity();
+
+private:
+    std::size_t find_next_free_index();
+
+    Entity_id m_next_free_id;
+    std::size_t m_next_free_index{0};
+    std::array<Entity, max_entities> m_container;
+};
 
 #endif

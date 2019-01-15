@@ -22,13 +22,21 @@
 #define GAME_STATE_IMPL_HPP
 
 #include "components/component_container.hpp"
+#include "components/component_id.hpp"
 #include "entity/entity_container.hpp"
-#include "game/game_state.hpp"
+#include "game/game_state_interface.hpp"
 
-class Game_state_impl : public Game_state
+#include <vector>
+
+struct Entity;
+
+class Game_state_impl : public Game_state_interface
 {
 public:
+    Game_state_impl();
     ~Game_state_impl() override = default;
+
+    Entity& add_entity(const std::vector<Component_id>& components);
 
 private:
     // Component container: represents current state of entities

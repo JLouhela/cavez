@@ -6,9 +6,10 @@ add_library(rendering
     src/rendering_impl.cpp)
     
 target_link_libraries(rendering
-    PUBLIC
+	PUBLIC
         rendering_interface
     PRIVATE
 		logger
+		game_interface
         sfml-window
         sfml-graphics)

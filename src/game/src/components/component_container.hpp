@@ -22,10 +22,11 @@
 #define COMPONENT_CONTAINER_HPP
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include "physics_component.hpp"
 
-constexpr std::int16_t max_components = 1000;
+constexpr std::size_t max_components = 1000;
 
 using Physics_components = std::array<Physics_component, max_components>;
 
@@ -33,5 +34,7 @@ struct Component_container
 {
     Physics_components physics_components;
 };
+
+void init_container(Component_container& container);
 
 #endif

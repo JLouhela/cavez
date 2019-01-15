@@ -21,14 +21,20 @@
 #ifndef ENTITY_HPP
 #define ENTITY_HPP
 
+#include <cstddef>
 #include <cstdint>
+#include <functional>
 
 using Entity_id = std::int32_t;
+constexpr Entity_id invalid_entity_id = -1;
 
 struct Entity
 {
-    Entity_id id = 0;
+    Entity_id id = invalid_entity_id;
+    std::function<void()> free = nullptr;
     // TODO cur component ids
 };
+
+static const Entity invalid_entity = Entity{};
 
 #endif

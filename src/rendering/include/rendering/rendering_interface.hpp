@@ -23,10 +23,14 @@
 
 #include <memory>
 
+class Game_state_interface;
+
 class Rendering_interface
 {
 public:
     virtual ~Rendering_interface() = default;
+
+    virtual void render(const Game_state_interface& game_state) = 0;
 };
 
 std::unique_ptr<Rendering_interface> make_rendering();

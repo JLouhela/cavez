@@ -19,3 +19,17 @@
 /// IN THE SOFTWARE.
 
 #include "game_state_impl.hpp"
+#include "logger/logger.hpp"
+
+Game_state_impl::Game_state_impl()
+{
+    init_container(m_components);
+    LOG_DEBUG << "Game state up";
+}
+
+Entity& Game_state_impl::add_entity(const std::vector<Component_id>& components)
+{
+    auto& entity = m_entities.get_new_entity();
+    LOG_WARN << "add_entity: not fully implemented";
+    return entity;
+}

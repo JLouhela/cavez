@@ -18,13 +18,40 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef GAME_STATE_HPP
-#define GAME_STATE_HPP
+#include "entity_container.hpp"
+#include "logger/logger.hpp"
 
-class Game_state
+Entity_container::Entity_container()
 {
-public:
-    virtual ~Game_state() = default;
-};
+    m_container.fill(invalid_entity);
+}
 
-#endif
+Entity& Entity_container::operator[](const std::size_t idx)
+{
+    return m_container[idx];
+}
+
+const Entity& Entity_container::operator[](const std::size_t idx) const
+{
+    return m_container[idx];
+}
+
+Entity& Entity_container::get_new_entity()
+{
+    const auto idx = find_next_free_index();
+    auto& entity = m_container[idx];
+    entity.id = m_next_free_id++;
+    entity.free = [& container = m_container, idx]() {
+        // TODO think about impact to m_next_free_idx
+        // TODO free components assigned to the entity
+        LOG_WARN << "Freeing an entity does not free components!";
+        container[idx] = invalid_entity;
+    };
+    return entity;
+}
+
+std::size_t Entity_container::find_next_free_index()
+{
+    LOG_WARN << "Find next free index not properly implemented!";
+    return m_next_free_index++;
+}

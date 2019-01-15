@@ -18,30 +18,11 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <chrono>
-#include <iostream>
-#include <thread>
-#include "game/game_interface.hpp"
-#include "rendering/rendering_interface.hpp"
+#ifndef COMPONENT_ID_HPP
+#define COMPONENT_ID_HPP
 
-using namespace std::chrono_literals;
+#include <cstdint>
 
-int main()
-{
-    auto renderer = make_rendering();
-    auto game = make_game();
-    // For real main: https://gafferongames.com/post/fix_your_timestep/
-    // -> game should support interpolation besides simple update
-    auto prev_time = std::chrono::system_clock::now();
-    while (true)
-    {
-        auto time_now = std::chrono::system_clock::now();
-        auto delta_time =
-            std::chrono::duration_cast<std::chrono::duration<float>>(time_now -
-                                                                     prev_time);
-        game->update(delta_time.count());
-        renderer->render(game->get_state());
-        prev_time = time_now;
-    }
-    return 0;
-}
+using Component_id = std::int32_t;
+
+#endif

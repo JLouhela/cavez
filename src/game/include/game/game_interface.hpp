@@ -23,7 +23,7 @@
 
 #include <memory>
 
-class Game_state;
+class Game_state_interface;
 class Game_interface
 {
 public:
@@ -32,9 +32,12 @@ public:
     // TODO platform independent float?
     virtual void update(float delta_time) = 0;
 
-    virtual void interpolate(float delta_time, Game_state& game_state) = 0;
+    // TODO may not work like this,keep as a reminder that interpolation must be
+    // handled somehow
+    virtual void interpolate(float delta_time,
+                             Game_state_interface& game_state) = 0;
 
-    virtual Game_state& get_state() = 0;
+    virtual const Game_state_interface& get_state() = 0;
 };
 
 std::unique_ptr<Game_interface> make_game();

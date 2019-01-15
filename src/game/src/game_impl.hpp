@@ -32,9 +32,10 @@ public:
 
     virtual void update(float delta_time) override;
 
-    virtual void interpolate(float delta_time, Game_state& game_state) override;
+    virtual void interpolate(float delta_time,
+                             Game_state_interface& game_state) override;
 
-    virtual Game_state& get_state() override
+    virtual const Game_state_interface& get_state() override
     {
         return m_state;
     }

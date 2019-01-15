@@ -7,9 +7,12 @@ add_library(game
     src/game_state_impl.hpp
     src/game_state_impl.cpp
     src/components/component_container.hpp
+    src/components/component_container.cpp
+    src/components/component_id.hpp
     src/components/physics_component.hpp
 	src/entity/entity.hpp
-	src/entity/entity_container.hpp)
+	src/entity/entity_container.hpp
+	src/entity/entity_container.cpp)
 
 #TODO source group components / entity
     
@@ -17,4 +20,5 @@ target_link_libraries(game
     PUBLIC
         game_interface
 	PRIVATE
+		logger
 		math)

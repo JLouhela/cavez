@@ -20,19 +20,23 @@
 
 #include <memory>
 #include "game_impl.hpp"
+#include "logger/logger.hpp"
 
 Game_impl::Game_impl()
 {
+    LOG_DEBUG << "Game running";
 }
 
 void Game_impl::update(float delta_time)
 {
     // TBD
+    LOG_WARN << "update not implemented";
 }
 
-void Game_impl::interpolate(float delta_time, Game_state& game_state)
+void Game_impl::interpolate(float delta_time, Game_state_interface& game_state)
 {
     // TBD
+    LOG_WARN << "Interpolation not implemented";
 }
 
 std::unique_ptr<Game_interface> make_game()

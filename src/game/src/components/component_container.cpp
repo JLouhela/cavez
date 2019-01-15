@@ -19,3 +19,8 @@
 /// IN THE SOFTWARE.
 
 #include "component_container.hpp"
+
+void init_container(Component_container& container)
+{
+    container.physics_components.fill(Physics_component{});
+}
