@@ -18,24 +18,20 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <memory>
-#include "game_impl.hpp"
+#ifndef COMPONENT_CONTAINER_HPP
+#define COMPONENT_CONTAINER_HPP
 
-Game_impl::Game_impl()
-{
-}
+#include <array>
+#include <cstdint>
+#include "physics_component.hpp"
 
-void Game_impl::update(float delta_time)
-{
-    // TBD
-}
+constexpr std::int16_t max_components = 1000;
 
-void Game_impl::interpolate(float delta_time, Game_state& game_state)
-{
-    // TBD
-}
+using Physics_components = std::array<Physics_component, max_components>;
 
-std::unique_ptr<Game_interface> make_game()
+struct Component_container
 {
-    return std::make_unique<Game_impl>();
-}
+    Physics_components physics_components;
+};
+
+#endif

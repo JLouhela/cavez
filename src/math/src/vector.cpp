@@ -18,24 +18,8 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <memory>
-#include "game_impl.hpp"
+#include "math/vector.hpp"
 
-Game_impl::Game_impl()
+namespace math
 {
-}
-
-void Game_impl::update(float delta_time)
-{
-    // TBD
-}
-
-void Game_impl::interpolate(float delta_time, Game_state& game_state)
-{
-    // TBD
-}
-
-std::unique_ptr<Game_interface> make_game()
-{
-    return std::make_unique<Game_impl>();
 }

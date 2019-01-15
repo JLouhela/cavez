@@ -22,12 +22,25 @@
 #define GAME_IMPL_HPP
 
 #include "game/game_interface.hpp"
+#include "game_state_impl.hpp"
 
 class Game_impl : public Game_interface
 {
 public:
     Game_impl();
     ~Game_impl() override = default;
+
+    virtual void update(float delta_time) override;
+
+    virtual void interpolate(float delta_time, Game_state& game_state) override;
+
+    virtual Game_state& get_state() override
+    {
+        return m_state;
+    }
+
+private:
+    Game_state_impl m_state;
 };
 
 #endif

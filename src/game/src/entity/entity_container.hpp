@@ -18,24 +18,15 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <memory>
-#include "game_impl.hpp"
+#ifndef ENTITY_CONTAINER_HPP
+#define ENTITY_CONTAINER_HPP
 
-Game_impl::Game_impl()
-{
-}
+#include <array>
+#include <cstdint>
+#include "entity.hpp"
 
-void Game_impl::update(float delta_time)
-{
-    // TBD
-}
+constexpr std::int16_t max_entities = 1000;
 
-void Game_impl::interpolate(float delta_time, Game_state& game_state)
-{
-    // TBD
-}
+using Entity_container = std::array<Entity, max_entities>;
 
-std::unique_ptr<Game_interface> make_game()
-{
-    return std::make_unique<Game_impl>();
-}
+#endif

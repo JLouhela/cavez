@@ -18,24 +18,17 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <memory>
-#include "game_impl.hpp"
+#ifndef ENTITY_HPP
+#define ENTITY_HPP
 
-Game_impl::Game_impl()
-{
-}
+#include <cstdint>
 
-void Game_impl::update(float delta_time)
-{
-    // TBD
-}
+using Entity_id = std::int32_t;
 
-void Game_impl::interpolate(float delta_time, Game_state& game_state)
+struct Entity
 {
-    // TBD
-}
+    Entity_id id = 0;
+    // TODO cur component ids
+};
 
-std::unique_ptr<Game_interface> make_game()
-{
-    return std::make_unique<Game_impl>();
-}
+#endif

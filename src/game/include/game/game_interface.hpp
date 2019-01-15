@@ -23,10 +23,18 @@
 
 #include <memory>
 
+class Game_state;
 class Game_interface
 {
 public:
     virtual ~Game_interface() = default;
+
+    // TODO platform independent float?
+    virtual void update(float delta_time) = 0;
+
+    virtual void interpolate(float delta_time, Game_state& game_state) = 0;
+
+    virtual Game_state& get_state() = 0;
 };
 
 std::unique_ptr<Game_interface> make_game();

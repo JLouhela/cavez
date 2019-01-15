@@ -18,24 +18,22 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <memory>
-#include "game_impl.hpp"
+#ifndef GAME_STATE_IMPL_HPP
+#define GAME_STATE_IMPL_HPP
 
-Game_impl::Game_impl()
-{
-}
+#include "components/component_container.hpp"
+#include "entity/entity_container.hpp"
+#include "game/game_state.hpp"
 
-void Game_impl::update(float delta_time)
+class Game_state_impl : public Game_state
 {
-    // TBD
-}
+public:
+    ~Game_state_impl() override = default;
 
-void Game_impl::interpolate(float delta_time, Game_state& game_state)
-{
-    // TBD
-}
+private:
+    // Component container: represents current state of entities
+    Component_container m_components;
+    Entity_container m_entities;
+};
 
-std::unique_ptr<Game_interface> make_game()
-{
-    return std::make_unique<Game_impl>();
-}
+#endif

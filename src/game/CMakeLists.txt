@@ -3,8 +3,18 @@ target_include_directories (game_interface INTERFACE include)
 
 add_library(game 
     src/game_impl.hpp
-    src/game_impl.cpp)
+    src/game_impl.cpp
+    src/game_state_impl.hpp
+    src/game_state_impl.cpp
+    src/components/component_container.hpp
+    src/components/physics_component.hpp
+	src/entity/entity.hpp
+	src/entity/entity_container.hpp)
+
+#TODO source group components / entity
     
 target_link_libraries(game
     PUBLIC
-        game_interface)
+        game_interface
+	PRIVATE
+		math)
