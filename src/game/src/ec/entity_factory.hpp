@@ -18,33 +18,17 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ENTITY_CONTAINER_HPP
-#define ENTITY_CONTAINER_HPP
+#ifndef ENTITY_FACTORY_HPP
+#define ENTITY_FACTORY_HPP
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include "entity.hpp"
+struct Component_container;
+class Entity_container;
+struct Entity;
 
-constexpr std::size_t max_entities = 1000;
-
-class Entity_container
+namespace factory
 {
-public:
-    Entity_container();
-
-    Entity& operator[](const std::size_t idx);
-
-    const Entity& operator[](const std::size_t idx) const;
-
-    Entity& get_new_entity();
-
-private:
-    std::size_t find_next_free_index();
-
-    Entity_id m_next_free_id;
-    std::size_t m_next_free_index{0};
-    std::array<Entity, max_entities> m_container;
-};
+Entity& create_debug_entity(Entity_container& entity_container,
+                            Component_container& component_container);
+}
 
 #endif

@@ -18,23 +18,22 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ENTITY_HPP
-#define ENTITY_HPP
+#ifndef COMPONENT_CONTAINER_HPP
+#define COMPONENT_CONTAINER_HPP
 
+#include <array>
 #include <cstddef>
 #include <cstdint>
-#include <functional>
+#include "components/physics_component.hpp"
+#include "static_array/static_array.hpp"
 
-using Entity_id = std::int32_t;
-constexpr Entity_id invalid_entity_id = -1;
+constexpr std::size_t max_components = 1000;
 
-struct Entity
+using Physics_components = Static_array<Physics_component, max_components>;
+
+struct Component_container
 {
-    Entity_id id = invalid_entity_id;
-    std::function<void()> free = nullptr;
-    // TODO cur component ids
+    Physics_components physics_components;
 };
-
-static const Entity invalid_entity = Entity{};
 
 #endif

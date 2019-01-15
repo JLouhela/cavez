@@ -18,11 +18,17 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_ID_HPP
-#define COMPONENT_ID_HPP
+#ifndef PHYSICS_COMPONENT_HPP
+#define PHYSICS_COMPONENT_HPP
 
 #include <cstdint>
+#include "math/vector.hpp"
 
-using Component_id = std::int32_t;
+struct Physics_component
+{
+    math::Vector2 pos{0, 0};
+    math::Vector2 velocity{0, 0};
+    std::int32_t mass{1};
+};
 
 #endif

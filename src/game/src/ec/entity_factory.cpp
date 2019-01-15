@@ -18,23 +18,22 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_CONTAINER_HPP
-#define COMPONENT_CONTAINER_HPP
+#include <tuple>
+#include "component_container.hpp"
+#include "component_id.hpp"
+#include "entity_container.hpp"
+#include "math/vector.hpp"
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include "physics_component.hpp"
-
-constexpr std::size_t max_components = 1000;
-
-using Physics_components = std::array<Physics_component, max_components>;
-
-struct Component_container
+namespace factory
 {
-    Physics_components physics_components;
-};
-
-void init_container(Component_container& container);
-
-#endif
+Entity& create_debug_entity(Entity_container& entity_container,
+                            Component_container& component_container)
+{
+    auto& entity = entity_container.get_new_entity();
+    auto& phys_comp = component_container.physics_components.get_free_elem();
+    entity.components.emplace_back(Component_id::physics, phys_comp.first);
+    phys_comp.second.get().pos = math::Vector2{10, 10};
+    phys_comp.second.get().velocity = math::Vector2{1, 1};
+    return entity;
+}
+}  // namespace factory

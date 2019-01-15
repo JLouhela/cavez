@@ -6,13 +6,16 @@ add_library(game
     src/game_impl.cpp
     src/game_state_impl.hpp
     src/game_state_impl.cpp
-    src/components/component_container.hpp
-    src/components/component_container.cpp
-    src/components/component_id.hpp
-    src/components/physics_component.hpp
-	src/entity/entity.hpp
-	src/entity/entity_container.hpp
-	src/entity/entity_container.cpp)
+    src/ec/component_container.hpp
+    src/ec/component_id.hpp
+	src/ec/entity.hpp
+	src/ec/entity_container.hpp
+	src/ec/entity_container.cpp
+	src/ec/entity_factory.hpp
+	src/ec/entity_factory.cpp
+    src/ec/static_array/static_array.hpp
+    src/ec/components/physics_component.hpp
+)
 
 #TODO source group components / entity
     

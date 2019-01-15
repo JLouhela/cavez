@@ -30,7 +30,7 @@ Rendering_impl::Rendering_impl()
 
 void Rendering_impl::render(const Game_state_interface& game_state)
 {
-    LOG_WARN << "Render not implemented!";
+    // LOG_WARN << "Render not implemented!";
 }
 
 std::unique_ptr<Rendering_interface> make_rendering()

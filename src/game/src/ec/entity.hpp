@@ -18,28 +18,25 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef GAME_STATE_IMPL_HPP
-#define GAME_STATE_IMPL_HPP
+#ifndef ENTITY_HPP
+#define ENTITY_HPP
 
-#include "ec/component_container.hpp"
-#include "ec/component_id.hpp"
-#include "ec/entity_container.hpp"
-#include "game/game_state_interface.hpp"
-
+#include <cstddef>
+#include <cstdint>
+#include <functional>
 #include <vector>
+#include "component_id.hpp"
 
-struct Entity;
+using Entity_id = std::int32_t;
+constexpr Entity_id invalid_entity_id = -1;
 
-class Game_state_impl : public Game_state_interface
+struct Entity
 {
-public:
-    Game_state_impl();
-    ~Game_state_impl() override = default;
-
-private:
-    // Component container: represents current state of entities
-    Component_container m_components;
-    Entity_container m_entities;
+    Entity_id id = invalid_entity_id;
+    std::function<void()> free = nullptr;
+    std::vector<std::pair<Component_id, std::size_t>> components;
 };
+
+static const Entity invalid_entity = Entity{};
 
 #endif

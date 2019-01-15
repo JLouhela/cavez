@@ -19,18 +19,21 @@
 /// IN THE SOFTWARE.
 
 #include <memory>
+#include "ec/component_id.hpp"
 #include "game_impl.hpp"
 #include "logger/logger.hpp"
 
 Game_impl::Game_impl()
 {
     LOG_DEBUG << "Game running";
+    // TODO game state manager which wraps up level + game state and handles
+    // init
 }
 
 void Game_impl::update(float delta_time)
 {
     // TBD
-    LOG_WARN << "update not implemented";
+    // LOG_WARN << "update not implemented";
 }
 
 void Game_impl::interpolate(float delta_time, Game_state_interface& game_state)

@@ -18,13 +18,15 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef PHYSICS_COMPONENT_HPP
-#define PHYSICS_COMPONENT_HPP
+#ifndef COMPONENT_ID_HPP
+#define COMPONENT_ID_HPP
 
 #include <cstdint>
 
-struct Physics_component
+enum class Component_id : std::int32_t
 {
+    invalid = 0,
+    physics = 1
 };
 
 #endif

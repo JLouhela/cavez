@@ -18,9 +18,34 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "component_container.hpp"
+#ifndef ENTITY_CONTAINER_HPP
+#define ENTITY_CONTAINER_HPP
 
-void init_container(Component_container& container)
+#include <array>
+#include <cstddef>
+#include <cstdint>
+#include "entity.hpp"
+
+constexpr std::size_t max_entities = 1000;
+
+class Entity_container
 {
-    container.physics_components.fill(Physics_component{});
-}
+public:
+    Entity_container();
+
+    // TODO switch to static_array like component
+    Entity& operator[](const std::size_t idx);
+
+    const Entity& operator[](const std::size_t idx) const;
+
+    Entity& get_new_entity();
+
+private:
+    std::size_t find_next_free_index();
+
+    Entity_id m_next_free_id{1};
+    std::size_t m_next_free_index{0};
+    std::array<Entity, max_entities> m_container;
+};
+
+#endif
