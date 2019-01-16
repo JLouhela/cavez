@@ -18,5 +18,7 @@ SpacesInCStyleCastParentheses: 'false'
 SpacesInParentheses: 'false'
 UseTab: Never
 AccessModifierOffset: -4
+ColumnLimit: 100
+
 
 ...
