@@ -18,23 +18,37 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_CONTAINER_HPP
-#define COMPONENT_CONTAINER_HPP
+#include "entity.hpp"
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include "component_id.hpp"
-#include "components/physics_component.hpp"
-#include "static_array/static_array.hpp"
-
-constexpr std::size_t max_components = 1000;
-
-using Physics_components = Static_array<Physics_component, max_components>;
-
-struct Component_container
+void Entity::remove_component(const Component_id id)
 {
-    Physics_components physics_components;
-};
+    auto iter = std::find_if(components.begin(), components.end(),
+                             [id](const Component_index& component) {
+                                 return component.first == id;
+                             });
+    if (iter == components.end())
+    {
+        return;
+    }
+    free_component(id, iter->second);
+    components.erase(iter);
+}
 
-#endif
+std::size_t Entity::get_component_index(const Component_id id)
+{
+    auto iter = std::find_if(components.begin(), components.end(),
+                             [id](const Component_index& component) {
+                                 return component.first == id;
+                             });
+    return iter == components.end() ? -1 : iter->second;
+}
+
+void Entity::delete_entity()
+{
+    for (const auto& component : components)
+    {
+        free_component(component.first, component.second);
+    }
+    components.clear();
+    free();
+}

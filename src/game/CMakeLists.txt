@@ -9,6 +9,7 @@ add_library(game
     src/ec/component_container.hpp
     src/ec/component_id.hpp
 	src/ec/entity.hpp
+	src/ec/entity.cpp
 	src/ec/entity_container.hpp
 	src/ec/entity_container.cpp
 	src/ec/entity_factory.hpp

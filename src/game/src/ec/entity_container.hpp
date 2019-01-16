@@ -25,27 +25,20 @@
 #include <cstddef>
 #include <cstdint>
 #include "entity.hpp"
+#include "static_array/static_array.hpp"
 
 constexpr std::size_t max_entities = 1000;
 
+struct Component_container;
 class Entity_container
 {
 public:
-    Entity_container();
-
-    // TODO switch to static_array like component
-    Entity& operator[](const std::size_t idx);
-
-    const Entity& operator[](const std::size_t idx) const;
-
+    Entity_container(Component_container& component_container);
     Entity& get_new_entity();
 
 private:
-    std::size_t find_next_free_index();
-
     Entity_id m_next_free_id{1};
-    std::size_t m_next_free_index{0};
-    std::array<Entity, max_entities> m_container;
+    Static_array<Entity, max_entities> m_container;
 };
 
 #endif

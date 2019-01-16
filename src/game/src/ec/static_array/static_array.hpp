@@ -62,6 +62,23 @@ public:
         return std::make_pair(idx, std::ref(m_container[idx].second));
     }
 
+    typename std::array<std::pair<bool, T>, size>::iterator begin()
+    {
+        return m_container.begin();
+    }
+    typename std::array<std::pair<bool, T>, size>::const_iterator cbegin()
+    {
+        return m_container.cbegin();
+    }
+    typename std::array<std::pair<bool, T>, size>::iterator end()
+    {
+        return m_container.end();
+    }
+    typename std::array<std::pair<bool, T>, size>::const_iterator cend()
+    {
+        return m_container.cend();
+    }
+
 private:
     inline std::size_t find_next_free_index()
     {

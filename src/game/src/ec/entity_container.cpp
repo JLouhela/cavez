@@ -18,40 +18,46 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include "component_container.hpp"
 #include "entity_container.hpp"
 #include "logger/logger.hpp"
 
-Entity_container::Entity_container()
+// TODO set up for each entity, along with free
+namespace
 {
-    m_container.fill(invalid_entity);
+void free_component(Component_container& component_container,
+                    const Component_id id,
+                    const std::size_t index)
+{
+    switch (id)
+    {
+    case Component_id::physics:
+        component_container.physics_components.free(index);
+        break;
+    default:
+        LOG_WARN << "Unhandled free_component type : "
+                 << static_cast<std::underlying_type<Component_id>::type>(id);
+    }
 }
+}  // namespace
 
-Entity& Entity_container::operator[](const std::size_t idx)
+Entity_container::Entity_container(Component_container& component_container)
 {
-    return m_container[idx];
-}
-
-const Entity& Entity_container::operator[](const std::size_t idx) const
-{
-    return m_container[idx];
+    std::size_t index = 0;
+    for (auto& entity : m_container)
+    {
+        entity.second.free = [& container = m_container, index]() { container.free(index); };
+        entity.second.free_component = [&component_container](const Component_id id,
+                                                              const std::size_t index) {
+            free_component(component_container, id, index);
+        };
+    }
 }
 
 Entity& Entity_container::get_new_entity()
 {
-    const auto idx = find_next_free_index();
-    auto& entity = m_container[idx];
+    const auto res = m_container.get_free_elem();
+    auto& entity = res.second.get();
     entity.id = m_next_free_id++;
-    entity.free = [& container = m_container, idx]() {
-        // TODO think about impact to m_next_free_idx
-        // TODO free components assigned to the entity
-        LOG_WARN << "Freeing an entity does not free components!";
-        container[idx] = invalid_entity;
-    };
     return entity;
-}
-
-std::size_t Entity_container::find_next_free_index()
-{
-    LOG_WARN << "Find next free index not properly implemented!";
-    return m_next_free_index++;
 }

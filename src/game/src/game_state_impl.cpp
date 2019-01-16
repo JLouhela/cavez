@@ -22,9 +22,10 @@
 #include "game_state_impl.hpp"
 #include "logger/logger.hpp"
 
-Game_state_impl::Game_state_impl()
+Game_state_impl::Game_state_impl() : m_entities{m_components}
 {
     // TEST
     auto& debug_entity = factory::create_debug_entity(m_entities, m_components);
     LOG_DEBUG << "Game state up";
+    // debug_entity.delete_entity();
 }

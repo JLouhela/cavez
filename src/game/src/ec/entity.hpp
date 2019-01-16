@@ -21,22 +21,37 @@
 #ifndef ENTITY_HPP
 #define ENTITY_HPP
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <utility>
 #include <vector>
 #include "component_id.hpp"
 
 using Entity_id = std::int32_t;
 constexpr Entity_id invalid_entity_id = -1;
 
+using Component_index = std::pair<Component_id, std::size_t>;
+
+// TODO judge whether this should be a class
 struct Entity
 {
-    Entity_id id = invalid_entity_id;
-    std::function<void()> free = nullptr;
-    std::vector<std::pair<Component_id, std::size_t>> components;
-};
+    Entity_id id{invalid_entity_id};
+    std::vector<Component_index> components;
 
-static const Entity invalid_entity = Entity{};
+    // Free the allocated entity for new use
+    // Private use only
+    std::function<void()> free{nullptr};
+    // Free the allocated component for new use
+    // Private use only
+    std::function<void(Component_id, std::size_t index)> free_component{nullptr};
+
+    // Delete entity: call free for each component and free the enetity
+    void delete_entity();
+    // Remove component, invoke free_component for it also
+    void remove_component(const Component_id id);
+    std::size_t get_component_index(const Component_id id);
+};
 
 #endif

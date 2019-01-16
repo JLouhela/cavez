@@ -19,8 +19,10 @@
 /// IN THE SOFTWARE.
 
 #include <tuple>
+#include <type_traits>
 #include "component_container.hpp"
 #include "component_id.hpp"
+#include "entity.hpp"
 #include "entity_container.hpp"
 #include "math/vector.hpp"
 
