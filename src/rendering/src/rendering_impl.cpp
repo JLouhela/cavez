@@ -22,8 +22,7 @@
 #include "logger/logger.hpp"
 #include "rendering_impl.hpp"
 
-Rendering_impl::Rendering_impl()
-    : m_window{sf::VideoMode{800, 600}, "Cavez sandbox app"}
+Rendering_impl::Rendering_impl() : m_window{sf::VideoMode{800, 600}, "Cavez sandbox app"}
 {
     LOG_DEBUG << "Rendering impl created";
 }
@@ -31,6 +30,12 @@ Rendering_impl::Rendering_impl()
 void Rendering_impl::render(const Game_state_interface& game_state)
 {
     // LOG_WARN << "Render not implemented!";
+    // TODO design what is needed
+    // get render + physics components
+    // get level
+
+    // ==> all need to be publicly available from the game :(
+    // ==> components to own target?
 }
 
 std::unique_ptr<Rendering_interface> make_rendering()

@@ -18,26 +18,11 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_CONTAINER_HPP
-#define COMPONENT_CONTAINER_HPP
+#ifndef RENDER_COMPONENT_HPP
+#define RENDER_COMPONENT_HPP
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include "component_id.hpp"
-#include "components/physics_component.hpp"
-#include "components/render_component.hpp"
-#include "static_array/static_array.hpp"
-
-constexpr std::size_t max_components = 1000;
-
-using Physics_components = Static_array<Physics_component, max_components>;
-using Render_components = Static_array<Render_component, max_components>;
-
-struct Component_container
+struct Render_component
 {
-    Physics_components physics_components;
-    Render_components render_components;
 };
 
 #endif

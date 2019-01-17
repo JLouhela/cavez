@@ -34,6 +34,9 @@ void free_component(Component_container& component_container,
     case Component_id::physics:
         component_container.physics_components.free(index);
         break;
+    case Component_id::render:
+        component_container.render_components.free(index);
+        break;
     default:
         LOG_WARN << "Unhandled free_component type : "
                  << static_cast<std::underlying_type<Component_id>::type>(id);

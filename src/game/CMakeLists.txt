@@ -16,6 +16,14 @@ add_library(game
 	src/ec/entity_factory.cpp
     src/ec/static_array/static_array.hpp
     src/ec/components/physics_component.hpp
+    src/ec/components/render_component.hpp
+)
+
+target_include_directories(game
+	PUBLIC
+		include
+	PRIVATE
+		src
 )
 
 #TODO source group components / entity
