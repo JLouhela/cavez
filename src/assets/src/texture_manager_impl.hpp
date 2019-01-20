@@ -18,17 +18,28 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ASSETS_INTERFACE_HPP
-#define ASSETS_INTERFACE_HPP
+#ifndef TEXTURE_MANAGER_IMPL_HPP
+#define TEXTURE_MANAGER_IMPL_HPP
 
-#include <memory>
+#include <cstdint>
+#include <unordered_map>
+#include "SFML/Graphics/Texture.hpp"
+#include "assets/texture_manager_interface.hpp"
 
-class Assets_interface
+using Texture_map = std::unordered_map<Texture_id, sf::Texture>;
+
+const static sf::Texture invalid_texture;
+
+class Texture_manager_impl : public Texture_manager_interface
 {
 public:
-    virtual ~Assets_interface() = default;
-};
+    Texture_manager_impl();
+    ~Texture_manager_impl() override = default;
 
-std::unique_ptr<Assets_interface> make_assets();
+    const sf::Texture& get_texture(Texture_id id) override;
+
+private:
+    Texture_map m_textures;
+};
 
 #endif

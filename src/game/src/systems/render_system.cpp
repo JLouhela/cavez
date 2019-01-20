@@ -18,44 +18,5 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ENTITY_CONTAINER_HPP
-#define ENTITY_CONTAINER_HPP
-
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include "entity.hpp"
-#include "static_array/static_array.hpp"
-
-constexpr std::size_t max_entities = 1000;
-
-struct Component_container;
-class Entity_container
-{
-public:
-    Entity_container(Component_container& component_container);
-    Entity& get_new_entity();
-
-    Static_array<Entity, max_entities>::iterator begin()
-    {
-        return m_container.begin();
-    }
-    Static_array<Entity, max_entities>::const_iterator begin() const
-    {
-        return m_container.begin();
-    }
-    Static_array<Entity, max_entities>::iterator end()
-    {
-        return m_container.end();
-    }
-    Static_array<Entity, max_entities>::const_iterator end() const
-    {
-        return m_container.end();
-    }
-
-private:
-    Entity_id m_next_free_id{1};
-    Static_array<Entity, max_entities> m_container;
-};
-
-#endif
+#include "ec/component_container.hpp"
+#include "systems/render_system.hpp"

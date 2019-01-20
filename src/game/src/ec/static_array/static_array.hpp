@@ -32,6 +32,9 @@ template <typename T, std::size_t size>
 class Static_array
 {
 public:
+    using iterator = typename std::array<std::pair<bool, T>, size>::iterator;
+    using const_iterator = typename std::array<std::pair<bool, T>, size>::const_iterator;
+
     Static_array()
     {
         m_container.fill(std::make_pair(false, T{}));
@@ -66,7 +69,7 @@ public:
     {
         return m_container.begin();
     }
-    typename std::array<std::pair<bool, T>, size>::const_iterator cbegin()
+    typename std::array<std::pair<bool, T>, size>::const_iterator begin() const
     {
         return m_container.cbegin();
     }
@@ -74,7 +77,7 @@ public:
     {
         return m_container.end();
     }
-    typename std::array<std::pair<bool, T>, size>::const_iterator cend()
+    typename std::array<std::pair<bool, T>, size>::const_iterator end() const
     {
         return m_container.cend();
     }
@@ -93,6 +96,7 @@ private:
         }
         return find_next_free_index_from_begin();
     }
+
     inline std::size_t find_next_free_index_from_begin()
     {
         for (auto iter = m_container.begin(); iter != m_container.end(); ++iter)

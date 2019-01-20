@@ -23,6 +23,7 @@
 
 #include "game/game_interface.hpp"
 #include "game_state_impl.hpp"
+#include "systems/system_manager.hpp"
 
 class Game_impl : public Game_interface
 {
@@ -32,8 +33,7 @@ public:
 
     virtual void update(float delta_time) override;
 
-    virtual void interpolate(float delta_time,
-                             Game_state_interface& game_state) override;
+    virtual void interpolate(float delta_time, Game_state_interface& game_state) override;
 
     virtual const Game_state_interface& get_state() override
     {
@@ -41,6 +41,7 @@ public:
     }
 
 private:
+    System_manager m_system_manager;
     Game_state_impl m_state;
 };
 

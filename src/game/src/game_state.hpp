@@ -18,44 +18,26 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ENTITY_CONTAINER_HPP
-#define ENTITY_CONTAINER_HPP
+#ifndef GAME_STATE_IMPL_HPP
+#define GAME_STATE_IMPL_HPP
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include "entity.hpp"
-#include "static_array/static_array.hpp"
+#include "ec/component_container.hpp"
+#include "ec/component_id.hpp"
+#include "ec/entity_container.hpp"
 
-constexpr std::size_t max_entities = 1000;
+#include <vector>
 
-struct Component_container;
-class Entity_container
+struct Entity;
+
+class Game_state
 {
 public:
-    Entity_container(Component_container& component_container);
-    Entity& get_new_entity();
-
-    Static_array<Entity, max_entities>::iterator begin()
-    {
-        return m_container.begin();
-    }
-    Static_array<Entity, max_entities>::const_iterator begin() const
-    {
-        return m_container.begin();
-    }
-    Static_array<Entity, max_entities>::iterator end()
-    {
-        return m_container.end();
-    }
-    Static_array<Entity, max_entities>::const_iterator end() const
-    {
-        return m_container.end();
-    }
+    Game_state();
 
 private:
-    Entity_id m_next_free_id{1};
-    Static_array<Entity, max_entities> m_container;
+    // Component container: represents current state of entities
+    Component_container m_components;
+    Entity_container m_entities;
 };
 
 #endif

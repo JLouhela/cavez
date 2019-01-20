@@ -18,44 +18,16 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ENTITY_CONTAINER_HPP
-#define ENTITY_CONTAINER_HPP
+#ifndef RENDER_ITEMS_HPP
+#define RENDER_ITEMS_HPP
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include "entity.hpp"
-#include "static_array/static_array.hpp"
+#include "assets/texture_id.hpp"
+#include "math/vector.hpp"
 
-constexpr std::size_t max_entities = 1000;
-
-struct Component_container;
-class Entity_container
+struct Render_tex
 {
-public:
-    Entity_container(Component_container& component_container);
-    Entity& get_new_entity();
-
-    Static_array<Entity, max_entities>::iterator begin()
-    {
-        return m_container.begin();
-    }
-    Static_array<Entity, max_entities>::const_iterator begin() const
-    {
-        return m_container.begin();
-    }
-    Static_array<Entity, max_entities>::iterator end()
-    {
-        return m_container.end();
-    }
-    Static_array<Entity, max_entities>::const_iterator end() const
-    {
-        return m_container.end();
-    }
-
-private:
-    Entity_id m_next_free_id{1};
-    Static_array<Entity, max_entities> m_container;
+    Texture_id texture_id{asset::texture::invalid_texture_id};
+    math::Vector2 screen_pos;
 };
 
 #endif

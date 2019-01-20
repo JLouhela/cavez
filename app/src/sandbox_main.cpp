@@ -37,10 +37,9 @@ int main()
     {
         auto time_now = std::chrono::system_clock::now();
         auto delta_time =
-            std::chrono::duration_cast<std::chrono::duration<float>>(time_now -
-                                                                     prev_time);
+            std::chrono::duration_cast<std::chrono::duration<float>>(time_now - prev_time);
         game->update(delta_time.count());
-        renderer->render(game->get_state());
+        renderer->render();
         prev_time = time_now;
     }
     return 0;

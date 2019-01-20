@@ -33,12 +33,18 @@ using Entity_id = std::int32_t;
 constexpr Entity_id invalid_entity_id = -1;
 
 using Component_index = std::pair<Component_id, std::size_t>;
+using Bit_mask = std::uint32_t;
 
 // TODO judge whether this should be a class
 struct Entity
 {
     Entity_id id{invalid_entity_id};
     std::vector<Component_index> components;
+
+    // TODO create add
+    // TODO change to class and refactor a bit
+    void add_component(Component_id id);
+    Bit_mask active_components;
 
     // Free the allocated entity for new use
     // Private use only

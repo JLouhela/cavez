@@ -30,7 +30,7 @@ public:
     Rendering_impl();
     ~Rendering_impl() override = default;
 
-    void render(const Game_state_interface& game_state) override;
+    void render() override;
 
 private:
     sf::Window m_window;

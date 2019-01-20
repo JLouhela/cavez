@@ -18,44 +18,19 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ENTITY_CONTAINER_HPP
-#define ENTITY_CONTAINER_HPP
+#include <memory>
+#include "texture_manager_impl.hpp"
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include "entity.hpp"
-#include "static_array/static_array.hpp"
-
-constexpr std::size_t max_entities = 1000;
-
-struct Component_container;
-class Entity_container
+Texture_manager_impl::Texture_manager_impl()
 {
-public:
-    Entity_container(Component_container& component_container);
-    Entity& get_new_entity();
+}
 
-    Static_array<Entity, max_entities>::iterator begin()
+const sf::Texture& Texture_manager_impl::get_texture(Texture_id id)
+{
+    auto iter = m_textures.find(id);
+    if (iter == m_textures.end())
     {
-        return m_container.begin();
+        return invalid_texture;
     }
-    Static_array<Entity, max_entities>::const_iterator begin() const
-    {
-        return m_container.begin();
-    }
-    Static_array<Entity, max_entities>::iterator end()
-    {
-        return m_container.end();
-    }
-    Static_array<Entity, max_entities>::const_iterator end() const
-    {
-        return m_container.end();
-    }
-
-private:
-    Entity_id m_next_free_id{1};
-    Static_array<Entity, max_entities> m_container;
-};
-
-#endif
+    return iter->second;
+}

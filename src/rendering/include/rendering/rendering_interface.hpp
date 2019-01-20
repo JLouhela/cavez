@@ -22,15 +22,17 @@
 #define RENDERING_INTERFACE_HPP
 
 #include <memory>
-
-class Game_state_interface;
+#include "render_items.hpp"
 
 class Rendering_interface
 {
 public:
     virtual ~Rendering_interface() = default;
 
-    virtual void render(const Game_state_interface& game_state) = 0;
+    // TODO define structs for rendering
+    // TODO texture / asset manager between game and rendering
+    // app owns
+    virtual void render() = 0;
 };
 
 std::unique_ptr<Rendering_interface> make_rendering();

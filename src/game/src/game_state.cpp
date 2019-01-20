@@ -18,14 +18,14 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <memory>
-#include "assets_impl.hpp"
+#include "ec/entity_factory.hpp"
+#include "game_state.hpp"
+#include "logger/logger.hpp"
 
-Assets_impl::Assets_impl()
+Game_state::Game_state() : m_entities{m_components}
 {
-}
-
-std::unique_ptr<Assets_interface> make_assets()
-{
-    return std::make_unique<Assets_impl>();
+    // TEST
+    auto& debug_entity = factory::create_debug_entity(m_entities, m_components);
+    LOG_DEBUG << "Game state up";
+    // debug_entity.delete_entity();
 }

@@ -18,16 +18,22 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ASSETS_IMPL_HPP
-#define ASSETS_IMPL_HPP
+#ifndef TEXTURE_MANAGER_INTERFACE_HPP
+#define TEXTURE_MANAGER_INTERFACE_HPP
 
-#include "assets/assets_interface.hpp"
+#include "texture_id.hpp"
 
-class Assets_impl : public Assets_interface
+namespace sf
+{
+class Texture;
+}
+
+class Texture_manager_interface
 {
 public:
-    Assets_impl();
-    ~Assets_impl() override = default;
+    virtual ~Texture_manager_interface() = default;
+
+    virtual const sf::Texture& get_texture(Texture_id id) = 0;
 };
 
 #endif
