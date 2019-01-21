@@ -58,7 +58,7 @@ public:
     void remove_component(const Component_id id);
 
     // Attention: no access checking, first check with has_component before getting index.
-    std::size_t get_component_index(const Component_id id);
+    std::size_t get_component_index(const Component_id id) const;
 
     // Function for freeing the allocated entity for new use
     // Called on delete

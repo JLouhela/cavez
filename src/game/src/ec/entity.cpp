@@ -34,12 +34,9 @@ void Entity::remove_component(const Component_id id)
     m_components_mask &= ~(1U << static_cast<decltype(m_components_mask)>(id));
 }
 
-std::size_t Entity::get_component_index(const Component_id id)
+std::size_t Entity::get_component_index(const Component_id id) const
 {
-    auto iter =
-        std::find_if(m_components.begin(), m_components.end(),
-                     [id](const Component_index& component) { return component.first == id; });
-    return iter->second;
+    return m_components.find(id)->second;
 }
 
 void Entity::delete_entity()

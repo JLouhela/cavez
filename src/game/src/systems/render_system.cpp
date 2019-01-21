@@ -30,5 +30,6 @@ void Render_system::render(const Component_container& component_container,
                            std::size_t render_index,
                            std::size_t physics_index)
 {
+    // TODO get camera
     // TODO form struct -> invoke render
 }

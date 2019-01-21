@@ -23,7 +23,7 @@
 
 struct Component_container;
 class Entity_container;
-struct Entity;
+class Entity;
 
 namespace factory
 {

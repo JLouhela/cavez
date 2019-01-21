@@ -42,6 +42,9 @@ void System_manager::render(const Entity_container& entities,
         if (entity.second.has_component(Component_id::physics) &&
             entity.second.has_component(Component_id::render))
         {
+            m_render_system.render(component_container,
+                                   entity.second.get_component_index(Component_id::render),
+                                   entity.second.get_component_index(Component_id::physics));
         }
     }
     // TODO for each entity
