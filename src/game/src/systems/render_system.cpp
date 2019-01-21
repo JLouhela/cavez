@@ -20,3 +20,15 @@
 
 #include "ec/component_container.hpp"
 #include "systems/render_system.hpp"
+
+Render_system::Render_system(Rendering_interface& rendering_interface)
+    : m_rendering_interface(rendering_interface)
+{
+}
+
+void Render_system::render(const Component_container& component_container,
+                           std::size_t render_index,
+                           std::size_t physics_index)
+{
+    // TODO form struct -> invoke render
+}

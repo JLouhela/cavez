@@ -28,10 +28,13 @@
 
 struct Component_container;
 class Entity_container;
+class Rendering_interface;
 
 class System_manager
 {
 public:
+    explicit System_manager(Rendering_interface& rendering_interface);
+
     void update(float delta_time, const Component_container& component_container);
 
     void render(const Entity_container& entity_container,

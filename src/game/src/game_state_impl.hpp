@@ -36,6 +36,16 @@ public:
     Game_state_impl();
     ~Game_state_impl() override = default;
 
+    const Component_container& get_components()
+    {
+        return m_components;
+    }
+
+    const Entity_container& get_entities()
+    {
+        return m_entities;
+    }
+
 private:
     // Component container: represents current state of entities
     Component_container m_components;

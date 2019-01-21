@@ -21,13 +21,21 @@
 #ifndef RENDER_SYSTEM_HPP
 #define RENDER_SYSTEM_HPP
 
+#include <cstddef>
+
+class Rendering_interface;
 struct Component_container;
 class Render_system
 {
 public:
-    void render(const Component_container& component_container);
+    explicit Render_system(Rendering_interface& rendering_interface);
+
+    void render(const Component_container& component_container,
+                std::size_t render_index,
+                std::size_t physics_index);
 
 private:
+    Rendering_interface& m_rendering_interface;
 };
 
 #endif

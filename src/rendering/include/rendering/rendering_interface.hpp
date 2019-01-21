@@ -32,6 +32,7 @@ public:
     // TODO define structs for rendering
     // TODO texture / asset manager between game and rendering
     // app owns
+    // TODO consider rendering inot framebuffer and finally render_frame to screen
     virtual void render() = 0;
 };
 

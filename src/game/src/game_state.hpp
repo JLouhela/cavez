@@ -27,8 +27,6 @@
 
 #include <vector>
 
-struct Entity;
-
 class Game_state
 {
 public:

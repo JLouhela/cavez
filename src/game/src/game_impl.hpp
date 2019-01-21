@@ -25,17 +25,21 @@
 #include "game_state_impl.hpp"
 #include "systems/system_manager.hpp"
 
+class Rendering_interface;
+
 class Game_impl : public Game_interface
 {
 public:
-    Game_impl();
+    explicit Game_impl(Rendering_interface& rendering_interface);
     ~Game_impl() override = default;
 
-    virtual void update(float delta_time) override;
+    void update(float delta_time) override;
 
-    virtual void interpolate(float delta_time, Game_state_interface& game_state) override;
+    void render(float delta_time) override;
 
-    virtual const Game_state_interface& get_state() override
+    void interpolate(float delta_time, Game_state_interface& game_state) override;
+
+    const Game_state_interface& get_state() override
     {
         return m_state;
     }

@@ -23,7 +23,8 @@
 #include "game_impl.hpp"
 #include "logger/logger.hpp"
 
-Game_impl::Game_impl()
+Game_impl::Game_impl(Rendering_interface& rendering_interface)
+    : m_system_manager(rendering_interface)
 {
     LOG_DEBUG << "Game running";
     // TODO game state manager which wraps up level + game state and handles
@@ -36,13 +37,18 @@ void Game_impl::update(float delta_time)
     // LOG_WARN << "update not implemented";
 }
 
+void Game_impl::render(float delta_time)
+{
+    m_system_manager.render(m_state.get_entities(), m_state.get_components());
+}
+
 void Game_impl::interpolate(float delta_time, Game_state_interface& game_state)
 {
     // TBD
     LOG_WARN << "Interpolation not implemented";
 }
 
-std::unique_ptr<Game_interface> make_game()
+std::unique_ptr<Game_interface> make_game(Rendering_interface& rendering_interface)
 {
-    return std::make_unique<Game_impl>();
+    return std::make_unique<Game_impl>(rendering_interface);
 }
