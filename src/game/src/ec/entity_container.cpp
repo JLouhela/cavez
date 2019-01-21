@@ -49,11 +49,12 @@ Entity_container::Entity_container(Component_container& component_container)
     std::size_t index = 0;
     for (auto& entity : m_container)
     {
-        entity.second.free = [& container = m_container, index]() { container.free(index); };
-        entity.second.free_component = [&component_container](const Component_id id,
-                                                              const std::size_t index) {
-            free_component(component_container, id, index);
-        };
+        entity.second.set_free_function(
+            [& container = m_container, index]() { container.free(index); });
+        entity.second.set_free_component_function(
+            [&component_container](const Component_id id, const std::size_t index) {
+                free_component(component_container, id, index);
+            });
     }
 }
 
@@ -61,6 +62,6 @@ Entity& Entity_container::get_new_entity()
 {
     const auto res = m_container.get_free_elem();
     auto& entity = res.second.get();
-    entity.id = m_next_free_id++;
+    entity.set_id(m_next_free_id++);
     return entity;
 }

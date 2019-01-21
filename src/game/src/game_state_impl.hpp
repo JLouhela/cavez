@@ -28,7 +28,7 @@
 
 #include <vector>
 
-struct Entity;
+class Entity;
 
 class Game_state_impl : public Game_state_interface
 {

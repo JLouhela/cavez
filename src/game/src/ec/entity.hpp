@@ -35,29 +35,55 @@ constexpr Entity_id invalid_entity_id = -1;
 using Component_index = std::pair<Component_id, std::size_t>;
 using Bit_mask = std::uint32_t;
 
-// TODO judge whether this should be a class
-struct Entity
+class Entity
 {
-    Entity_id id{invalid_entity_id};
-    std::vector<Component_index> components;
+public:
+    void set_id(Entity_id id)
+    {
+        m_id = id;
+    }
 
-    // TODO create add
-    // TODO change to class and refactor a bit
-    void add_component(Component_id id);
-    Bit_mask active_components;
+    Entity_id get_id()
+    {
+        return m_id;
+    }
+
+    void delete_entity();
+
+    bool add_component(Component_index index);
+
+    // Remove component and free the memory for reuse.
+    void remove_component(const Component_id id);
+
+    std::size_t get_component_index(const Component_id id);
+
+    // Function for freeing the allocated entity for new use
+    // Called on delete
+    void set_free_function(std::function<void()> func)
+    {
+        m_free = func;
+    }
+
+    // Function for freeing the allocated component for new use.
+    // Called on remove_component
+    void set_free_component_function(std::function<void(Component_id, std::size_t index)> func)
+    {
+        m_free_component = func;
+    }
+
+    bool has_component(Component_id id);
+
+private:
+    Entity_id m_id{invalid_entity_id};
+    std::vector<Component_index> m_components;
+    Bit_mask m_components_mask;
 
     // Free the allocated entity for new use
     // Private use only
-    std::function<void()> free{nullptr};
+    std::function<void()> m_free{nullptr};
     // Free the allocated component for new use
     // Private use only
-    std::function<void(Component_id, std::size_t index)> free_component{nullptr};
-
-    // Delete entity: call free for each component and free the enetity
-    void delete_entity();
-    // Remove component, invoke free_component for it also
-    void remove_component(const Component_id id);
-    std::size_t get_component_index(const Component_id id);
+    std::function<void(Component_id, std::size_t index)> m_free_component{nullptr};
 };
 
 #endif

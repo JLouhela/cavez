@@ -33,12 +33,12 @@ Entity& create_debug_entity(Entity_container& entity_container,
 {
     auto& entity = entity_container.get_new_entity();
     auto& phys_comp = component_container.physics_components.get_free_elem();
-    entity.components.emplace_back(Component_id::physics, phys_comp.first);
+    entity.add_component({Component_id::physics, phys_comp.first});
     phys_comp.second.get().pos = math::Vector2{10, 10};
     phys_comp.second.get().velocity = math::Vector2{1, 1};
 
     auto& render_comp = component_container.render_components.get_free_elem();
-    entity.components.emplace_back(Component_id::render, render_comp.first);
+    entity.add_component({Component_id::render, render_comp.first});
 
     return entity;
 }
