@@ -39,6 +39,10 @@ void System_manager::render(const Entity_container& entities,
 
     for (const auto& entity : entities)
     {
+        if (entity.second.has_component(Component_id::physics) &&
+            entity.second.has_component(Component_id::render))
+        {
+        }
     }
     // TODO for each entity
     // if has rend and phys comp => create rend struct

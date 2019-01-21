@@ -29,6 +29,8 @@
 #include <vector>
 #include "component_id.hpp"
 
+#include <unordered_map>
+
 using Entity_id = std::int32_t;
 constexpr Entity_id invalid_entity_id = -1;
 
@@ -43,7 +45,7 @@ public:
         m_id = id;
     }
 
-    Entity_id get_id()
+    Entity_id get_id() const
     {
         return m_id;
     }
@@ -55,6 +57,7 @@ public:
     // Remove component and free the memory for reuse.
     void remove_component(const Component_id id);
 
+    // Attention: no access checking, first check with has_component before getting index.
     std::size_t get_component_index(const Component_id id);
 
     // Function for freeing the allocated entity for new use
@@ -71,11 +74,11 @@ public:
         m_free_component = func;
     }
 
-    bool has_component(Component_id id);
+    bool has_component(Component_id id) const;
 
 private:
     Entity_id m_id{invalid_entity_id};
-    std::vector<Component_index> m_components;
+    std::unordered_map<Component_id, std::size_t> m_components;
     Bit_mask m_components_mask;
 
     // Free the allocated entity for new use

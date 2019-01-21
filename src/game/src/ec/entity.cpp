@@ -39,7 +39,7 @@ std::size_t Entity::get_component_index(const Component_id id)
     auto iter =
         std::find_if(m_components.begin(), m_components.end(),
                      [id](const Component_index& component) { return component.first == id; });
-    return iter == m_components.end() ? -1 : iter->second;
+    return iter->second;
 }
 
 void Entity::delete_entity()
@@ -63,12 +63,12 @@ bool Entity::add_component(const Component_index index)
         return false;
     }
 
-    m_components.emplace_back(index);
+    m_components[index.first] = index.second;
     m_components_mask |= 1U << static_cast<decltype(m_components_mask)>(index.first);
     return false;
 }
 
-bool Entity::has_component(Component_id id)
+bool Entity::has_component(Component_id id) const
 {
-    return m_components_mask &= 1U << static_cast<decltype(m_components_mask)>(id);
+    return m_components_mask && (1U << static_cast<decltype(m_components_mask)>(id));
 }
