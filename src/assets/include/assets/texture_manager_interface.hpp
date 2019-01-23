@@ -33,7 +33,9 @@ class Texture_manager_interface
 public:
     virtual ~Texture_manager_interface() = default;
 
-    virtual const sf::Texture& get_texture(Texture_id id) = 0;
+    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
 };
+
+std::unique_ptr<Texture_manager_interface> make_texture_manager();
 
 #endif

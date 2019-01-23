@@ -22,12 +22,12 @@
 #define RENDER_ITEMS_HPP
 
 #include "assets/texture_id.hpp"
-#include "math/vector.hpp"
+#include "math/rect.hpp"
 
 struct Render_tex
 {
     Texture_id texture_id{asset::texture::invalid_texture_id};
-    math::Vector2 screen_pos;
+    math::Rect screen_rect;
 };
 
 #endif

@@ -21,6 +21,8 @@
 #ifndef GAME_IMPL_HPP
 #define GAME_IMPL_HPP
 
+#include <utility>
+#include "camera/cameras.hpp"
 #include "game/game_interface.hpp"
 #include "game_state_impl.hpp"
 #include "systems/system_manager.hpp"
@@ -30,7 +32,7 @@ class Rendering_interface;
 class Game_impl : public Game_interface
 {
 public:
-    explicit Game_impl(Rendering_interface& rendering_interface);
+    explicit Game_impl(const Game_config& config, Rendering_interface& rendering_interface);
     ~Game_impl() override = default;
 
     void update(float delta_time) override;
@@ -45,8 +47,10 @@ public:
     }
 
 private:
+    Game_config m_config;
     System_manager m_system_manager;
     Game_state_impl m_state;
+    Cameras m_cameras;
 };
 
 #endif

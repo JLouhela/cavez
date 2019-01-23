@@ -23,9 +23,11 @@
 
 Texture_manager_impl::Texture_manager_impl()
 {
+    // TODO open an interface to switch assets
+    // TODO: generate asset path from cmake
 }
 
-const sf::Texture& Texture_manager_impl::get_texture(Texture_id id)
+const sf::Texture& Texture_manager_impl::get_texture(const Texture_id id) const
 {
     auto iter = m_textures.find(id);
     if (iter == m_textures.end())
@@ -33,4 +35,9 @@ const sf::Texture& Texture_manager_impl::get_texture(Texture_id id)
         return invalid_texture;
     }
     return iter->second;
+}
+
+std::unique_ptr<Texture_manager_interface> make_texture_manager()
+{
+    return std::make_unique<Texture_manager_impl>();
 }

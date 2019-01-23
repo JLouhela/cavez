@@ -18,20 +18,35 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_ID_HPP
-#define TEXTURE_ID_HPP
+#ifndef CAMERA_HPP
+#define CAMERA_HPP
 
 #include <cstdint>
+#include <utility>
+#include "math/bounding_box.hpp"
+#include "math/rect.hpp"
+#include "math/vector.hpp"
 
-using Texture_id = std::int32_t;
+class Camera
+{
+public:
+    Camera(const math::Rect& screen_rect, const math::Rect& world_rect);
 
-namespace asset
-{
-namespace texture
-{
-constexpr Texture_id invalid_texture_id = -1;
-constexpr Texture_id ship_tex = 1;
-}  // namespace texture
-}  // namespace asset
+    void set_position(const math::Vector2& world_position);
+
+    // Return pair: first - within camera, second - translated coords
+    std::pair<bool, math::Vector2> get_screen_position(const math::Vector2& world_position) const;
+
+    // Return pair: first - within camera, second - translated area
+    std::pair<bool, math::Bounding_box> get_screen_area(const math::Bounding_box& world_area) const;
+
+    // Return pair: first - within camera, second - translated area
+    std::pair<bool, math::Rect> get_screen_rect(const math::Rect& world_rect) const;
+
+private:
+    math::Vector2 m_world_pos;
+    math::Rect m_screen_rect;
+    math::Rect m_world_rect;
+};
 
 #endif

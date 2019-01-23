@@ -36,7 +36,7 @@ public:
     Texture_manager_impl();
     ~Texture_manager_impl() override = default;
 
-    const sf::Texture& get_texture(Texture_id id) override;
+    const sf::Texture& get_texture(Texture_id id) const override;
 
 private:
     Texture_map m_textures;

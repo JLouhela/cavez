@@ -19,21 +19,37 @@
 /// IN THE SOFTWARE.
 
 #include <memory>
+#include "SFML/Graphics/RenderTarget.hpp"
+#include "SFML/Graphics/Sprite.hpp"
+#include "SFML/Graphics/Texture.hpp"
+#include "assets/texture_manager_interface.hpp"
 #include "logger/logger.hpp"
 #include "rendering_impl.hpp"
 
-Rendering_impl::Rendering_impl() : m_window{sf::VideoMode{800, 600}, "Cavez sandbox app"}
+Rendering_impl::Rendering_impl(const Texture_manager_interface& texture_manager,
+                               sf::RenderTarget& render_target)
+    : m_texture_manager{texture_manager}, m_render_target{render_target}
 {
     LOG_DEBUG << "Rendering impl created";
 }
 
-void Rendering_impl::render()
+void Rendering_impl::render(const Render_tex& render_tex)
 {
     // LOG_WARN << "Render not implemented!";
     // TODO design what is needed
+    sf::Sprite sprite;
+    // TODO get texture from assets with id
+    //    sprite.setTexture();
+    // TODO set texture rect to render target
+    // sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
+    sprite.setPosition(static_cast<float>(render_tex.screen_rect.x),
+                       static_cast<float>(render_tex.screen_rect.y));
+    // Draw it
+    m_render_target.draw(sprite);
 }
 
-std::unique_ptr<Rendering_interface> make_rendering()
+std::unique_ptr<Rendering_interface> make_rendering(
+    const Texture_manager_interface& texture_manager, sf::RenderTarget& render_target)
 {
-    return std::make_unique<Rendering_impl>();
+    return std::make_unique<Rendering_impl>(texture_manager, render_target);
 }

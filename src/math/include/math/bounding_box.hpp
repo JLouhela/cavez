@@ -18,20 +18,18 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_ID_HPP
-#define TEXTURE_ID_HPP
+#ifndef MATH_BOUNDING_BOX_HPP
+#define MATH_BOUNDING_BOX_HPP
 
-#include <cstdint>
+#include "vector.hpp"
 
-using Texture_id = std::int32_t;
-
-namespace asset
+namespace math
 {
-namespace texture
+struct Bounding_box
 {
-constexpr Texture_id invalid_texture_id = -1;
-constexpr Texture_id ship_tex = 1;
-}  // namespace texture
-}  // namespace asset
+    Vector2 top_left{0, 0};
+    Vector2 bottom_right{0, 0};
+};
+}  // namespace math
 
 #endif

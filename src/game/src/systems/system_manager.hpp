@@ -21,6 +21,7 @@
 #ifndef SYSTEM_MANAGER_HPP
 #define SYSTEM_MANAGER_HPP
 
+#include "camera/cameras.hpp"
 #include "systems/physics_system.hpp"
 #include "systems/render_system.hpp"
 
@@ -37,7 +38,8 @@ public:
 
     void update(float delta_time, const Component_container& component_container);
 
-    void render(const Entity_container& entity_container,
+    void render(Cameras& cameras,
+                const Entity_container& entity_container,
                 const Component_container& component_container);
 
 private:

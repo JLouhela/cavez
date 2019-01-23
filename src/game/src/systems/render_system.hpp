@@ -22,17 +22,19 @@
 #define RENDER_SYSTEM_HPP
 
 #include <cstddef>
+#include "camera/cameras.hpp"
 
 class Rendering_interface;
 struct Component_container;
+class Entity_container;
 class Render_system
 {
 public:
     explicit Render_system(Rendering_interface& rendering_interface);
 
-    void render(const Component_container& component_container,
-                std::size_t render_index,
-                std::size_t physics_index);
+    void render(const Cameras& cameras,
+                const Entity_container& entity_container,
+                const Component_container& component_container);
 
 private:
     Rendering_interface& m_rendering_interface;

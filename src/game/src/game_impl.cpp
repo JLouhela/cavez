@@ -19,12 +19,27 @@
 /// IN THE SOFTWARE.
 
 #include <memory>
+#include "camera/camera.hpp"
 #include "ec/component_id.hpp"
 #include "game_impl.hpp"
 #include "logger/logger.hpp"
 
-Game_impl::Game_impl(Rendering_interface& rendering_interface)
-    : m_system_manager(rendering_interface)
+namespace
+{
+Cameras create_cameras(const Game_config& config)
+{
+    // TODO Allow multiple cameras
+    // TODO read world size from level
+    Cameras cameras;
+    cameras.emplace_back(
+        math::Rect{0, 0, config.resolution.width, config.resolution.height},
+        math::Rect{0, 0, config.resolution.width * 2, config.resolution.height * 2});
+    return cameras;
+}
+}  // namespace
+
+Game_impl::Game_impl(const Game_config& config, Rendering_interface& rendering_interface)
+    : m_config{config}, m_system_manager{rendering_interface}, m_cameras{create_cameras(config)}
 {
     LOG_DEBUG << "Game running";
     // TODO game state manager which wraps up level + game state and handles
@@ -39,7 +54,7 @@ void Game_impl::update(float delta_time)
 
 void Game_impl::render(float delta_time)
 {
-    m_system_manager.render(m_state.get_entities(), m_state.get_components());
+    m_system_manager.render(m_cameras, m_state.get_entities(), m_state.get_components());
 }
 
 void Game_impl::interpolate(float delta_time, Game_state_interface& game_state)
@@ -48,7 +63,8 @@ void Game_impl::interpolate(float delta_time, Game_state_interface& game_state)
     LOG_WARN << "Interpolation not implemented";
 }
 
-std::unique_ptr<Game_interface> make_game(Rendering_interface& rendering_interface)
+std::unique_ptr<Game_interface> make_game(const Game_config& config,
+                                          Rendering_interface& rendering_interface)
 {
-    return std::make_unique<Game_impl>(rendering_interface);
+    return std::make_unique<Game_impl>(config, rendering_interface);
 }

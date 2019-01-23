@@ -21,6 +21,8 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include "SFML/Graphics/RenderWindow.hpp"
+#include "assets/texture_manager_interface.hpp"
 #include "game/game_interface.hpp"
 #include "rendering/rendering_interface.hpp"
 
@@ -28,8 +30,10 @@ using namespace std::chrono_literals;
 
 int main()
 {
-    auto renderer = make_rendering();
-    auto game = make_game();
+    sf::RenderWindow render_window{sf::VideoMode{800, 600}, "Cavez sandbox"};
+    auto texture_manager = make_texture_manager();
+    auto renderer = make_rendering(*texture_manager, render_window);
+    auto game = make_game(Game_config{}, *renderer);
     // For real main: https://gafferongames.com/post/fix_your_timestep/
     // -> game should support interpolation besides simple update
     auto prev_time = std::chrono::system_clock::now();
@@ -39,7 +43,7 @@ int main()
         auto delta_time =
             std::chrono::duration_cast<std::chrono::duration<float>>(time_now - prev_time);
         game->update(delta_time.count());
-        renderer->render();
+        game->render(delta_time.count());
         prev_time = time_now;
     }
     return 0;

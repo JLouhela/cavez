@@ -22,8 +22,14 @@
 #define RENDERING_INTERFACE_HPP
 
 #include <memory>
-#include "render_items.hpp"
+#include "rendering/render_items.hpp"
 
+namespace sf
+{
+class RenderTarget;
+}
+
+class Texture_manager_interface;
 class Rendering_interface
 {
 public:
@@ -33,9 +39,10 @@ public:
     // TODO texture / asset manager between game and rendering
     // app owns
     // TODO consider rendering inot framebuffer and finally render_frame to screen
-    virtual void render() = 0;
+    virtual void render(const Render_tex& render_tex) = 0;
 };
 
-std::unique_ptr<Rendering_interface> make_rendering();
+std::unique_ptr<Rendering_interface> make_rendering(
+    const Texture_manager_interface& texture_manager, sf::RenderTarget& render_target);
 
 #endif

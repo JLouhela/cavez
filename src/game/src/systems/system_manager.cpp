@@ -31,23 +31,9 @@ void System_manager::update(float delta_time, const Component_container& compone
 {
 }
 
-void System_manager::render(const Entity_container& entities,
+void System_manager::render(Cameras& cameras,
+                            const Entity_container& entities,
                             const Component_container& component_container)
 {
-    const auto& phys_comp = component_container.physics_components;
-    const auto& rend_comp = component_container.render_components;
-
-    for (const auto& entity : entities)
-    {
-        if (entity.second.has_component(Component_id::physics) &&
-            entity.second.has_component(Component_id::render))
-        {
-            m_render_system.render(component_container,
-                                   entity.second.get_component_index(Component_id::render),
-                                   entity.second.get_component_index(Component_id::physics));
-        }
-    }
-    // TODO for each entity
-    // if has rend and phys comp => create rend struct
-    // sort by texture id?
+    m_render_system.render(cameras, entities, component_container);
 }

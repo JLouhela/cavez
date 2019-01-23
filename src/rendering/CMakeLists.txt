@@ -1,5 +1,6 @@
 add_library(rendering_interface INTERFACE)
 target_include_directories (rendering_interface INTERFACE include)
+target_link_libraries(rendering_interface INTERFACE assets_interface)
 
 add_library(rendering 
     include/rendering/rendering_interface.hpp
@@ -10,7 +11,6 @@ add_library(rendering
 target_link_libraries(rendering
 	PUBLIC
         rendering_interface
-		assets_interface
 		math
     PRIVATE
 		logger

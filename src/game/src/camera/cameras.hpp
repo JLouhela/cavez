@@ -18,20 +18,12 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_ID_HPP
-#define TEXTURE_ID_HPP
+#ifndef CAMERAS_HPP
+#define CAMERAS_HPP
 
-#include <cstdint>
+#include <vector>
+#include "camera/camera.hpp"
 
-using Texture_id = std::int32_t;
-
-namespace asset
-{
-namespace texture
-{
-constexpr Texture_id invalid_texture_id = -1;
-constexpr Texture_id ship_tex = 1;
-}  // namespace texture
-}  // namespace asset
+using Cameras = std::vector<Camera>;
 
 #endif

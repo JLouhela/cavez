@@ -23,6 +23,16 @@
 
 #include <memory>
 
+struct Game_config
+{
+    std::int8_t player_count{1};
+    struct
+    {
+        std::int16_t width{800};
+        std::int16_t height{600};
+    } resolution;
+};
+
 class Rendering_interface;
 class Game_state_interface;
 class Game_interface
@@ -42,6 +52,7 @@ public:
     virtual const Game_state_interface& get_state() = 0;
 };
 
-std::unique_ptr<Game_interface> make_game(Rendering_interface& rendering_interface);
+std::unique_ptr<Game_interface> make_game(const Game_config& config,
+                                          Rendering_interface& rendering_interface);
 
 #endif

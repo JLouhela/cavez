@@ -21,19 +21,30 @@
 #ifndef RENDERING_IMPL_HPP
 #define RENDERING_IMPL_HPP
 
-#include <SFML/Window.hpp>
 #include "rendering/rendering_interface.hpp"
 
+namespace sf
+{
+class RenderTarget;
+}
+
+class Texture_manager_interface;
 class Rendering_impl : public Rendering_interface
 {
 public:
-    Rendering_impl();
+    explicit Rendering_impl(const Texture_manager_interface& texture_manager,
+                            sf::RenderTarget& render_target);
     ~Rendering_impl() override = default;
 
-    void render() override;
+    void render(const Render_tex& render_tex) override;
 
 private:
-    sf::Window m_window;
+    const Texture_manager_interface& m_texture_manager;
+    // TODO change to rendertarget
+    // Init RenderWindow in main.cpp and pass rendertarget here
+    // render Render_tex directly to this target
+    sf::RenderTarget& m_render_target;
+    // TODO own rendertexture for level rendering
 };
 
 #endif

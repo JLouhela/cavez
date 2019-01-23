@@ -8,6 +8,9 @@ add_library(game
     src/game_impl.cpp
     src/game_state_impl.hpp
     src/game_state_impl.cpp
+    src/camera/camera.hpp
+    src/camera/camera.cpp
+    src/camera/cameras.hpp
     src/ec/component_container.hpp
     src/ec/component_id.hpp
 	src/ec/entity.hpp
@@ -41,4 +44,5 @@ target_link_libraries(game
         game_interface
 	PRIVATE
 		logger
-		math)
+		math
+		rendering_interface)

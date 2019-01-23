@@ -21,8 +21,14 @@
 #ifndef RENDER_COMPONENT_HPP
 #define RENDER_COMPONENT_HPP
 
+#include <cstddef>
+#include <cstdint>
+#include "math/rect.hpp"
+
 struct Render_component
 {
+    std::int32_t texture_index{-1};
+    math::Rect texture_rect{0, 0, 0, 0};
 };
 
 #endif

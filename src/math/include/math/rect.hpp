@@ -18,20 +18,20 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_ID_HPP
-#define TEXTURE_ID_HPP
+#ifndef MATH_RECT_HPP
+#define MATH_RECT_HPP
 
 #include <cstdint>
 
-using Texture_id = std::int32_t;
-
-namespace asset
+namespace math
 {
-namespace texture
+struct Rect
 {
-constexpr Texture_id invalid_texture_id = -1;
-constexpr Texture_id ship_tex = 1;
-}  // namespace texture
-}  // namespace asset
+    std::int32_t x{0};
+    std::int32_t y{0};
+    std::int32_t w{0};
+    std::int32_t h{0};
+};
+}  // namespace math
 
 #endif
