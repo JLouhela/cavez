@@ -18,26 +18,14 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_IMPL_HPP
-#define TEXTURE_MANAGER_IMPL_HPP
+#ifndef RES_PATH_HPP
+#define RES_PATH_HPP
 
-#include <cstdint>
-#include <unordered_map>
-#include "SFML/Graphics/Texture.hpp"
-#include "assets/texture_manager_interface.hpp"
+#include <string>
 
-using Texture_map = std::unordered_map<Texture_id, sf::Texture>;
-
-class Texture_manager_impl : public Texture_manager_interface
+namespace asset
 {
-public:
-    Texture_manager_impl();
-    ~Texture_manager_impl() override = default;
-
-    const sf::Texture& get_texture(Texture_id id) const override;
-
-private:
-    Texture_map m_textures;
-};
+	const static std::string resource_path = "${CMAKE_CURRENT_SOURCE_DIR}/";
+}
 
 #endif

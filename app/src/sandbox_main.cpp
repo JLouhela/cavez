@@ -37,13 +37,17 @@ int main()
     // For real main: https://gafferongames.com/post/fix_your_timestep/
     // -> game should support interpolation besides simple update
     auto prev_time = std::chrono::system_clock::now();
-    while (true)
+    while (render_window.isOpen())
     {
         auto time_now = std::chrono::system_clock::now();
         auto delta_time =
             std::chrono::duration_cast<std::chrono::duration<float>>(time_now - prev_time);
         game->update(delta_time.count());
+
+        render_window.clear(sf::Color::Black);
         game->render(delta_time.count());
+        render_window.display();
+
         prev_time = time_now;
     }
     return 0;

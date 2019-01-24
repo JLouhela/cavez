@@ -36,10 +36,8 @@ Rendering_impl::Rendering_impl(const Texture_manager_interface& texture_manager,
 void Rendering_impl::render(const Render_tex& render_tex)
 {
     // LOG_WARN << "Render not implemented!";
-    // TODO design what is needed
     sf::Sprite sprite;
-    // TODO get texture from assets with id
-    //    sprite.setTexture();
+    sprite.setTexture(m_texture_manager.get_texture(render_tex.texture_id));
     // TODO set texture rect to render target
     // sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
     sprite.setPosition(static_cast<float>(render_tex.screen_rect.x),

@@ -19,3 +19,4 @@ find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 
 add_subdirectory(src)
 add_subdirectory(app)
+add_subdirectory(res)
