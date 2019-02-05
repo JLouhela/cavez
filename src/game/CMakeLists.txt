@@ -1,7 +1,7 @@
 add_library(game_interface INTERFACE)
 target_include_directories (game_interface INTERFACE include)
 
-add_library(game 
+set(ALL_FILES
 	include/game/game_interface.hpp
 	include/game/game_state_interface.hpp
     src/game_impl.hpp
@@ -27,7 +27,26 @@ add_library(game
     src/systems/render_system.hpp
     src/systems/render_system.cpp
     src/systems/system_manager.hpp
-    src/systems/system_manager.cpp
+    src/systems/system_manager.cpp)
+
+# copipasta from https://gist.github.com/Corralx/d44a7696aa06d594605f
+foreach(FILE ${ALL_FILES}) 
+  get_filename_component(PARENT_DIR "${FILE}" PATH)
+
+  string(REPLACE "/" "\\" GROUP "${PARENT_DIR}")
+
+  if ("${FILE}" MATCHES ".*\\.cpp")
+    set(GROUP "Source Files\\${GROUP}")
+  elseif("${FILE}" MATCHES ".*\\.hpp")
+    set(GROUP "Header Files\\${GROUP}")
+  endif()
+
+  source_group("${GROUP}" FILES "${FILE}")
+endforeach()
+
+
+add_library(game 
+	${ALL_FILES}
 )
 
 target_include_directories(game
@@ -37,8 +56,6 @@ target_include_directories(game
 		src
 )
 
-#TODO source group components / entity
-    
 target_link_libraries(game
     PUBLIC
         game_interface
