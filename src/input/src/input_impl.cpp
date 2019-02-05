@@ -18,11 +18,34 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <memory>
 #include "input_impl.hpp"
+#include <memory>
+
+namespace
+{
+// TODO sflm key from input_key
+}
 
 Input_impl::Input_impl()
 {
+}
+
+void Input_impl::update()
+{
+    // TODO read keys from sfml, assign states based on mappings
+}
+
+input::Input_id Input_impl::register_listener(const input::Input_mapping& input_mapping)
+{
+    // TODO register mapping, assign id, return assigned id
+    return input::Input_id();
+}
+
+const input::Input_state& Input_impl::get_state(input::Input_id id)
+{
+    static input::Input_state invalid_state;
+    auto iter = m_input_states.find(id);
+    return iter == m_input_states.end() ? invalid_state : *iter;
 }
 
 std::unique_ptr<Input_interface> make_input()

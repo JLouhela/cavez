@@ -22,12 +22,24 @@
 #define INPUT_IMPL_HPP
 
 #include "input/input_interface.hpp"
+#include "input/input_mapping.hpp"
+#include "input/input_state.hpp"
+
+#include <unordered_map>
 
 class Input_impl : public Input_interface
 {
 public:
     Input_impl();
     ~Input_impl() override = default;
+
+    void update() override;
+    input::Input_id register_listener(const input::Input_mapping& input_mapping) override;
+    const input::Input_state& get_state(input::Input_id id) override;
+
+private:
+    std::unordered_map<input::Input_id, input::Input_mapping> m_input_listeners;
+    std::unordered_map<input::Input_id, input::Input_state> m_input_states;
 };
 
 #endif

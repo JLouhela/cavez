@@ -18,28 +18,15 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef INPUT_INTERFACE_HPP
-#define INPUT_INTERFACE_HPP
+#ifndef INPUT_STATE_HPP
+#define INPUT_STATE_HPP
 
-#include <cstdint>
-#include <memory>
-
+#include "input/input_key.hpp"
 namespace input
 {
-using Input_id = std::uint8_t;
-struct Input_mapping;
-struct Input_state;
-}  // namespace input
-
-class Input_interface
+struct Input_state
 {
-public:
-    virtual ~Input_interface() = default;
-    virtual void update() = 0;
-    virtual input::Input_id register_listener(const input::Input_mapping& input_mapping) = 0;
-    virtual const input::Input_state& get_state(input::Input_id id) = 0;
 };
 
-std::unique_ptr<Input_interface> make_input();
-
+}  // namespace input
 #endif
