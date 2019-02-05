@@ -18,10 +18,10 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include "game_impl.hpp"
 #include <memory>
 #include "camera/camera.hpp"
 #include "ec/component_id.hpp"
-#include "game_impl.hpp"
 #include "logger/logger.hpp"
 
 namespace
@@ -38,8 +38,12 @@ Cameras create_cameras(const Game_config& config)
 }
 }  // namespace
 
-Game_impl::Game_impl(const Game_config& config, Rendering_interface& rendering_interface)
-    : m_config{config}, m_system_manager{rendering_interface}, m_cameras{create_cameras(config)}
+Game_impl::Game_impl(const Game_config& config,
+                     Rendering_interface& rendering_interface,
+                     const Input_interface& input_interface)
+    : m_config{config},
+      m_system_manager{rendering_interface, input_interface},
+      m_cameras{create_cameras(config)}
 {
     LOG_DEBUG << "Game running";
     // TODO game state manager which wraps up level + game state and handles
@@ -64,7 +68,8 @@ void Game_impl::interpolate(float delta_time, Game_state_interface& game_state)
 }
 
 std::unique_ptr<Game_interface> make_game(const Game_config& config,
-                                          Rendering_interface& rendering_interface)
+                                          Rendering_interface& rendering_interface,
+                                          const Input_interface& input_interface)
 {
-    return std::make_unique<Game_impl>(config, rendering_interface);
+    return std::make_unique<Game_impl>(config, rendering_interface, input_interface);
 }

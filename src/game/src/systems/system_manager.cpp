@@ -18,17 +18,19 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include "system_manager.hpp"
 #include "ec/component_container.hpp"
 #include "ec/entity_container.hpp"
-#include "system_manager.hpp"
 
-System_manager::System_manager(Rendering_interface& rendering_interface)
-    : m_render_system(rendering_interface)
+System_manager::System_manager(Rendering_interface& rendering_interface,
+                               const Input_interface& input_interface)
+    : m_input_system{input_interface}, m_render_system{rendering_interface}
 {
 }
 
 void System_manager::update(float delta_time, const Component_container& component_container)
 {
+    m_input_system.update(component_container);
 }
 
 void System_manager::render(Cameras& cameras,

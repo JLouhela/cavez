@@ -22,6 +22,7 @@
 #define SYSTEM_MANAGER_HPP
 
 #include "camera/cameras.hpp"
+#include "systems/input_system.hpp"
 #include "systems/physics_system.hpp"
 #include "systems/render_system.hpp"
 
@@ -30,11 +31,13 @@
 struct Component_container;
 class Entity_container;
 class Rendering_interface;
+class Input_interface;
 
 class System_manager
 {
 public:
-    explicit System_manager(Rendering_interface& rendering_interface);
+    explicit System_manager(Rendering_interface& rendering_interface,
+                            const Input_interface& input_interface);
 
     void update(float delta_time, const Component_container& component_container);
 
@@ -43,6 +46,7 @@ public:
                 const Component_container& component_container);
 
 private:
+    Input_system m_input_system;
     Render_system m_render_system;
     Physics_system m_physics_system;
 };

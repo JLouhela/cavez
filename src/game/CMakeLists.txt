@@ -20,8 +20,11 @@ set(ALL_FILES
 	src/ec/entity_factory.hpp
 	src/ec/entity_factory.cpp
     src/ec/static_array/static_array.hpp
+    src/ec/components/input_component.hpp
     src/ec/components/physics_component.hpp
     src/ec/components/render_component.hpp
+    src/systems/input_system.hpp
+    src/systems/input_system.cpp
     src/systems/physics_system.hpp
     src/systems/physics_system.cpp
     src/systems/render_system.hpp
@@ -60,6 +63,7 @@ target_link_libraries(game
     PUBLIC
         game_interface
 	PRIVATE
+        input_interface
 		logger
 		math
 		rendering_interface)

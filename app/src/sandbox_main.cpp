@@ -35,7 +35,7 @@ int main()
     auto input = make_input();
     auto texture_manager = make_texture_manager();
     auto renderer = make_rendering(*texture_manager, render_window);
-    auto game = make_game(Game_config{}, *renderer);
+    auto game = make_game(Game_config{}, *renderer, *input);
     // For real main: https://gafferongames.com/post/fix_your_timestep/
     // -> game should support interpolation besides simple update
     auto prev_time = std::chrono::system_clock::now();

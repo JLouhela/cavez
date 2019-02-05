@@ -27,7 +27,8 @@ enum class Component_id : std::int32_t
 {
     invalid = 0,
     physics = 1,
-    render = 2
+    render = 2,
+    input = 3
 };
 
 #endif

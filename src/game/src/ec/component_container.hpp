@@ -25,6 +25,7 @@
 #include <cstddef>
 #include <cstdint>
 #include "component_id.hpp"
+#include "components/input_component.hpp"
 #include "components/physics_component.hpp"
 #include "components/render_component.hpp"
 #include "static_array/static_array.hpp"
@@ -33,11 +34,13 @@ constexpr std::size_t max_components = 1000;
 
 using Physics_components = Static_array<Physics_component, max_components>;
 using Render_components = Static_array<Render_component, max_components>;
+using Input_components = Static_array<Input_component, 8>;
 
 struct Component_container
 {
     Physics_components physics_components;
     Render_components render_components;
+    Input_components input_components;
 };
 
 #endif

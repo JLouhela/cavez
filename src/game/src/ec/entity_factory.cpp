@@ -43,6 +43,10 @@ Entity& create_debug_entity(Entity_container& entity_container,
     render_comp.second.get().texture_index = asset::texture::ship_tex;
     entity.add_component({Component_id::render, render_comp.first});
 
+    auto& input_comp = component_container.input_components.get_free_elem();
+    // TODO set id and think how to react to input
+    entity.add_component({Component_id::input, input_comp.first});
+
     return entity;
 }
 }  // namespace factory

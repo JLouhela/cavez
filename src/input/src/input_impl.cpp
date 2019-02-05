@@ -80,10 +80,10 @@ void Input_impl::update()
     }
 }
 
-input::Input_id Input_impl::register_listener(const input::Input_mapping& input_mapping)
+void Input_impl::register_listener(const input::Input_id id,
+                                   const input::Input_mapping& input_mapping)
 {
-    m_input_listeners[m_next_id] = input_mapping;
-    return m_next_id++;
+    m_input_listeners[id] = input_mapping;
 }
 
 const input::Input_state& Input_impl::get_state(input::Input_id id) const

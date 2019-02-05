@@ -21,6 +21,7 @@
 #ifndef GAME_INTERFACE_HPP
 #define GAME_INTERFACE_HPP
 
+#include <map>
 #include <memory>
 
 struct Game_config
@@ -35,6 +36,8 @@ struct Game_config
 
 class Rendering_interface;
 class Game_state_interface;
+class Input_interface;
+
 class Game_interface
 {
 public:
@@ -53,6 +56,7 @@ public:
 };
 
 std::unique_ptr<Game_interface> make_game(const Game_config& config,
-                                          Rendering_interface& rendering_interface);
+                                          Rendering_interface& rendering_interface,
+                                          const Input_interface& input_interface);
 
 #endif
