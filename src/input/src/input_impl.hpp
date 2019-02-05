@@ -35,11 +35,13 @@ public:
 
     void update() override;
     input::Input_id register_listener(const input::Input_mapping& input_mapping) override;
-    const input::Input_state& get_state(input::Input_id id) override;
+    const input::Input_state& get_state(input::Input_id id) const override;
+    void deregister_listener(input::Input_id id) override;
 
 private:
     std::unordered_map<input::Input_id, input::Input_mapping> m_input_listeners;
     std::unordered_map<input::Input_id, input::Input_state> m_input_states;
+    input::Input_id m_next_id{1};
 };
 
 #endif

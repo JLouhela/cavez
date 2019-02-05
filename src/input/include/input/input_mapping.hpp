@@ -28,12 +28,12 @@ namespace input
 {
 struct Input_mapping
 {
-    key throttle{key::key_unknown};
-    key rotate_cw{key::key_unknown};
-    key rotate_ccw{key::key_unknown};
-    key shoot{key::key_unknown};
-    key shoot_special{key::key_unknown};
-    key shield{key::key_unknown};
+    Key throttle{Key::key_unknown};
+    Key rotate_cw{Key::key_unknown};
+    Key rotate_ccw{Key::key_unknown};
+    Key shoot{Key::key_unknown};
+    Key shoot_special{Key::key_unknown};
+    Key shield{Key::key_unknown};
 };
 }  // namespace input
 

@@ -24,6 +24,7 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "assets/texture_manager_interface.hpp"
 #include "game/game_interface.hpp"
+#include "input/input_interface.hpp"
 #include "rendering/rendering_interface.hpp"
 
 using namespace std::chrono_literals;
@@ -31,6 +32,7 @@ using namespace std::chrono_literals;
 int main()
 {
     sf::RenderWindow render_window{sf::VideoMode{800, 600}, "Cavez sandbox"};
+    auto input = make_input();
     auto texture_manager = make_texture_manager();
     auto renderer = make_rendering(*texture_manager, render_window);
     auto game = make_game(Game_config{}, *renderer);

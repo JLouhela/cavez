@@ -37,7 +37,8 @@ public:
     virtual ~Input_interface() = default;
     virtual void update() = 0;
     virtual input::Input_id register_listener(const input::Input_mapping& input_mapping) = 0;
-    virtual const input::Input_state& get_state(input::Input_id id) = 0;
+    virtual void deregister_listener(input::Input_id id) = 0;
+    virtual const input::Input_state& get_state(input::Input_id id) const = 0;
 };
 
 std::unique_ptr<Input_interface> make_input();

@@ -11,4 +11,6 @@ add_library(input
     
 target_link_libraries(input
     PUBLIC
-        input_interface)
+        input_interface
+	PRIVATE
+		sfml-window)

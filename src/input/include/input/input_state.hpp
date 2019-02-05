@@ -21,11 +21,16 @@
 #ifndef INPUT_STATE_HPP
 #define INPUT_STATE_HPP
 
-#include "input/input_key.hpp"
 namespace input
 {
 struct Input_state
 {
+    bool throttle{false};
+    bool rotate_cw{false};
+    bool rotate_ccw{false};
+    bool shoot{false};
+    bool shoot_special{false};
+    bool shield{false};
 };
 
 }  // namespace input

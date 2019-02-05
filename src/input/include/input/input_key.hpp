@@ -25,7 +25,7 @@
 
 namespace input
 {
-enum class key : std::int8_t
+enum class Key : std::int16_t
 {
     key_unknown = -1,
     key_a = 0,
@@ -129,7 +129,7 @@ enum class key : std::int8_t
     key_f14,
     key_f15,
     key_pause,
-    key_count,
+    key_count
 };
 }
 
