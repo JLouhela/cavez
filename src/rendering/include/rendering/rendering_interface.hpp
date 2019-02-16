@@ -24,11 +24,7 @@
 #include <memory>
 #include "rendering/render_items.hpp"
 
-namespace sf
-{
-class RenderTarget;
-}
-
+struct Rendering_target;
 class Texture_manager_interface;
 class Rendering_interface
 {
@@ -43,6 +39,6 @@ public:
 };
 
 std::unique_ptr<Rendering_interface> make_rendering(
-    const Texture_manager_interface& texture_manager, sf::RenderTarget& render_target);
+    const Texture_manager_interface& texture_manager, Rendering_target& rendering_target);
 
 #endif

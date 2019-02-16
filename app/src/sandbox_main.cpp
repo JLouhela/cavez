@@ -27,15 +27,20 @@
 #include "game/game_interface.hpp"
 #include "input/input_interface.hpp"
 #include "rendering/rendering_interface.hpp"
+#include "rendering/rendering_target.hpp"
+
+#include <cstdint>
 
 using namespace std::chrono_literals;
+
+constexpr std::uint8_t Scale_factor{2};
 
 int main()
 {
     sf::RenderWindow render_window{sf::VideoMode{800, 600}, "Cavez sandbox"};
     auto input = make_input();
     auto texture_manager = make_texture_manager();
-    auto renderer = make_rendering(*texture_manager, render_window);
+    auto renderer = make_rendering(*texture_manager, Rendering_target{Scale_factor, render_window});
     auto game = make_game(Game_config{}, *renderer, *input);
     // For real main: https://gafferongames.com/post/fix_your_timestep/
     // -> game should support interpolation besides simple update

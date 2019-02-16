@@ -18,35 +18,21 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef RENDERING_IMPL_HPP
-#define RENDERING_IMPL_HPP
+#ifndef RENDERING_TARGET_HPP
+#define RENDERING_TARGET_HPP
 
-#include "rendering/rendering_interface.hpp"
+#include <cstdint>
+#include <functional>
 
 namespace sf
 {
 class RenderTarget;
 }
 
-struct Rendering_target;
-
-class Texture_manager_interface;
-class Rendering_impl : public Rendering_interface
+struct Rendering_target
 {
-public:
-    Rendering_impl(const Texture_manager_interface& texture_manager,
-                   Rendering_target& rendering_target);
-    ~Rendering_impl() override = default;
-
-    void render(const Render_tex& render_tex) override;
-
-private:
-    const Texture_manager_interface& m_texture_manager;
-    // TODO change to rendertarget
-    // Init RenderWindow in main.cpp and pass rendertarget here
-    // render Render_tex directly to this target
-    sf::RenderTarget& m_render_target;
-    // TODO own rendertexture for level rendering
+    std::uint8_t scale{1};
+    std::reference_wrapper<sf::RenderTarget> render_target;
 };
 
 #endif

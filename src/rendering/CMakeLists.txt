@@ -4,6 +4,7 @@ target_link_libraries(rendering_interface INTERFACE assets_interface)
 
 add_library(rendering 
     include/rendering/rendering_interface.hpp
+    include/rendering/rendering_target.hpp
 	include/rendering/render_items.hpp
     src/rendering_impl.hpp
     src/rendering_impl.cpp)

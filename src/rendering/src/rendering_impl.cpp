@@ -25,10 +25,11 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "assets/texture_manager_interface.hpp"
 #include "logger/logger.hpp"
+#include "rendering/rendering_target.hpp"
 
 Rendering_impl::Rendering_impl(const Texture_manager_interface& texture_manager,
-                               sf::RenderTarget& render_target)
-    : m_texture_manager{texture_manager}, m_render_target{render_target}
+                               Rendering_target& rendering_target)
+    : m_texture_manager{texture_manager}, m_render_target{rendering_target.render_target.get()}
 {
     LOG_DEBUG << "Rendering impl created";
 }
@@ -54,7 +55,7 @@ void Rendering_impl::render(const Render_tex& render_tex)
 }
 
 std::unique_ptr<Rendering_interface> make_rendering(
-    const Texture_manager_interface& texture_manager, sf::RenderTarget& render_target)
+    const Texture_manager_interface& texture_manager, Rendering_target& rendering_target)
 {
-    return std::make_unique<Rendering_impl>(texture_manager, render_target);
+    return std::make_unique<Rendering_impl>(texture_manager, rendering_target);
 }
