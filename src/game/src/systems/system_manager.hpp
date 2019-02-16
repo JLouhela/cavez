@@ -39,7 +39,9 @@ public:
     explicit System_manager(Rendering_interface& rendering_interface,
                             const Input_interface& input_interface);
 
-    void update(float delta_time, const Component_container& component_container);
+    void update(float delta_time,
+                Entity_container& entities,
+                Component_container& component_container);
 
     void render(Cameras& cameras,
                 const Entity_container& entity_container,

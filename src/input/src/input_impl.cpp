@@ -43,12 +43,9 @@ std::set<input::Key> get_keys_down()
 
 }  // namespace
 
-Input_impl::Input_impl()
-{
-}
-
 void Input_impl::update()
 {
+    reset_states();
     auto keys_down = get_keys_down();
     for (const auto& listener : m_input_listeners)
     {
@@ -80,10 +77,18 @@ void Input_impl::update()
     }
 }
 
-void Input_impl::register_listener(const input::Input_id id,
-                                   const input::Input_mapping& input_mapping)
+void Input_impl::reset_states()
 {
-    m_input_listeners[id] = input_mapping;
+    for (auto& state : m_input_states)
+    {
+        state.second = input::Input_state{};
+    }
+}
+
+input::Input_id Input_impl::register_listener(const input::Input_mapping& input_mapping)
+{
+    m_input_listeners[m_next_free_id] = input_mapping;
+    return m_next_free_id++;
 }
 
 const input::Input_state& Input_impl::get_state(input::Input_id id) const

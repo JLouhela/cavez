@@ -33,9 +33,10 @@ class Input_interface;
 class Game_impl : public Game_interface
 {
 public:
-    explicit Game_impl(const Game_config& config,
-                       Rendering_interface& rendering_interface,
-                       const Input_interface& input_interface);
+    Game_impl(const Game_config& config,
+              Rendering_interface& rendering_interface,
+              Input_interface& input_interface);
+
     ~Game_impl() override = default;
 
     void update(float delta_time) override;

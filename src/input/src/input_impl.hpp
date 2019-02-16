@@ -30,15 +30,16 @@
 class Input_impl : public Input_interface
 {
 public:
-    Input_impl();
     ~Input_impl() override = default;
 
     void update() override;
-    void register_listener(input::Input_id id, const input::Input_mapping& input_mapping) override;
+    input::Input_id register_listener(const input::Input_mapping& input_mapping) override;
     const input::Input_state& get_state(input::Input_id id) const override;
     void deregister_listener(input::Input_id id) override;
 
 private:
+    void reset_states();
+    input::Input_id m_next_free_id{1};
     std::unordered_map<input::Input_id, input::Input_mapping> m_input_listeners;
     std::unordered_map<input::Input_id, input::Input_state> m_input_states;
 };

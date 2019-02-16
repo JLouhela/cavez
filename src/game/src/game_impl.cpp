@@ -40,9 +40,10 @@ Cameras create_cameras(const Game_config& config)
 
 Game_impl::Game_impl(const Game_config& config,
                      Rendering_interface& rendering_interface,
-                     const Input_interface& input_interface)
+                     Input_interface& input_interface)
     : m_config{config},
       m_system_manager{rendering_interface, input_interface},
+      m_state{input_interface},
       m_cameras{create_cameras(config)}
 {
     LOG_DEBUG << "Game running";
@@ -52,8 +53,7 @@ Game_impl::Game_impl(const Game_config& config,
 
 void Game_impl::update(float delta_time)
 {
-    // TBD
-    // LOG_WARN << "update not implemented";
+    m_system_manager.update(delta_time, m_state.get_entities(), m_state.get_components());
 }
 
 void Game_impl::render(float delta_time)
@@ -69,7 +69,7 @@ void Game_impl::interpolate(float delta_time, Game_state_interface& game_state)
 
 std::unique_ptr<Game_interface> make_game(const Game_config& config,
                                           Rendering_interface& rendering_interface,
-                                          const Input_interface& input_interface)
+                                          Input_interface& input_interface)
 {
     return std::make_unique<Game_impl>(config, rendering_interface, input_interface);
 }

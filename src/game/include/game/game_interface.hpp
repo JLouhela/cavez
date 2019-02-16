@@ -57,6 +57,6 @@ public:
 
 std::unique_ptr<Game_interface> make_game(const Game_config& config,
                                           Rendering_interface& rendering_interface,
-                                          const Input_interface& input_interface);
+                                          Input_interface& input_interface);
 
 #endif

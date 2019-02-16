@@ -24,11 +24,25 @@
 struct Component_container;
 class Entity_container;
 class Entity;
+class Input_interface;
+
+class Entity_factory
+{
+public:
+    Entity_factory(Entity_container& entity_container,
+                   Component_container& component_container,
+                   Input_interface& input_interface);
+
+    Entity& create_debug_entity();
+
+private:
+    Entity_container& m_entity_container;
+    Component_container& m_component_container;
+    Input_interface& m_input_interface;
+};
 
 namespace factory
 {
-Entity& create_debug_entity(Entity_container& entity_container,
-                            Component_container& component_container);
 }
 
 #endif

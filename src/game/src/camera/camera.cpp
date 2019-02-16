@@ -30,6 +30,7 @@ void Camera::set_position(const math::Vector2& world_position)
     m_world_pos = world_position;
 }
 
+// TODO take scale into account
 std::pair<bool, math::Vector2> Camera::get_screen_position(
     const math::Vector2& world_position) const
 {

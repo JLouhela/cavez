@@ -18,11 +18,11 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include "systems/render_system.hpp"
 #include "ec/component_container.hpp"
 #include "ec/entity_container.hpp"
 #include "rendering/render_items.hpp"
 #include "rendering/rendering_interface.hpp"
-#include "systems/render_system.hpp"
 
 Render_system::Render_system(Rendering_interface& rendering_interface)
     : m_rendering_interface{rendering_interface}
@@ -33,8 +33,6 @@ void Render_system::render(const Cameras& cameras,
                            const Entity_container& entity_container,
                            const Component_container& component_container)
 {
-    // TODO get camera(s)
-    // TODO form struct -> invoke render
     const auto& phys_comps = component_container.physics_components;
     const auto& rend_comps = component_container.render_components;
 
@@ -47,6 +45,8 @@ void Render_system::render(const Cameras& cameras,
             {
                 auto& pos =
                     phys_comps[entity.second.get_component_index(Component_id::physics)].pos;
+                auto& rot =
+                    phys_comps[entity.second.get_component_index(Component_id::physics)].rotation;
 
                 auto& rend_comp =
                     rend_comps[entity.second.get_component_index(Component_id::render)];
@@ -58,7 +58,7 @@ void Render_system::render(const Cameras& cameras,
                 {
                     continue;
                 }
-                Render_tex render_tex{rend_comp.texture_index, screen_rect.second};
+                Render_tex render_tex{rend_comp.texture_index, screen_rect.second, rot};
                 // TODO sort by tex id and render later?
                 m_rendering_interface.render(render_tex);
             }

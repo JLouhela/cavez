@@ -21,6 +21,7 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include "SFML/Graphics.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "assets/texture_manager_interface.hpp"
 #include "game/game_interface.hpp"
@@ -41,9 +42,19 @@ int main()
     auto prev_time = std::chrono::system_clock::now();
     while (render_window.isOpen())
     {
+        sf::Event event;
+        while (render_window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                render_window.close();
+            }
+        }
+
         auto time_now = std::chrono::system_clock::now();
         auto delta_time =
             std::chrono::duration_cast<std::chrono::duration<float>>(time_now - prev_time);
+        input->update();
         game->update(delta_time.count());
 
         render_window.clear(sf::Color::Black);

@@ -2,6 +2,7 @@ add_library(input_interface INTERFACE)
 target_include_directories (input_interface INTERFACE include)
 
 add_library(input 
+	include/input/input_id.hpp
 	include/input/input_interface.hpp
 	include/input/input_key.hpp
 	include/input/input_mapping.hpp

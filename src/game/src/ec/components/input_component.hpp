@@ -21,9 +21,13 @@
 #ifndef INPUT_COMPONENT_HPP
 #define INPUT_COMPONENT_HPP
 
+#include "input/input_id.hpp"
+#include "input/input_state.hpp"
+
 struct Input_component
 {
-    // TODO define: buttons pressed e.g. input_state?
+    input::Input_id input_id;
+    input::Input_state input_state;
 };
 
 #endif

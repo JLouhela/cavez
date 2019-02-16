@@ -24,24 +24,36 @@
 #include "ec/component_container.hpp"
 #include "ec/component_id.hpp"
 #include "ec/entity_container.hpp"
+#include "ec/entity_factory.hpp"
 #include "game/game_state_interface.hpp"
 
 #include <vector>
 
 class Entity;
+class Input_interface;
 
 class Game_state_impl : public Game_state_interface
 {
 public:
-    Game_state_impl();
+    explicit Game_state_impl(Input_interface& input_interface);
     ~Game_state_impl() override = default;
 
-    const Component_container& get_components()
+    const Component_container& get_components() const
     {
         return m_components;
     }
 
-    const Entity_container& get_entities()
+    Component_container& get_components()
+    {
+        return m_components;
+    }
+
+    const Entity_container& get_entities() const
+    {
+        return m_entities;
+    }
+
+    Entity_container& get_entities()
     {
         return m_entities;
     }
@@ -50,6 +62,7 @@ private:
     // Component container: represents current state of entities
     Component_container m_components;
     Entity_container m_entities;
+    Entity_factory m_entity_factory;
 };
 
 #endif

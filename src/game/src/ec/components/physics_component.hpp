@@ -28,6 +28,7 @@ struct Physics_component
 {
     math::Vector2 pos{0, 0};
     math::Vector2 velocity{0, 0};
+    std::uint16_t rotation{0};  // < rotation given as hundredth of degrees, e.g. 355.5 deg = 35550
     std::int32_t mass{1};
 };
 

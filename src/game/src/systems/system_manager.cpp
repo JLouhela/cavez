@@ -28,9 +28,11 @@ System_manager::System_manager(Rendering_interface& rendering_interface,
 {
 }
 
-void System_manager::update(float delta_time, const Component_container& component_container)
+void System_manager::update(float delta_time,
+                            Entity_container& entities,
+                            Component_container& component_container)
 {
-    m_input_system.update(component_container);
+    m_input_system.update(entities, component_container);
 }
 
 void System_manager::render(Cameras& cameras,

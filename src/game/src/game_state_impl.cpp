@@ -18,14 +18,15 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "ec/entity_factory.hpp"
 #include "game_state_impl.hpp"
+#include "ec/entity_factory.hpp"
 #include "logger/logger.hpp"
 
-Game_state_impl::Game_state_impl() : m_entities{m_components}
+Game_state_impl::Game_state_impl(Input_interface& input_interface)
+    : m_entities{m_components}, m_entity_factory{m_entities, m_components, input_interface}
 {
     // TEST
-    auto& debug_entity = factory::create_debug_entity(m_entities, m_components);
+    auto& debug_entity = m_entity_factory.create_debug_entity();
     LOG_DEBUG << "Game state up";
     // debug_entity.delete_entity();
 }

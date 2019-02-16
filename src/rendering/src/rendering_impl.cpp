@@ -18,13 +18,13 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include "rendering_impl.hpp"
 #include <memory>
 #include "SFML/Graphics/RenderTarget.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include "assets/texture_manager_interface.hpp"
 #include "logger/logger.hpp"
-#include "rendering_impl.hpp"
 
 Rendering_impl::Rendering_impl(const Texture_manager_interface& texture_manager,
                                sf::RenderTarget& render_target)
@@ -35,13 +35,20 @@ Rendering_impl::Rendering_impl(const Texture_manager_interface& texture_manager,
 
 void Rendering_impl::render(const Render_tex& render_tex)
 {
-    // LOG_WARN << "Render not implemented!";
+    // TODO consider caching sprites if throttles, should be cheap though
     sf::Sprite sprite;
     sprite.setTexture(m_texture_manager.get_texture(render_tex.texture_id));
     // TODO set texture rect to render target
     // sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
+    sprite.setOrigin(static_cast<float>(render_tex.screen_rect.w / 2.f),
+                     static_cast<float>(render_tex.screen_rect.h / 2.f));
+
     sprite.setPosition(static_cast<float>(render_tex.screen_rect.x),
                        static_cast<float>(render_tex.screen_rect.y));
+    sprite.setRotation(static_cast<float>(render_tex.rotation) / 100.0f);
+
+    // TODO setup scale for everything
+    // sprite.setScale({3, 3});
     // Draw it
     m_render_target.draw(sprite);
 }

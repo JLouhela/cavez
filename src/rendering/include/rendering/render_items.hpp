@@ -21,6 +21,7 @@
 #ifndef RENDER_ITEMS_HPP
 #define RENDER_ITEMS_HPP
 
+#include <cstdint>
 #include "assets/texture_id.hpp"
 #include "math/rect.hpp"
 
@@ -28,6 +29,7 @@ struct Render_tex
 {
     Texture_id texture_id{asset::texture::invalid_texture_id};
     math::Rect screen_rect;
+    std::uint16_t rotation{0};  // < rotation given as hundredth of degrees, e.g. 355.5 deg = 35550
 };
 
 #endif
