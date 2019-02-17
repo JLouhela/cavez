@@ -4,3 +4,5 @@ Cavez is a hobby project targeting to build an old school cave flying game. Such
 TODO: Write description of cave flyer games
 
 Very rough "backlog" for anyone interested: https://trello.com/b/3sAzYxU9/cavez
+
+Status (17.2.2019): Renders sprite on screen which can be rotated with A and D.. :) Mainly entity-component architecture practice so far.
