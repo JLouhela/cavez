@@ -33,15 +33,22 @@
 
 using namespace std::chrono_literals;
 
-constexpr std::uint8_t Scale_factor{2};
-
 int main()
 {
-    sf::RenderWindow render_window{sf::VideoMode{800, 600}, "Cavez sandbox"};
+    Game_config game_config;
+    game_config.resolution.scale = 4U;
+    game_config.player_count = 1;
+    game_config.resolution.height = 600;
+    game_config.resolution.width = 1024;
+
+    sf::RenderWindow render_window{
+        sf::VideoMode{game_config.resolution.width, game_config.resolution.height},
+        "Cavez sandbox"};
     auto input = make_input();
     auto texture_manager = make_texture_manager();
-    auto renderer = make_rendering(*texture_manager, Rendering_target{Scale_factor, render_window});
-    auto game = make_game(Game_config{}, *renderer, *input);
+    auto renderer = make_rendering(*texture_manager,
+                                   Rendering_target{game_config.resolution.scale, render_window});
+    auto game = make_game(game_config, *renderer, *input);
     // For real main: https://gafferongames.com/post/fix_your_timestep/
     // -> game should support interpolation besides simple update
     auto prev_time = std::chrono::system_clock::now();

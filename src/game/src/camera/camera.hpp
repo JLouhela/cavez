@@ -30,7 +30,7 @@
 class Camera
 {
 public:
-    Camera(const math::Rect& screen_rect, const math::Rect& world_rect);
+    Camera(const math::Rect& screen_rect, const math::Rect& world_rect, std::uint8_t scale);
 
     void set_position(const math::Vector2& world_position);
 
@@ -47,6 +47,7 @@ private:
     math::Vector2 m_world_pos;
     math::Rect m_screen_rect;
     math::Rect m_world_rect;
+    std::uint8_t m_scale;
 };
 
 #endif

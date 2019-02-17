@@ -21,6 +21,7 @@
 #ifndef RENDERING_IMPL_HPP
 #define RENDERING_IMPL_HPP
 
+#include <cstdint>
 #include "rendering/rendering_interface.hpp"
 
 namespace sf
@@ -47,6 +48,7 @@ private:
     // render Render_tex directly to this target
     sf::RenderTarget& m_render_target;
     // TODO own rendertexture for level rendering
+    std::uint8_t m_scale{1};
 };
 
 #endif

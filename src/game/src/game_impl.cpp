@@ -33,7 +33,8 @@ Cameras create_cameras(const Game_config& config)
     Cameras cameras;
     cameras.emplace_back(
         math::Rect{0, 0, config.resolution.width, config.resolution.height},
-        math::Rect{0, 0, config.resolution.width * 2, config.resolution.height * 2});
+        math::Rect{0, 0, config.resolution.width * 2, config.resolution.height * 2},
+        config.resolution.scale);
     return cameras;
 }
 }  // namespace

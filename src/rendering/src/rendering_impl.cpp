@@ -29,7 +29,9 @@
 
 Rendering_impl::Rendering_impl(const Texture_manager_interface& texture_manager,
                                Rendering_target& rendering_target)
-    : m_texture_manager{texture_manager}, m_render_target{rendering_target.render_target.get()}
+    : m_texture_manager{texture_manager},
+      m_render_target{rendering_target.render_target.get()},
+      m_scale{rendering_target.scale}
 {
     LOG_DEBUG << "Rendering impl created";
 }
@@ -39,6 +41,8 @@ void Rendering_impl::render(const Render_tex& render_tex)
     // TODO consider caching sprites if throttles, should be cheap though
     sf::Sprite sprite;
     sprite.setTexture(m_texture_manager.get_texture(render_tex.texture_id));
+    sprite.setScale({static_cast<float>(m_scale), static_cast<float>(m_scale)});
+
     // TODO set texture rect to render target
     // sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
     sprite.setOrigin(static_cast<float>(render_tex.screen_rect.w / 2.f),
@@ -48,8 +52,6 @@ void Rendering_impl::render(const Render_tex& render_tex)
                        static_cast<float>(render_tex.screen_rect.y));
     sprite.setRotation(static_cast<float>(render_tex.rotation) / 100.0f);
 
-    // TODO setup scale for everything
-    // sprite.setScale({3, 3});
     // Draw it
     m_render_target.draw(sprite);
 }

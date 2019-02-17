@@ -20,8 +20,10 @@
 
 #include "camera/camera.hpp"
 
-Camera::Camera(const math::Rect& screen_rect, const math::Rect& world_rect)
-    : m_screen_rect{screen_rect}, m_world_rect{world_rect}, m_world_pos{0, 0}
+Camera::Camera(const math::Rect& screen_rect,
+               const math::Rect& world_rect,
+               const std::uint8_t scale)
+    : m_screen_rect{screen_rect}, m_world_rect{world_rect}, m_world_pos{0, 0}, m_scale{scale}
 {
 }
 
@@ -30,11 +32,11 @@ void Camera::set_position(const math::Vector2& world_position)
     m_world_pos = world_position;
 }
 
-// TODO take scale into account
 std::pair<bool, math::Vector2> Camera::get_screen_position(
     const math::Vector2& world_position) const
 {
-    math::Vector2 screen_pos{world_position.x - m_world_pos.x, world_position.y - m_world_pos.y};
+    math::Vector2 screen_pos{(world_position.x - m_world_pos.x) * m_scale,
+                             (world_position.y - m_world_pos.y) * m_scale};
     if (screen_pos.x >= m_screen_rect.x && screen_pos.x < m_screen_rect.x + m_screen_rect.w &&
         screen_pos.y > m_screen_rect.y && screen_pos.y < m_screen_rect.y + m_screen_rect.h)
     {

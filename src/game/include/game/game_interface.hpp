@@ -29,8 +29,9 @@ struct Game_config
     std::int8_t player_count{1};
     struct
     {
-        std::int16_t width{800};
-        std::int16_t height{600};
+        std::uint16_t width{800};
+        std::uint16_t height{600};
+        std::uint8_t scale{4};
     } resolution;
 };
 
