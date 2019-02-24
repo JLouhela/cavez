@@ -33,6 +33,7 @@ void System_manager::update(float delta_time,
                             Component_container& component_container)
 {
     m_input_system.update(entities, component_container);
+    m_physics_system.update(delta_time, component_container);
 }
 
 void System_manager::render(Cameras& cameras,

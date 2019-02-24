@@ -25,11 +25,114 @@
 
 namespace math
 {
+template <typename T>
 struct Vector2
 {
-    std::int32_t x{0};
-    std::int32_t y{0};
+    T x{0};
+    T y{0};
 };
+
+using Vector2I = Vector2<std::int32_t>;
+using Vector2F = Vector2<float>;
+
+template <typename T>
+Vector2<T> operator+(const Vector2<T>& lhs, const std::int32_t rhs)
+{
+    return Vector2<T>{lhs.x + static_cast<T>(rhs), lhs.y + static_cast<T>(rhs)};
+}
+
+template <typename T>
+Vector2<T>& operator+=(Vector2<T>& lhs, const std::int32_t rhs)
+{
+    lhs.x += static_cast<T>(rhs);
+    lhs.y += static_cast<T>(rhs);
+    return lhs;
+}
+
+template <typename T>
+Vector2<T> operator+(const Vector2<T>& lhs, const float rhs)
+{
+    return Vector2<T>{lhs.x + static_cast<T>(rhs), lhs.y + static_cast<T>(rhs)};
+}
+
+template <typename T>
+Vector2<T>& operator+=(Vector2<T>& lhs, const float rhs)
+{
+    lhs.x += static_cast<T>(rhs);
+    lhs.y += static_cast<T>(rhs);
+    return lhs;
+}
+
+template <typename T>
+Vector2<T> operator+(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    return Vector2<T>{lhs.x + rhs.x, lhs.y + rhs.y};
+}
+
+template <typename T>
+Vector2<T>& operator+=(Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    lhs.x += rhs.x;
+    lhs.y += rhs.y;
+    return lhs;
+}
+
+template <typename T>
+Vector2<T> operator*(const Vector2<T>& lhs, const std::int32_t rhs)
+{
+    return Vector2<T>{lhs.x * static_cast<T>(rhs), lhs.y * static_cast<T>(rhs)};
+}
+
+template <typename T>
+Vector2<T>& operator*=(Vector2<T>& lhs, const std::int32_t rhs)
+{
+    lhs.x *= static_cast<T>(rhs);
+    lhs.y *= static_cast<T>(rhs);
+    return lhs;
+}
+
+template <typename T>
+Vector2<T> operator/(const Vector2<T>& lhs, const std::int32_t rhs)
+{
+    return Vector2<T>{lhs.x / static_cast<T>(rhs), lhs.y / static_cast<T>(rhs)};
+}
+
+template <typename T>
+Vector2<T>& operator/=(Vector2<T>& lhs, const std::int32_t rhs)
+{
+    lhs.x /= static_cast<T>(rhs);
+    lhs.y /= static_cast<T>(rhs);
+    return lhs;
+}
+
+template <typename T>
+Vector2<T> operator*(const Vector2<T>& lhs, const float rhs)
+{
+    return Vector2<T>{lhs.x * static_cast<T>(rhs), lhs.y * static_cast<T>(rhs)};
+}
+
+template <typename T>
+Vector2<T>& operator*=(Vector2<T>& lhs, const float rhs)
+{
+    lhs.x *= static_cast<T>(rhs);
+    lhs.y *= static_cast<T>(rhs);
+    return lhs;
+}
+
+template <typename T>
+Vector2<T> operator*(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    return Vector2<T>{lhs.x * rhs.x, lhs.y * rhs.y};
+}
+
+template <typename T>
+Vector2<T>& operator*=(Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    lhs.x *= rhs.x;
+    lhs.y *= rhs.y;
+    return lhs;
+}
+
 }  // namespace math
 
 #endif

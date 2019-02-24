@@ -27,8 +27,8 @@ namespace math
 {
 struct Bounding_box
 {
-    Vector2 top_left{0, 0};
-    Vector2 bottom_right{0, 0};
+    Vector2I top_left{0, 0};
+    Vector2I bottom_right{0, 0};
 };
 }  // namespace math
 

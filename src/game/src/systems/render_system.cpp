@@ -51,8 +51,9 @@ void Render_system::render(const Cameras& cameras,
                 auto& rend_comp =
                     rend_comps[entity.second.get_component_index(Component_id::render)];
                 auto& tex_rect = rend_comp.texture_rect;
-                const auto screen_rect =
-                    camera.get_screen_rect({pos.x, pos.y, tex_rect.w, tex_rect.h});
+                const auto screen_rect = camera.get_screen_rect({static_cast<std::int32_t>(pos.x),
+                                                                 static_cast<std::int32_t>(pos.y),
+                                                                 tex_rect.w, tex_rect.h});
                 // Not in screen
                 if (!screen_rect.first)
                 {

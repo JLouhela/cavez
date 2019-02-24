@@ -1,7 +1,7 @@
 add_library(game_interface INTERFACE)
 target_include_directories (game_interface INTERFACE include)
 
-set(ALL_FILES
+set(GAME_FILES
 	include/game/game_interface.hpp
 	include/game/game_state_interface.hpp
     src/game_impl.hpp
@@ -33,7 +33,7 @@ set(ALL_FILES
     src/systems/system_manager.cpp)
 
 # copipasta from https://gist.github.com/Corralx/d44a7696aa06d594605f
-foreach(FILE ${ALL_FILES}) 
+foreach(FILE ${GAME_FILES}) 
   get_filename_component(PARENT_DIR "${FILE}" PATH)
 
   string(REPLACE "/" "\\" GROUP "${PARENT_DIR}")
@@ -49,7 +49,7 @@ endforeach()
 
 
 add_library(game 
-	${ALL_FILES}
+	${GAME_FILES}
 )
 
 target_include_directories(game

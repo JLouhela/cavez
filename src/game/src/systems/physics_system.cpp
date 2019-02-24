@@ -19,3 +19,32 @@
 /// IN THE SOFTWARE.
 
 #include "systems/physics_system.hpp"
+
+#include <algorithm>
+#include <cstdint>
+
+namespace
+{
+void cap_velocity(math::Vector2F& velocity)
+{
+    static constexpr float max_speed = 1000.f;
+    velocity.x = std::min(velocity.x, max_speed);
+    velocity.y = std::min(velocity.y, max_speed);
+}
+}  // namespace
+
+void Physics_system::update(float delta_time, Component_container& component_container)
+{
+    static constexpr float gravity = 100.0f;
+    for (auto& component : component_container.physics_components)
+    {
+        if (!component.first)
+        {
+            continue;
+        }
+        component.second.velocity += component.second.force / component.second.mass * delta_time;
+        component.second.velocity += math::Vector2F{0, gravity * delta_time};
+        cap_velocity(component.second.velocity);
+        component.second.pos += (component.second.velocity * delta_time);
+    }
+}

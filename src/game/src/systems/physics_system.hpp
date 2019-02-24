@@ -21,9 +21,13 @@
 #ifndef PHYSICS_SYSTEM_HPP
 #define PHYSICS_SYSTEM_HPP
 
+#include "ec/component_container.hpp"
+
 class Physics_system
 {
 public:
+    void update(float delta_time, Component_container& component_container);
+
 private:
 };
 

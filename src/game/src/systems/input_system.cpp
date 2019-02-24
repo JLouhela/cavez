@@ -58,6 +58,7 @@ void Input_system::update(Entity_container& entity_container,
             if (input_state.rotate_cw)
             {
                 // TODO obviously the rotation rate should be in some component
+                // TODO tie rotation to delta time
                 rotation = (rotation + 30) % 36000;
             }
             else if (input_state.rotate_ccw)

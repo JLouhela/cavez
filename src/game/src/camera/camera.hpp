@@ -23,6 +23,7 @@
 
 #include <cstdint>
 #include <utility>
+
 #include "math/bounding_box.hpp"
 #include "math/rect.hpp"
 #include "math/vector.hpp"
@@ -32,10 +33,10 @@ class Camera
 public:
     Camera(const math::Rect& screen_rect, const math::Rect& world_rect, std::uint8_t scale);
 
-    void set_position(const math::Vector2& world_position);
+    void set_position(const math::Vector2I& world_position);
 
     // Return pair: first - within camera, second - translated coords
-    std::pair<bool, math::Vector2> get_screen_position(const math::Vector2& world_position) const;
+    std::pair<bool, math::Vector2I> get_screen_position(const math::Vector2I& world_position) const;
 
     // Return pair: first - within camera, second - translated area
     std::pair<bool, math::Bounding_box> get_screen_area(const math::Bounding_box& world_area) const;
@@ -44,7 +45,7 @@ public:
     std::pair<bool, math::Rect> get_screen_rect(const math::Rect& world_rect) const;
 
 private:
-    math::Vector2 m_world_pos;
+    math::Vector2I m_world_pos;
     math::Rect m_screen_rect;
     math::Rect m_world_rect;
     std::uint8_t m_scale;

@@ -23,6 +23,7 @@
 #include <thread>
 #include "SFML/Graphics.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
+#include "SFML/System/Clock.hpp"
 #include "assets/texture_manager_interface.hpp"
 #include "game/game_interface.hpp"
 #include "input/input_interface.hpp"
@@ -44,11 +45,16 @@ int main()
     sf::RenderWindow render_window{
         sf::VideoMode{game_config.resolution.width, game_config.resolution.height},
         "Cavez sandbox"};
+
+    // TODO experimental, currently hard to test physics as there's no load and timestep can be
+    // often zero
+    render_window.setFramerateLimit(60);
     auto input = make_input();
     auto texture_manager = make_texture_manager();
     auto renderer = make_rendering(*texture_manager,
                                    Rendering_target{game_config.resolution.scale, render_window});
     auto game = make_game(game_config, *renderer, *input);
+    sf::Clock clock;
     // For real main: https://gafferongames.com/post/fix_your_timestep/
     // -> game should support interpolation besides simple update
     auto prev_time = std::chrono::system_clock::now();
@@ -63,17 +69,13 @@ int main()
             }
         }
 
-        auto time_now = std::chrono::system_clock::now();
-        auto delta_time =
-            std::chrono::duration_cast<std::chrono::duration<float>>(time_now - prev_time);
+        sf::Time delta_time = clock.restart();
         input->update();
-        game->update(delta_time.count());
+        game->update(delta_time.asMilliseconds() / 1000.f);
 
         render_window.clear(sf::Color::Black);
-        game->render(delta_time.count());
+        game->render(delta_time.asMilliseconds() / 1000.f);
         render_window.display();
-
-        prev_time = time_now;
     }
     return 0;
 }
