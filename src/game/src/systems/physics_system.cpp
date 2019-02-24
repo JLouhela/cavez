@@ -27,11 +27,16 @@ namespace
 {
 void cap_velocity(math::Vector2F& velocity)
 {
-    static constexpr float max_speed = 1000.f;
+    static constexpr float max_speed = 200.f;
     velocity.x = std::min(velocity.x, max_speed);
     velocity.y = std::min(velocity.y, max_speed);
 }
 }  // namespace
+
+Physics_system::Physics_system(std::int32_t world_width, std::int32_t world_height)
+    : m_world_width{world_width}, m_world_height{world_height}
+{
+}
 
 void Physics_system::update(float delta_time, Component_container& component_container)
 {
@@ -46,5 +51,21 @@ void Physics_system::update(float delta_time, Component_container& component_con
         component.second.velocity += math::Vector2F{0, gravity * delta_time};
         cap_velocity(component.second.velocity);
         component.second.pos += (component.second.velocity * delta_time);
+        if (component.second.pos.y > m_world_height)
+        {
+            component.second.pos.y -= m_world_height;
+        }
+        else if (component.second.pos.y < 0)
+        {
+            component.second.pos.y += m_world_height;
+        }
+        if (component.second.pos.x > m_world_width)
+        {
+            component.second.pos.x -= m_world_width;
+        }
+        else if (component.second.pos.x < 0)
+        {
+            component.second.pos.x += m_world_width;
+        }
     }
 }

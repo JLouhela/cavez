@@ -26,6 +26,7 @@
 #include "systems/physics_system.hpp"
 #include "systems/render_system.hpp"
 
+#include <cstdint>
 #include <vector>
 
 struct Component_container;
@@ -33,11 +34,18 @@ class Entity_container;
 class Rendering_interface;
 class Input_interface;
 
+struct System_manager_config
+{
+    std::int32_t world_width{0};
+    std::int32_t world_height{0};
+};
+
 class System_manager
 {
 public:
-    explicit System_manager(Rendering_interface& rendering_interface,
-                            const Input_interface& input_interface);
+    System_manager(const System_manager_config& cfg,
+                   Rendering_interface& rendering_interface,
+                   const Input_interface& input_interface);
 
     void update(float delta_time,
                 Entity_container& entities,
@@ -51,6 +59,7 @@ private:
     Input_system m_input_system;
     Render_system m_render_system;
     Physics_system m_physics_system;
+    System_manager_config m_config;
 };
 
 #endif

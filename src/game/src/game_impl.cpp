@@ -43,7 +43,10 @@ Game_impl::Game_impl(const Game_config& config,
                      Rendering_interface& rendering_interface,
                      Input_interface& input_interface)
     : m_config{config},
-      m_system_manager{rendering_interface, input_interface},
+      m_system_manager{{config.resolution.width / config.resolution.scale,
+                        config.resolution.height / config.resolution.scale},
+                       rendering_interface,
+                       input_interface},  // TODO provide level size
       m_state{input_interface},
       m_cameras{create_cameras(config)}
 {

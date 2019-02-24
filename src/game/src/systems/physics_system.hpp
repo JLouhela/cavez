@@ -21,14 +21,18 @@
 #ifndef PHYSICS_SYSTEM_HPP
 #define PHYSICS_SYSTEM_HPP
 
+#include <cstdint>
 #include "ec/component_container.hpp"
 
 class Physics_system
 {
 public:
+    Physics_system(std::int32_t world_width, std::int32_t world_height);
     void update(float delta_time, Component_container& component_container);
 
 private:
+    std::int32_t m_world_width;
+    std::int32_t m_world_height;
 };
 
 #endif

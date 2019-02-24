@@ -22,9 +22,13 @@
 #include "ec/component_container.hpp"
 #include "ec/entity_container.hpp"
 
-System_manager::System_manager(Rendering_interface& rendering_interface,
+System_manager::System_manager(const System_manager_config& cfg,
+                               Rendering_interface& rendering_interface,
                                const Input_interface& input_interface)
-    : m_input_system{input_interface}, m_render_system{rendering_interface}
+    : m_input_system{input_interface},
+      m_render_system{rendering_interface},
+      m_physics_system{cfg.world_width, cfg.world_height},
+      m_config{cfg}
 {
 }
 
