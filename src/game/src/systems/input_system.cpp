@@ -21,6 +21,7 @@
 #include "systems/input_system.hpp"
 #include <cmath>
 #include "ec/entity_container.hpp"
+#include "math/angle_utils.hpp"
 
 Input_system::Input_system(const Input_interface& input_interface)
     : m_input_interface{input_interface}
@@ -34,6 +35,10 @@ void Input_system::update(const float delta_time,
     // First update input components
     for (auto& input_component : component_container.input_components)
     {
+        if (!input_component.first)
+        {
+            continue;
+        }
         input_component.second.input_state =
             m_input_interface.get_state(input_component.second.input_id);
     }
@@ -51,17 +56,27 @@ void Input_system::update(const float delta_time,
                 input_comps[entity.second.get_component_index(Component_id::input)].input_state;
             auto& rotation =
                 phys_comps[entity.second.get_component_index(Component_id::physics)].rotation;
+            auto& force =
+                phys_comps[entity.second.get_component_index(Component_id::physics)].force;
 
             if (input_state.throttle)
             {
-                // TODO: add throttling component
-                LOG_INFO << "THROTTLE!";
+                // TODO: add throttling component, coupling not cool
+                static constexpr float thrust_speed = 150000.f;
+                force = {
+                    std::sin(math::angle_utils::deg_to_rad(rotation)) * thrust_speed * delta_time,
+                    std::cos(math::angle_utils::deg_to_rad(rotation + 180.f)) * thrust_speed *
+                        delta_time};
             }
-            // TODO obviously the rotation rate should be in some component
+            else
+            {
+                force = {0.f, 0.f};
+            }
+
+            // TODO add rotation component, coupling not cool
             static constexpr float rotation_speed = 300.f;
             if (input_state.rotate_cw)
             {
-                // TODO tie rotation to delta time
                 rotation = std::fmod(rotation + rotation_speed * delta_time, 360.f);
             }
             else if (input_state.rotate_ccw)

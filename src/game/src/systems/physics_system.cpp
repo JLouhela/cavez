@@ -27,9 +27,9 @@ namespace
 {
 void cap_velocity(math::Vector2F& velocity)
 {
-    static constexpr float max_speed = 200.f;
-    velocity.x = std::min(velocity.x, max_speed);
-    velocity.y = std::min(velocity.y, max_speed);
+    static constexpr float max_speed = 100.f;
+    velocity.x = std::clamp(velocity.x, -max_speed, max_speed);
+    velocity.y = std::clamp(velocity.y, -max_speed, max_speed);
 }
 }  // namespace
 
@@ -40,7 +40,7 @@ Physics_system::Physics_system(std::int32_t world_width, std::int32_t world_heig
 
 void Physics_system::update(float delta_time, Component_container& component_container)
 {
-    static constexpr float gravity = 100.0f;
+    static constexpr float gravity = 50.0f;
     for (auto& component : component_container.physics_components)
     {
         if (!component.first)

@@ -44,6 +44,7 @@ Entity& Entity_factory::create_debug_entity()
     entity.add_component({Component_id::physics, phys_comp.first});
     phys_comp.second.get().pos = math::Vector2F{8.f, 8.f};
     phys_comp.second.get().velocity = math::Vector2F{0.f, 0.f};
+    phys_comp.second.get().mass = 10;
 
     auto& render_comp = m_component_container.render_components.get_free_elem();
     render_comp.second.get().texture_rect = {0, 0, 6, 6};
