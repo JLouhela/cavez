@@ -30,7 +30,9 @@ class Input_system
 public:
     explicit Input_system(const Input_interface& input_interface);
 
-    void update(Entity_container& entity_container, Component_container& component_container);
+    void update(float delta_time,
+                Entity_container& entity_container,
+                Component_container& component_container);
 
 private:
     const Input_interface& m_input_interface;

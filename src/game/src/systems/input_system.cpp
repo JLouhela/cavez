@@ -19,6 +19,7 @@
 /// IN THE SOFTWARE.
 
 #include "systems/input_system.hpp"
+#include <cmath>
 #include "ec/entity_container.hpp"
 
 Input_system::Input_system(const Input_interface& input_interface)
@@ -26,7 +27,8 @@ Input_system::Input_system(const Input_interface& input_interface)
 {
 }
 
-void Input_system::update(Entity_container& entity_container,
+void Input_system::update(const float delta_time,
+                          Entity_container& entity_container,
                           Component_container& component_container)
 {
     // First update input components
@@ -55,15 +57,20 @@ void Input_system::update(Entity_container& entity_container,
                 // TODO: add throttling component
                 LOG_INFO << "THROTTLE!";
             }
+            // TODO obviously the rotation rate should be in some component
+            static constexpr float rotation_speed = 300.f;
             if (input_state.rotate_cw)
             {
-                // TODO obviously the rotation rate should be in some component
                 // TODO tie rotation to delta time
-                rotation = (rotation + 30) % 36000;
+                rotation = std::fmod(rotation + rotation_speed * delta_time, 360.f);
             }
             else if (input_state.rotate_ccw)
             {
-                rotation = (rotation == 0) ? 35970 : rotation - 30;
+                rotation = std::fmod(rotation - rotation_speed * delta_time, 360.f);
+                if (rotation < 0)
+                {
+                    rotation += 360.f;
+                }
             }
         }
     }

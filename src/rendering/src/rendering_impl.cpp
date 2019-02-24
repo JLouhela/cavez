@@ -50,7 +50,7 @@ void Rendering_impl::render(const Render_tex& render_tex)
 
     sprite.setPosition(static_cast<float>(render_tex.screen_rect.x),
                        static_cast<float>(render_tex.screen_rect.y));
-    sprite.setRotation(static_cast<float>(render_tex.rotation) / 100.0f);
+    sprite.setRotation(render_tex.rotation);
 
     // Draw it
     m_render_target.draw(sprite);

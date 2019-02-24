@@ -29,7 +29,7 @@ struct Render_tex
 {
     Texture_id texture_id{asset::texture::invalid_texture_id};
     math::Rect screen_rect;
-    std::uint16_t rotation{0};  // < rotation given as hundredth of degrees, e.g. 355.5 deg = 35550
+    float rotation{0.f};  // < rotation given as [0, 360[ degrees
 };
 
 #endif

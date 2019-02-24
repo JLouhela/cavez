@@ -29,7 +29,7 @@ struct Physics_component
     math::Vector2F pos{0.f, 0.f};
     math::Vector2F velocity{0.f, 0.f};
     math::Vector2F force{0.f, 0.f};
-    std::uint16_t rotation{0};  // < rotation given as hundredth of degrees, e.g. 355.5 deg = 35550
+    float rotation{0.f};  // < rotation given as [0, 360[ degrees
     std::int32_t mass{1};
 };
 
