@@ -37,6 +37,7 @@ void System_manager::update(float delta_time,
                             Component_container& component_container)
 {
     m_input_system.update(delta_time, entities, component_container);
+    m_throttle_system.update(delta_time, entities, component_container);
     m_physics_system.update(delta_time, component_container);
 }
 

@@ -21,7 +21,6 @@
 #include "systems/input_system.hpp"
 #include <cmath>
 #include "ec/entity_container.hpp"
-#include "math/angle_utils.hpp"
 
 Input_system::Input_system(const Input_interface& input_interface)
     : m_input_interface{input_interface}
@@ -44,47 +43,51 @@ void Input_system::update(const float delta_time,
     }
 
     // Then update entities
-    auto& phys_comps = component_container.physics_components;
     const auto& input_comps = component_container.input_components;
-
     for (const auto& entity : entity_container)
     {
-        if (entity.second.has_component(Component_id::input) &&
-            entity.second.has_component(Component_id::physics))
+        if (entity.second.has_component(Component_id::input))
         {
-            const auto& input_state =
-                input_comps[entity.second.get_component_index(Component_id::input)].input_state;
-            auto& rotation =
-                phys_comps[entity.second.get_component_index(Component_id::physics)].rotation;
-            auto& force =
-                phys_comps[entity.second.get_component_index(Component_id::physics)].force;
+            if (entity.second.has_component(Component_id::physics))
+            {
+                auto& phys_comps = component_container.physics_components;
 
-            if (input_state.throttle)
-            {
-                // TODO: add throttling component, coupling not cool
-                static constexpr float thrust_speed = 150000.f;
-                force = {
-                    std::sin(math::angle_utils::deg_to_rad(rotation)) * thrust_speed * delta_time,
-                    std::cos(math::angle_utils::deg_to_rad(rotation + 180.f)) * thrust_speed *
-                        delta_time};
-            }
-            else
-            {
-                force = {0.f, 0.f};
-            }
+                const auto& input_state =
+                    input_comps[entity.second.get_component_index(Component_id::input)].input_state;
+                auto& rotation =
+                    phys_comps[entity.second.get_component_index(Component_id::physics)].rotation;
 
-            // TODO add rotation component, coupling not cool
-            static constexpr float rotation_speed = 300.f;
-            if (input_state.rotate_cw)
-            {
-                rotation = std::fmod(rotation + rotation_speed * delta_time, 360.f);
-            }
-            else if (input_state.rotate_ccw)
-            {
-                rotation = std::fmod(rotation - rotation_speed * delta_time, 360.f);
-                if (rotation < 0)
+                // TODO make mass count or add rotation component if necessary
+                static constexpr float rotation_speed = 300.f;
+                if (input_state.rotate_cw)
                 {
-                    rotation += 360.f;
+                    rotation = std::fmod(rotation + rotation_speed * delta_time, 360.f);
+                }
+                else if (input_state.rotate_ccw)
+                {
+                    rotation = std::fmod(rotation - rotation_speed * delta_time, 360.f);
+                    if (rotation < 0)
+                    {
+                        rotation += 360.f;
+                    }
+                }
+            }
+
+            if (entity.second.has_component(Component_id::throttle))
+            {
+                auto& throttle_comps = component_container.throttle_components;
+                const auto& input_state =
+                    input_comps[entity.second.get_component_index(Component_id::input)].input_state;
+
+                if (input_state.throttle)
+                {
+                    throttle_comps[entity.second.get_component_index(Component_id::throttle)]
+                        .throttling = true;
+                }
+                else
+                {
+                    throttle_comps[entity.second.get_component_index(Component_id::throttle)]
+                        .throttling = false;
                 }
             }
         }

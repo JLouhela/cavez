@@ -18,17 +18,16 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_ID_HPP
-#define COMPONENT_ID_HPP
+#ifndef ROTATION_SYSTEM_HPP
+#define ROTATION_SYSTEM_HPP
 
 #include <cstdint>
+#include "ec/component_container.hpp"
 
-enum class Component_id : std::int32_t
+class Rotation_system
 {
-    physics = 0,
-    render = 1,
-    input = 2,
-    throttle = 3
+public:
+    void update(float delta_time, Component_container& component_container);
 };
 
 #endif

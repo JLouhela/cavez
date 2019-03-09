@@ -31,6 +31,38 @@ void cap_velocity(math::Vector2F& velocity)
     velocity.x = std::clamp(velocity.x, -max_speed, max_speed);
     velocity.y = std::clamp(velocity.y, -max_speed, max_speed);
 }
+
+void apply_resistance(math::Vector2F& force)
+{
+    // TODO this will hover around zero, decide if problem
+    static constexpr float resistance = 50.f;
+    if (force.x > resistance)
+    {
+        force.x -= resistance;
+    }
+    else if (force.x < -resistance)
+    {
+        force.x += resistance;
+    }
+    else
+    {
+        force.x = 0.f;
+    }
+
+    if (force.y > resistance)
+    {
+        force.y -= resistance;
+    }
+    else if (force.y < -resistance)
+    {
+        force.y += resistance;
+    }
+    else
+    {
+        force.y = 0.f;
+    }
+}
+
 }  // namespace
 
 Physics_system::Physics_system(std::int32_t world_width, std::int32_t world_height)
@@ -50,6 +82,7 @@ void Physics_system::update(float delta_time, Component_container& component_con
         component.second.velocity += component.second.force / component.second.mass * delta_time;
         component.second.velocity += math::Vector2F{0, gravity * delta_time};
         cap_velocity(component.second.velocity);
+        apply_resistance(component.second.force);
         component.second.pos += (component.second.velocity * delta_time);
         if (component.second.pos.y > m_world_height)
         {

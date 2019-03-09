@@ -23,6 +23,7 @@ set(GAME_FILES
     src/ec/components/input_component.hpp
     src/ec/components/physics_component.hpp
     src/ec/components/render_component.hpp
+    src/ec/components/throttle_component.hpp
     src/systems/input_system.hpp
     src/systems/input_system.cpp
     src/systems/physics_system.hpp
@@ -30,7 +31,9 @@ set(GAME_FILES
     src/systems/render_system.hpp
     src/systems/render_system.cpp
     src/systems/system_manager.hpp
-    src/systems/system_manager.cpp)
+    src/systems/system_manager.cpp
+    src/systems/throttle_system.hpp
+    src/systems/throttle_system.cpp)
 
 # copipasta from https://gist.github.com/Corralx/d44a7696aa06d594605f
 foreach(FILE ${GAME_FILES}) 

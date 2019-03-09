@@ -67,5 +67,5 @@ bool Entity::add_component(const Component_index index)
 
 bool Entity::has_component(Component_id id) const
 {
-    return m_components_mask && (1U << static_cast<decltype(m_components_mask)>(id));
+    return m_components_mask & (1U << static_cast<decltype(m_components_mask)>(id));
 }

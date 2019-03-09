@@ -18,17 +18,15 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_ID_HPP
-#define COMPONENT_ID_HPP
+#ifndef THROTTLE_COMPONENT_HPP
+#define THROTTLE_COMPONENT_HPP
 
-#include <cstdint>
+#include "math/vector.hpp"
 
-enum class Component_id : std::int32_t
+struct Throttle_component
 {
-    physics = 0,
-    render = 1,
-    input = 2,
-    throttle = 3
+    bool throttling{false};
+    float thrust_force{1.f};
 };
 
 #endif

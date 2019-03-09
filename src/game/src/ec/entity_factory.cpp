@@ -51,6 +51,10 @@ Entity& Entity_factory::create_debug_entity()
     render_comp.second.get().texture_index = asset::texture::ship_tex;
     entity.add_component({Component_id::render, render_comp.first});
 
+    auto& throttle_comp = m_component_container.throttle_components.get_free_elem();
+    throttle_comp.second.get().thrust_force = 2.f;
+    entity.add_component({Component_id::throttle, throttle_comp.first});
+
     auto& input_comp = m_component_container.input_components.get_free_elem();
     input_comp.second.get().input_id = m_input_interface.register_listener(
         {input::Key::key_w, input::Key::key_d, input::Key::key_a, input::Key::key_l_shift,

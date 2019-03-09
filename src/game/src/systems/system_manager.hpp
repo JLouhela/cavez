@@ -25,6 +25,7 @@
 #include "systems/input_system.hpp"
 #include "systems/physics_system.hpp"
 #include "systems/render_system.hpp"
+#include "systems/throttle_system.hpp"
 
 #include <cstdint>
 #include <vector>
@@ -58,6 +59,7 @@ public:
 private:
     Input_system m_input_system;
     Render_system m_render_system;
+    Throttle_system m_throttle_system;
     Physics_system m_physics_system;
     System_manager_config m_config;
 };

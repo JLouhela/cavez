@@ -18,17 +18,39 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_ID_HPP
-#define COMPONENT_ID_HPP
+#include "systems/rotation_system.hpp"
 
+#include <algorithm>
 #include <cstdint>
 
-enum class Component_id : std::int32_t
+void Rotation_system::update(float delta_time, Component_container& component_container)
 {
-    physics = 0,
-    render = 1,
-    input = 2,
-    throttle = 3
-};
-
-#endif
+    static constexpr float gravity = 50.0f;
+    for (auto& component : component_container.rotation_components)
+    {
+        if (!component.first)
+        {
+            continue;
+        }
+        component.second.velocity += component.second.force / component.second.mass * delta_time;
+        component.second.velocity += math::Vector2F{0, gravity * delta_time};
+        cap_velocity(component.second.velocity);
+        component.second.pos += (component.second.velocity * delta_time);
+        if (component.second.pos.y > m_world_height)
+        {
+            component.second.pos.y -= m_world_height;
+        }
+        else if (component.second.pos.y < 0)
+        {
+            component.second.pos.y += m_world_height;
+        }
+        if (component.second.pos.x > m_world_width)
+        {
+            component.second.pos.x -= m_world_width;
+        }
+        else if (component.second.pos.x < 0)
+        {
+            component.second.pos.x += m_world_width;
+        }
+    }
+}

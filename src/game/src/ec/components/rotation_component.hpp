@@ -18,17 +18,15 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_ID_HPP
-#define COMPONENT_ID_HPP
+#ifndef ROTATION_COMPONENT_HPP
+#define ROTATION_COMPONENT_HPP
 
 #include <cstdint>
+#include "math/vector.hpp"
 
-enum class Component_id : std::int32_t
+struct Rotation_component
 {
-    physics = 0,
-    render = 1,
-    input = 2,
-    throttle = 3
+    float rotation{0.f};  // < rotation given as [0, 360[ degrees
 };
 
 #endif
