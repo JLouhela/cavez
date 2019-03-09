@@ -3,6 +3,8 @@ Cavez is a hobby project targeting to build an old school cave flying game. Such
 
 TODO: Write description of cave flyer games
 
+TOOD: Write build instructions: needs CMake and CMake variable set to SFML cmake scripts.
+
 Very rough "backlog" for anyone interested: https://trello.com/b/3sAzYxU9/cavez
 
 Status (9.3.2019): Renders sprite on screen which can be rotated with A and D.. :) Has some sort of physics in place for throttling, gravity and air resistance. Mainly entity-component architecture practice so far. 
