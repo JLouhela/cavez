@@ -44,30 +44,28 @@ void Throttle_system::update(float delta_time,
         if (entity.second.has_component(Component_id::throttle) &&
             entity.second.has_component(Component_id::physics))
         {
+            auto& physics_comps = component_container.physics_components;
+            auto& force =
+                physics_comps[entity.second.get_component_index(Component_id::physics)].force;
+
+            auto& throttle_comps = component_container.throttle_components;
+            if (throttle_comps[entity.second.get_component_index(Component_id::throttle)]
+                    .throttling == true)
             {
-                auto& physics_comps = component_container.physics_components;
-                auto& force =
-                    physics_comps[entity.second.get_component_index(Component_id::physics)].force;
+                auto& rotation =
+                    physics_comps[entity.second.get_component_index(Component_id::physics)]
+                        .rotation;
 
-                auto& throttle_comps = component_container.throttle_components;
-                if (throttle_comps[entity.second.get_component_index(Component_id::throttle)]
-                        .throttling == true)
-                {
-                    auto& rotation =
-                        physics_comps[entity.second.get_component_index(Component_id::physics)]
-                            .rotation;
-
-                    static constexpr float thrust_modifier = 10000;
-                    const float thrust_speed =
-                        throttle_comps[entity.second.get_component_index(Component_id::throttle)]
-                            .thrust_force *
-                        thrust_modifier;
-                    force += {std::sin(math::angle_utils::deg_to_rad(rotation)) * thrust_speed *
-                                  delta_time,
-                              std::cos(math::angle_utils::deg_to_rad(rotation + 180.f)) *
-                                  thrust_speed * delta_time};
-                    cap_force(force);
-                }
+                static constexpr float thrust_modifier = 10000;
+                const float thrust_speed =
+                    throttle_comps[entity.second.get_component_index(Component_id::throttle)]
+                        .thrust_force *
+                    thrust_modifier;
+                force +=
+                    {std::sin(math::angle_utils::deg_to_rad(rotation)) * thrust_speed * delta_time,
+                     std::cos(math::angle_utils::deg_to_rad(rotation + 180.f)) * thrust_speed *
+                         delta_time};
+                cap_force(force);
             }
         }
     }
