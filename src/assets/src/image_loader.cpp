@@ -18,28 +18,41 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#include "assets/image_loader.hpp"
+#include "SFML/Graphics/Image.hpp"
+#include "logger/logger.hpp"
+#include "res_path.hpp"
 
-#include "texture_id.hpp"
-#include <memory>
-
-namespace sf
+namespace
 {
-class Texture;
+std::vector<asset::Color> get_colors(const sf::Image& image)
+{
+    std::vector<asset::Color> res;
+    const auto size = image.getSize();
+    for (std::uint32_t x = 0; x < size.x; ++x)
+    {
+        for (std::uint32_t y = 0; y < size.y; ++y)
+        {
+            sf::Color pixel = image.getPixel(x, y);
+            res.emplace_back(pixel.r, pixel.g, pixel.b, pixel.a);
+        }
+    }
+    return res;
 }
+}  // namespace
+
 namespace asset
 {
-class Texture_manager_interface
+Image load_image(const std::string& name)
 {
-public:
-    virtual ~Texture_manager_interface() = default;
+    sf::Image img;
+    if (!img.loadFromFile(resource_path + "levels/" + name))
+    {
+        LOG_ERR << "Failed to load file " + name;
+        return Image{{}, 0, 0};
+    }
 
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
-};
-
+    std::vector<Color> colors = get_colors(img);
+    return {colors, img.getSize().x, img.getSize().y};
+}
 }  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
-
-#endif

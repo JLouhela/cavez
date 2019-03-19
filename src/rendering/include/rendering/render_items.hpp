@@ -27,7 +27,7 @@
 
 struct Render_tex
 {
-    Texture_id texture_id{asset::texture::invalid_texture_id};
+    asset::Texture_id texture_id{asset::texture::invalid_texture_id};
     math::Rect screen_rect;
     float rotation{0.f};  // < rotation given as [0, 360[ degrees
 };

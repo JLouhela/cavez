@@ -25,8 +25,13 @@
 Game_state_impl::Game_state_impl(Input_interface& input_interface)
     : m_entities{m_components}, m_entity_factory{m_entities, m_components, input_interface}
 {
-    // TEST
-    auto& debug_entity = m_entity_factory.create_debug_entity();
     LOG_DEBUG << "Game state up";
+}
+
+void Game_state_impl::initialize(Level level)
+{
+    m_level = std::move(level);
+    auto& debug_entity = m_entity_factory.create_debug_entity();
+    LOG_DEBUG << "Game state initialized";
     // debug_entity.delete_entity();
 }

@@ -24,6 +24,13 @@ set(GAME_FILES
     src/ec/components/physics_component.hpp
     src/ec/components/render_component.hpp
     src/ec/components/throttle_component.hpp
+    src/level/environment_types.hpp
+    src/level/environment_mapping.hpp
+    src/level/environment_mapping.cpp
+    src/level/level.hpp
+    src/level/level.cpp
+    src/level/level_builder.hpp
+    src/level/level_builder.cpp
     src/systems/input_system.hpp
     src/systems/input_system.cpp
     src/systems/physics_system.hpp

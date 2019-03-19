@@ -18,28 +18,13 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#include "assets/color.hpp"
 
-#include "texture_id.hpp"
-#include <memory>
-
-namespace sf
-{
-class Texture;
-}
 namespace asset
 {
-class Texture_manager_interface
+bool Color::operator==(const Color& other)
 {
-public:
-    virtual ~Texture_manager_interface() = default;
-
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
-};
+    return r == other.r && g == other.g && b == other.b && a == other.a;
+}
 
 }  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
-
-#endif

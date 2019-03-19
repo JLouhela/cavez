@@ -18,28 +18,33 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#include "level/level_builder.hpp"
+#include "assets/image_loader.hpp"
+#include "level/environment_mapping.hpp"
 
-#include "texture_id.hpp"
-#include <memory>
-
-namespace sf
+namespace
 {
-class Texture;
+Level load_debug_level()
+{
+    std::vector<Environment_type> environment;
+    const auto image = asset::load_image("debug_level.png");
+    for (std::uint32_t x = 0; x < image.get_width(); ++x)
+    {
+        for (std::uint32_t y = 0; y < image.get_height(); ++y)
+        {
+            const auto pixel = image.get_pixel(x, y);
+            environment.emplace_back(get_environment_type(pixel));
+        }
+    }
+    return Level{environment, asset::texture::debug_level};
 }
-namespace asset
+}  // namespace
+
+Level Level_builder::load_level(Level_id level_id)
 {
-class Texture_manager_interface
-{
-public:
-    virtual ~Texture_manager_interface() = default;
-
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
-};
-
-}  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
-
-#endif
+    if (level_id == Level_id::Debug_level)
+    {
+        return load_debug_level();
+    }
+    return Level{{}, asset::texture::invalid_texture_id};
+}

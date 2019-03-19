@@ -18,28 +18,15 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#ifndef IMAGE_LOADER_HPP
+#define IMAGE_LOADER_HPP
 
-#include "texture_id.hpp"
-#include <memory>
+#include <string>
+#include "assets/image.hpp"
 
-namespace sf
-{
-class Texture;
-}
 namespace asset
 {
-class Texture_manager_interface
-{
-public:
-    virtual ~Texture_manager_interface() = default;
-
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
-};
-
+Image load_image(const std::string& name);
 }  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
 
 #endif

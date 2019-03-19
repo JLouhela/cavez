@@ -26,6 +26,8 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "assets/texture_manager_interface.hpp"
 
+namespace asset
+{
 using Texture_map = std::unordered_map<Texture_id, sf::Texture>;
 
 class Texture_manager_impl : public Texture_manager_interface
@@ -39,5 +41,6 @@ public:
 private:
     Texture_map m_textures;
 };
+}  // namespace asset
 
 #endif

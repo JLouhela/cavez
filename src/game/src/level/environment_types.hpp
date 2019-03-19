@@ -18,28 +18,16 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#ifndef ENVIRONMENT_TYPES_HPP
+#define ENVIRONMENT_TYPES_HPP
 
-#include "texture_id.hpp"
-#include <memory>
+#include <cstdint>
 
-namespace sf
+enum class Environment_type : std::uint8_t
 {
-class Texture;
-}
-namespace asset
-{
-class Texture_manager_interface
-{
-public:
-    virtual ~Texture_manager_interface() = default;
-
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
+    blank = 0,
+    ground = 1,
+    immutable = 2
 };
-
-}  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
 
 #endif

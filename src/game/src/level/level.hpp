@@ -18,28 +18,22 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#ifndef LEVEL_HPP
+#define LEVEL_HPP
 
-#include "texture_id.hpp"
-#include <memory>
+#include <vector>
+#include "assets/texture_id.hpp"
+#include "level/environment_types.hpp"
 
-namespace sf
-{
-class Texture;
-}
-namespace asset
-{
-class Texture_manager_interface
+class Level
 {
 public:
-    virtual ~Texture_manager_interface() = default;
+    Level() = default;
+    Level(std::vector<Environment_type> environment, asset::Texture_id texture_id);
 
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
+private:
+    std::vector<Environment_type> m_environment;
+    asset::Texture_id m_texture_id{asset::texture::invalid_texture_id};
 };
-
-}  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
 
 #endif
