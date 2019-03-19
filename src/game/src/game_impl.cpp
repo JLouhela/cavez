@@ -51,6 +51,7 @@ Game_impl::Game_impl(const Game_config& config,
       m_cameras{create_cameras(config)}
 {
     LOG_DEBUG << "Game running";
+    m_state.initialize(m_level_builder.load_level(Level_id::Debug_level));
     // TODO game state manager which wraps up level + game state and handles
     // init
 }

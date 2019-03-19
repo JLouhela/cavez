@@ -18,27 +18,19 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#ifndef ENVIRONMENT_MAPPING_HPP
+#define ENVIRONMENT_MAPPING_HPP
 
-#include "texture_id.hpp"
+#include <cstdint>
+#include "assets/color.hpp"
+#include "environment_types.hpp"
 
-namespace sf
+namespace color_types
 {
-class Texture;
-}
-namespace asset
-{
-class Texture_manager_interface
-{
-public:
-    virtual ~Texture_manager_interface() = default;
+constexpr asset::Color ground = asset::Color{1, 1, 1};
+constexpr asset::Color immutable = asset::Color{99, 99, 99};
+}  // namespace color_types
 
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
-};
-
-}  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
+Environment_type get_environment_type(asset::Color color);
 
 #endif

@@ -18,27 +18,27 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#ifndef LEVEL_BUILDER_HPP
+#define LEVEL_BUILDER_HPP
 
-#include "texture_id.hpp"
+#include <cstdint>
+#include <string>
+#include <unordered_map>
 
-namespace sf
-{
-class Texture;
-}
-namespace asset
-{
-class Texture_manager_interface
-{
-public:
-    virtual ~Texture_manager_interface() = default;
+#include "level/level.hpp"
 
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
+enum class Level_id : std::uint8_t
+{
+    Debug_level = 0
 };
 
-}  // namespace asset
+class Level_builder
+{
+public:
+    Level load_level(Level_id level_id);
 
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
+private:
+    std::unordered_map<Level_id, std::string> m_levels;
+};
 
 #endif

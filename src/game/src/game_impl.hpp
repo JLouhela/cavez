@@ -25,6 +25,7 @@
 #include "camera/cameras.hpp"
 #include "game/game_interface.hpp"
 #include "game_state_impl.hpp"
+#include "level/level_builder.hpp"
 #include "systems/system_manager.hpp"
 
 class Rendering_interface;
@@ -55,6 +56,7 @@ private:
     System_manager m_system_manager;
     Game_state_impl m_state;
     Cameras m_cameras;
+    Level_builder m_level_builder;
 };
 
 #endif

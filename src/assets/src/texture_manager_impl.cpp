@@ -18,14 +18,14 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include "texture_manager_impl.hpp"
 #include <memory>
 #include "assets/texture_id.hpp"
 #include "res_path.hpp"
-#include "texture_manager_impl.hpp"
 
 namespace
 {
-void load_textures(Texture_map& texture_map)
+void load_textures(asset::Texture_map& texture_map)
 {
     sf::Texture ship_tex;
     if (ship_tex.loadFromFile(asset::resource_path + "textures/ship.png"))
@@ -35,6 +35,8 @@ void load_textures(Texture_map& texture_map)
 }
 }  // namespace
 
+namespace asset
+{
 Texture_manager_impl::Texture_manager_impl()
 {
     // TODO: open an interface to switch assets
@@ -55,8 +57,9 @@ const sf::Texture& Texture_manager_impl::get_texture(const Texture_id id) const
     }
     return iter->second;
 }
+}  // namespace asset
 
-std::unique_ptr<Texture_manager_interface> make_texture_manager()
+std::unique_ptr<asset::Texture_manager_interface> make_texture_manager()
 {
-    return std::make_unique<Texture_manager_impl>();
+    return std::make_unique<asset::Texture_manager_impl>();
 }

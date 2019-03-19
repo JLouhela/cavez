@@ -31,18 +31,21 @@ class RenderTarget;
 
 struct Rendering_target;
 
+namespace asset
+{
 class Texture_manager_interface;
+}
 class Rendering_impl : public Rendering_interface
 {
 public:
-    Rendering_impl(const Texture_manager_interface& texture_manager,
+    Rendering_impl(const asset::Texture_manager_interface& texture_manager,
                    Rendering_target& rendering_target);
     ~Rendering_impl() override = default;
 
     void render(const Render_tex& render_tex) override;
 
 private:
-    const Texture_manager_interface& m_texture_manager;
+    const asset::Texture_manager_interface& m_texture_manager;
     // TODO change to rendertarget
     // Init RenderWindow in main.cpp and pass rendertarget here
     // render Render_tex directly to this target

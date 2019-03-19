@@ -26,6 +26,7 @@
 #include "ec/entity_container.hpp"
 #include "ec/entity_factory.hpp"
 #include "game/game_state_interface.hpp"
+#include "level/level.hpp"
 
 #include <vector>
 
@@ -37,6 +38,8 @@ class Game_state_impl : public Game_state_interface
 public:
     explicit Game_state_impl(Input_interface& input_interface);
     ~Game_state_impl() override = default;
+
+    void initialize(Level level);
 
     const Component_container& get_components() const
     {
@@ -63,6 +66,7 @@ private:
     Component_container m_components;
     Entity_container m_entities;
     Entity_factory m_entity_factory;
+    Level m_level;
 };
 
 #endif

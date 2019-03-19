@@ -18,27 +18,31 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#ifndef COLOR_HPP
+#define COLOR_HPP
 
-#include "texture_id.hpp"
+#include <cstdint>
 
-namespace sf
-{
-class Texture;
-}
 namespace asset
 {
-class Texture_manager_interface
+struct Color
 {
-public:
-    virtual ~Texture_manager_interface() = default;
+    constexpr Color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a)
+        : r{r}, g{g}, b{b}, a{a}
+    {
+    }
+    constexpr Color(std::uint8_t r, std::uint8_t g, std::uint8_t b) : r{r}, g{g}, b{b}, a{255U}
+    {
+    }
 
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
+    bool operator==(const Color& other);
+
+    std::uint8_t r{0};
+    std::uint8_t g{0};
+    std::uint8_t b{0};
+    std::uint8_t a{0};
 };
 
 }  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
 
 #endif

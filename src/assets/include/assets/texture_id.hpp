@@ -23,14 +23,15 @@
 
 #include <cstdint>
 
-using Texture_id = std::int32_t;
-
 namespace asset
 {
+using Texture_id = std::int32_t;
+
 namespace texture
 {
 constexpr Texture_id invalid_texture_id = -1;
 constexpr Texture_id ship_tex = 1;
+constexpr Texture_id debug_level = 2;
 }  // namespace texture
 }  // namespace asset
 

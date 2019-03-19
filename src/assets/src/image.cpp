@@ -18,27 +18,18 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TEXTURE_MANAGER_INTERFACE_HPP
-#define TEXTURE_MANAGER_INTERFACE_HPP
+#include "assets/image.hpp"
 
-#include "texture_id.hpp"
-
-namespace sf
-{
-class Texture;
-}
 namespace asset
 {
-class Texture_manager_interface
+Image::Image(std::vector<Color> pixels, std::uint32_t width, std::uint32_t height)
+    : m_pixels{std::move(pixels)}, m_width{width}, m_height{height}
 {
-public:
-    virtual ~Texture_manager_interface() = default;
+}
 
-    virtual const sf::Texture& get_texture(Texture_id id) const = 0;
-};
+Color Image::get_pixel(std::uint32_t x, std::uint32_t y) const
+{
+    return m_pixels[x + m_width * y];
+}
 
 }  // namespace asset
-
-std::unique_ptr<asset::Texture_manager_interface> make_texture_manager();
-
-#endif
