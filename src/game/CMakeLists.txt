@@ -73,6 +73,7 @@ target_link_libraries(game
     PUBLIC
         game_interface
 	PRIVATE
+        assets
         input_interface
 		logger
 		math
