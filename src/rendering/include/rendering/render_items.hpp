@@ -24,6 +24,7 @@
 #include <cstdint>
 #include "assets/texture_id.hpp"
 #include "math/rect.hpp"
+#include <vector>
 
 struct Render_tex
 {
@@ -31,5 +32,12 @@ struct Render_tex
     math::Rect screen_rect;
     float rotation{0.f};  // < rotation given as [0, 360[ degrees
 };
+
+struct Render_array
+{
+    asset::Texture_id texture_id{asset::texture::invalid_texture_id};
+    std::vector<std::uint8_t> m_render_pixels;
+};
+
 
 #endif

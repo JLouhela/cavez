@@ -20,7 +20,7 @@
 
 #include "level/level.hpp"
 
-Level::Level(std::vector<Environment_type> environment, asset::Texture_id texture_id)
+Level::Level(std::vector<std::uint8_t> environment, asset::Texture_id texture_id)
     : m_environment{std::move(environment)}, m_texture_id{texture_id}
 {
 }
