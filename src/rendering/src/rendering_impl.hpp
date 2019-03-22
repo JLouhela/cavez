@@ -36,7 +36,7 @@ class Rendering_impl : public Rendering_interface
 {
 public:
     Rendering_impl(const Texture_manager_interface& texture_manager,
-                   Rendering_target& rendering_target);
+                   const Rendering_target& rendering_target);
     ~Rendering_impl() override = default;
 
     void render(const Render_tex& render_tex) override;

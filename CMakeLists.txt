@@ -14,7 +14,13 @@ if (${SFML_DIR} MATCHES "SFML_DIR_NOT_SET")
     message( FATAL_ERROR "SFML_DIR not defined, CMake will exit." )
 endif (${SFML_DIR} MATCHES "SFML_DIR_NOT_SET")
 
-set(SFML_STATIC_LIBRARIES TRUE)
+if (UNIX)
+    set(SFML_STATIC_LIBRARIES FALSE)
+else()
+    # TODO investigate SHARED usage 
+    set(SFML_STATIC_LIBRARIES TRUE)
+endif()
+
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 
 add_subdirectory(src)

@@ -39,6 +39,6 @@ public:
 };
 
 std::unique_ptr<Rendering_interface> make_rendering(
-    const Texture_manager_interface& texture_manager, Rendering_target& rendering_target);
+    const Texture_manager_interface& texture_manager, const Rendering_target& rendering_target);
 
 #endif

@@ -40,22 +40,22 @@ Entity_factory::Entity_factory(Entity_container& entity_container,
 Entity& Entity_factory::create_debug_entity()
 {
     auto& entity = m_entity_container.get_new_entity();
-    auto& phys_comp = m_component_container.physics_components.get_free_elem();
+    const auto& phys_comp = m_component_container.physics_components.get_free_elem();
     entity.add_component({Component_id::physics, phys_comp.first});
     phys_comp.second.get().pos = math::Vector2F{8.f, 8.f};
     phys_comp.second.get().velocity = math::Vector2F{0.f, 0.f};
     phys_comp.second.get().mass = 10;
 
-    auto& render_comp = m_component_container.render_components.get_free_elem();
+    const auto& render_comp = m_component_container.render_components.get_free_elem();
     render_comp.second.get().texture_rect = {0, 0, 6, 6};
     render_comp.second.get().texture_index = asset::texture::ship_tex;
     entity.add_component({Component_id::render, render_comp.first});
 
-    auto& throttle_comp = m_component_container.throttle_components.get_free_elem();
+    const auto& throttle_comp = m_component_container.throttle_components.get_free_elem();
     throttle_comp.second.get().thrust_force = 2.f;
     entity.add_component({Component_id::throttle, throttle_comp.first});
 
-    auto& input_comp = m_component_container.input_components.get_free_elem();
+    const auto& input_comp = m_component_container.input_components.get_free_elem();
     input_comp.second.get().input_id = m_input_interface.register_listener(
         {input::Key::key_w, input::Key::key_d, input::Key::key_a, input::Key::key_l_shift,
          input::Key::key_q, input::Key::key_s});

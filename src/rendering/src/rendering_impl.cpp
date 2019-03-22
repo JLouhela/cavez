@@ -28,7 +28,7 @@
 #include "rendering/rendering_target.hpp"
 
 Rendering_impl::Rendering_impl(const Texture_manager_interface& texture_manager,
-                               Rendering_target& rendering_target)
+                               const Rendering_target& rendering_target)
     : m_texture_manager{texture_manager},
       m_render_target{rendering_target.render_target.get()},
       m_scale{rendering_target.scale}
@@ -57,7 +57,7 @@ void Rendering_impl::render(const Render_tex& render_tex)
 }
 
 std::unique_ptr<Rendering_interface> make_rendering(
-    const Texture_manager_interface& texture_manager, Rendering_target& rendering_target)
+    const Texture_manager_interface& texture_manager, const Rendering_target& rendering_target)
 {
     return std::make_unique<Rendering_impl>(texture_manager, rendering_target);
 }
