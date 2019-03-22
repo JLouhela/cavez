@@ -5,7 +5,7 @@ TODO: Write description of cave flyer games
 
 Very rough "backlog" for anyone interested: https://trello.com/b/3sAzYxU9/cavez
 
-Status (9.3.2019): Renders sprite on screen which can be rotated with A and D.. :) Has some sort of physics in place for throttling, gravity and air resistance. Mainly entity-component architecture practice so far. Seems like physics operate differently on Linux.
+Status (9.3.2019): Renders sprite on screen which can be rotated with A and D, throttled with W. Has some sort of physics in place for gravity, air resistance and throttle force. Mainly entity-component architecture practice so far. Seems like physics operate differently on Linux.
 
 ## Building
 
