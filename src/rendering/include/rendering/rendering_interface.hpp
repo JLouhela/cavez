@@ -40,6 +40,9 @@ public:
     // app owns
     // TODO consider rendering inot framebuffer and finally render_frame to screen
     virtual void render(const Render_tex& render_tex) = 0;
+
+    virtual void render(const Render_array& render_array) = 0;
+
 };
 
 std::unique_ptr<Rendering_interface> make_rendering(

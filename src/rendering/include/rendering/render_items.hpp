@@ -36,7 +36,7 @@ struct Render_tex
 struct Render_array
 {
     asset::Texture_id texture_id{asset::texture::invalid_texture_id};
-    std::vector<std::uint8_t> m_render_pixels;
+    std::vector<bool> m_render_pixels;
 };
 
 

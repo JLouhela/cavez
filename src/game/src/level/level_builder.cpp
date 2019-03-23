@@ -26,14 +26,14 @@ namespace
 {
 Level load_debug_level()
 {
-    std::vector<std::uint8_t> environment;
+    std::vector<Environment_type> environment;
     const auto image = asset::load_image("debug_level.png");
     for (std::uint32_t x = 0; x < image.get_width(); ++x)
     {
         for (std::uint32_t y = 0; y < image.get_height(); ++y)
         {
             const auto pixel = image.get_pixel(x, y);
-            environment.emplace_back(static_cast<uint8_t>(get_environment_type(pixel)));
+            environment.emplace_back(get_environment_type(pixel));
         }
     }
     return Level{environment, asset::texture::debug_level};

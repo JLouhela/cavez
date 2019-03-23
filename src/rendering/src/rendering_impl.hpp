@@ -44,6 +44,8 @@ public:
 
     void render(const Render_tex& render_tex) override;
 
+    void render(const Render_array& render_array) override;
+
 private:
     const asset::Texture_manager_interface& m_texture_manager;
     // TODO change to rendertarget

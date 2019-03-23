@@ -56,6 +56,13 @@ void Rendering_impl::render(const Render_tex& render_tex)
     m_render_target.draw(sprite);
 }
 
+void Rendering_impl::render(const Render_array& render_array)
+{
+    // TODO check m_render_pixels -> render to a target using texture and %texw / texh
+    // may be too heavy :(
+    //m_render_pixels...
+}
+
 std::unique_ptr<Rendering_interface> make_rendering(
     const asset::Texture_manager_interface& texture_manager, const Rendering_target& rendering_target)
 {
