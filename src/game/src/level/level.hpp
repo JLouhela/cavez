@@ -32,6 +32,16 @@ public:
     Level() = default;
     Level(std::vector<Environment_type> environment, asset::Texture_id texture_id);
 
+    const std::vector<Environment_type> get_environment() const 
+    {
+        return m_environment;
+    }
+
+    asset::Texture_id get_texture_id() const
+    {
+        return m_texture_id;
+    }
+
 private:
     std::vector<Environment_type> m_environment;
     asset::Texture_id m_texture_id{asset::texture::invalid_texture_id};

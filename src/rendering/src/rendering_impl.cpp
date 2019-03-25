@@ -23,6 +23,7 @@
 #include "SFML/Graphics/RenderTarget.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
+#include "SFML/Graphics/VertexArray.hpp"
 #include "assets/texture_manager_interface.hpp"
 #include "logger/logger.hpp"
 #include "rendering/rendering_target.hpp"
@@ -58,9 +59,29 @@ void Rendering_impl::render(const Render_tex& render_tex)
 
 void Rendering_impl::render(const Render_array& render_array)
 {
-    // TODO check m_render_pixels -> render to a target using texture and %texw / texh
-    // may be too heavy :(
-    //m_render_pixels...
+    //TODO consider hashing / saving the pixels
+    const auto& pixels = render_array.render_pixels;
+    const auto& texture = m_texture_manager.get_texture(render_array.texture_id);
+    std::uint32_t pixel_count = 0;
+    for (const auto b : pixels)
+    {
+        pixel_count += static_cast<std::uint32_t>(b);
+    }
+    sf::VertexArray vertices(sf::Points, pixel_count);
+    for (std::uint32_t i = 0, vertex_idx = 0; i < pixels.size(); ++i)
+    {
+        if (!pixels[i])
+        {
+            continue;
+        }
+        const uint32_t x = i % render_array.width;
+        const uint32_t y = i / render_array.width;
+        auto& vertex = vertices[vertex_idx++]; 
+        vertex.position = {static_cast<decltype(vertex.position.x)>(x), static_cast<decltype(vertex.position.y)>(y)};
+        vertex.texCoords = {static_cast<decltype(vertex.texCoords.x)>(x % texture.getSize().x), static_cast<decltype(vertex.texCoords.y)>(y % texture.getSize().y)};
+    }
+    m_render_target.draw(vertices);
+
 }
 
 std::unique_ptr<Rendering_interface> make_rendering(

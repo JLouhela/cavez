@@ -66,3 +66,11 @@ void Render_system::render(const Cameras& cameras,
         }
     }
 }
+
+
+void Render_system::render(const Cameras& cameras,
+                           const Level& level)
+{
+// TODO: get area from level for each camera
+// Transform into Render_arrays, invoke rendering_interface
+}

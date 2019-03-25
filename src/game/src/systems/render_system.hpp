@@ -22,6 +22,7 @@
 #define RENDER_SYSTEM_HPP
 
 #include <cstddef>
+#include "level/level.hpp"
 #include "camera/cameras.hpp"
 
 class Rendering_interface;
@@ -36,6 +37,8 @@ public:
                 const Entity_container& entity_container,
                 const Component_container& component_container);
 
+    void render(const Cameras& cameras,
+                const Level& level);
 private:
     Rendering_interface& m_rendering_interface;
 };
