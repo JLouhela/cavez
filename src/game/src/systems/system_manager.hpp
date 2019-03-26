@@ -34,6 +34,7 @@ struct Component_container;
 class Entity_container;
 class Rendering_interface;
 class Input_interface;
+class Level;
 
 struct System_manager_config
 {
@@ -53,6 +54,7 @@ public:
                 Component_container& component_container);
 
     void render(Cameras& cameras,
+                const Level& level,
                 const Entity_container& entity_container,
                 const Component_container& component_container);
 

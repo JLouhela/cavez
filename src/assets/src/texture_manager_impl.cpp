@@ -32,6 +32,11 @@ void load_textures(asset::Texture_map& texture_map)
     {
         texture_map[asset::texture::ship_tex] = std::move(ship_tex);
     }
+    sf::Texture debug_level_tex;
+    if (debug_level_tex.loadFromFile(asset::resource_path + "textures/debug_level_tex.png"))
+    {
+        texture_map[asset::texture::debug_level] = std::move(debug_level_tex);
+    }
 }
 }  // namespace
 

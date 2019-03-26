@@ -33,7 +33,6 @@ Cameras create_cameras(const Game_config& config)
     Cameras cameras;
     cameras.emplace_back(
         math::Rect{0, 0, config.resolution.width, config.resolution.height},
-        math::Rect{0, 0, config.resolution.width * 2, config.resolution.height * 2},
         config.resolution.scale);
     return cameras;
 }
@@ -63,7 +62,7 @@ void Game_impl::update(float delta_time)
 
 void Game_impl::render(float delta_time)
 {
-    m_system_manager.render(m_cameras, m_state.get_entities(), m_state.get_components());
+    m_system_manager.render(m_cameras, m_state.get_level(), m_state.get_entities(), m_state.get_components());
 }
 
 void Game_impl::interpolate(float delta_time, Game_state_interface& game_state)

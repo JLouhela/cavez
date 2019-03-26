@@ -42,8 +42,10 @@ void System_manager::update(float delta_time,
 }
 
 void System_manager::render(Cameras& cameras,
+                            const Level& level,
                             const Entity_container& entities,
                             const Component_container& component_container)
 {
+    m_render_system.render(cameras, level);
     m_render_system.render(cameras, entities, component_container);
 }

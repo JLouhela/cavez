@@ -59,7 +59,7 @@ void Rendering_impl::render(const Render_tex& render_tex)
 
 void Rendering_impl::render(const Render_array& render_array)
 {
-    //TODO consider hashing / saving the pixels
+    // TODO consider hashing / saving the pixels
     const auto& pixels = render_array.render_pixels;
     const auto& texture = m_texture_manager.get_texture(render_array.texture_id);
     std::uint32_t pixel_count = 0;
@@ -76,16 +76,18 @@ void Rendering_impl::render(const Render_array& render_array)
         }
         const uint32_t x = i % render_array.width;
         const uint32_t y = i / render_array.width;
-        auto& vertex = vertices[vertex_idx++]; 
-        vertex.position = {static_cast<decltype(vertex.position.x)>(x), static_cast<decltype(vertex.position.y)>(y)};
-        vertex.texCoords = {static_cast<decltype(vertex.texCoords.x)>(x % texture.getSize().x), static_cast<decltype(vertex.texCoords.y)>(y % texture.getSize().y)};
+        auto& vertex = vertices[vertex_idx++];
+        vertex.position = {static_cast<decltype(vertex.position.x)>(x),
+                           static_cast<decltype(vertex.position.y)>(y)};
+        vertex.texCoords = {static_cast<decltype(vertex.texCoords.x)>(x % texture.getSize().x),
+                            static_cast<decltype(vertex.texCoords.y)>(y % texture.getSize().y)};
     }
     m_render_target.draw(vertices);
-
 }
 
 std::unique_ptr<Rendering_interface> make_rendering(
-    const asset::Texture_manager_interface& texture_manager, const Rendering_target& rendering_target)
+    const asset::Texture_manager_interface& texture_manager,
+    const Rendering_target& rendering_target)
 {
     return std::make_unique<Rendering_impl>(texture_manager, rendering_target);
 }

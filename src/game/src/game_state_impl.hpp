@@ -61,6 +61,16 @@ public:
         return m_entities;
     }
 
+    const Level& get_level() const
+    {
+        return m_level;
+    }
+
+    Level& get_level()
+    {
+        return m_level;
+    }
+
 private:
     // Component container: represents current state of entities
     Component_container m_components;
