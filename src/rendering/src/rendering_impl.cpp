@@ -42,6 +42,7 @@ void Rendering_impl::render(const Render_tex& render_tex)
     // TODO consider caching sprites if throttles, should be cheap though
     sf::Sprite sprite;
     sprite.setTexture(m_texture_manager.get_texture(render_tex.texture_id));
+    // TODO scale should be set to view, refactor
     sprite.setScale({static_cast<float>(m_scale), static_cast<float>(m_scale)});
 
     // TODO set texture rect to render target
@@ -82,6 +83,7 @@ void Rendering_impl::render(const Render_array& render_array)
         vertex.texCoords = {static_cast<decltype(vertex.texCoords.x)>(x % texture.getSize().x),
                             static_cast<decltype(vertex.texCoords.y)>(y % texture.getSize().y)};
     }
+    // TODO should upscale -> view for that
     m_render_target.draw(vertices);
 }
 

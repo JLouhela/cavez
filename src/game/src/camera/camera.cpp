@@ -32,7 +32,7 @@ void Camera::set_position(const math::Vector2I& world_position)
 
 const math::Rect Camera::get_world_rect() const
 {
-    return {m_world_pos.x, m_world_pos.y, m_screen_rect.w, m_screen_rect.h};
+    return {m_world_pos.x, m_world_pos.y, m_screen_rect.w / m_scale, m_screen_rect.h / m_scale};
 }
 
 std::pair<bool, math::Vector2I> Camera::get_screen_position(

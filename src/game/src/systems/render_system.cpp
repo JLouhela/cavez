@@ -33,9 +33,14 @@ std::vector<bool> get_pixels(const std::vector<Environment_type>& env, const mat
     std::vector<bool> pixels;
     pixels.reserve(world_rect.w * world_rect.h);
     const std::size_t last_index = world_rect.x + (world_rect.w * world_rect.h);
-    for (std::size_t i = world_rect.x; i < last_index; ++i)
+    for (std::size_t i = world_rect.x, w_counter = 0; i < last_index; ++i, ++w_counter)
     {
         pixels.emplace_back(env[i] != Environment_type::blank);
+        if (w_counter > world_rect.w)
+        {
+            i += world_rect.w;
+            w_counter = 0;
+        }
     }
     return pixels;
 }
