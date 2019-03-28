@@ -28,19 +28,20 @@
 
 namespace
 {
-std::vector<bool> get_pixels(const std::vector<Environment_type>& env, const math::Rect& world_rect)
+std::vector<bool> get_pixels(const Level& level,  const math::Rect& world_rect)
 {
     std::vector<bool> pixels;
     pixels.reserve(world_rect.w * world_rect.h);
-    const std::size_t last_index = world_rect.x + (world_rect.w * world_rect.h);
+    const auto& env = level.get_environment();
+    const std::size_t last_index = world_rect.x + world_rect.w + (level.get_width() * world_rect.h);
     for (std::size_t i = world_rect.x, w_counter = 0; i < last_index; ++i, ++w_counter)
     {
-        pixels.emplace_back(env[i] != Environment_type::blank);
-        if (w_counter > world_rect.w)
+        if (w_counter >= world_rect.w)
         {
-            i += world_rect.w;
+            i += level.get_width() - world_rect.w;
             w_counter = 0;
         }
+        pixels.emplace_back(env[i] != Environment_type::blank);
     }
     return pixels;
 }
@@ -94,7 +95,7 @@ void Render_system::render(const Cameras& cameras, const Level& level)
     for (const auto& camera : cameras)
     {
         const auto& world_rect = camera.get_world_rect();
-        const auto relevant_pixels = get_pixels(level.get_environment(), world_rect);
+        const auto relevant_pixels = get_pixels(level, world_rect);
         Render_array render_array;
         render_array.texture_id = level.get_texture_id();
         render_array.render_pixels = relevant_pixels;

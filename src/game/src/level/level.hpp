@@ -21,8 +21,8 @@
 #ifndef LEVEL_HPP
 #define LEVEL_HPP
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 #include "assets/texture_id.hpp"
 #include "level/environment_types.hpp"
 
@@ -30,9 +30,12 @@ class Level
 {
 public:
     Level() = default;
-    Level(std::vector<Environment_type> environment, asset::Texture_id texture_id);
+    Level(std::vector<Environment_type> environment,
+          std::uint32_t width,
+          std::uint32_t height,
+          asset::Texture_id texture_id);
 
-    const std::vector<Environment_type> get_environment() const 
+    const std::vector<Environment_type> get_environment() const
     {
         return m_environment;
     }
@@ -42,8 +45,19 @@ public:
         return m_texture_id;
     }
 
+    std::uint32_t get_width() const
+    {
+        return m_width;
+    }
+
+    std::uint32_t get_height() const
+    {
+        return m_height;
+    }
 private:
     std::vector<Environment_type> m_environment;
+    std::uint32_t m_width;
+    std::uint32_t m_height;
     asset::Texture_id m_texture_id{asset::texture::invalid_texture_id};
 };
 

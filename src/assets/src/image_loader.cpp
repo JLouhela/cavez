@@ -29,9 +29,9 @@ std::vector<asset::Color> get_colors(const sf::Image& image)
 {
     std::vector<asset::Color> res;
     const auto size = image.getSize();
-    for (std::uint32_t x = 0; x < size.x; ++x)
+    for (std::uint32_t y = 0; y < size.y; ++y)
     {
-        for (std::uint32_t y = 0; y < size.y; ++y)
+        for (std::uint32_t x = 0; x < size.x; ++x)
         {
             sf::Color pixel = image.getPixel(x, y);
             res.emplace_back(pixel.r, pixel.g, pixel.b, pixel.a);

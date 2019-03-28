@@ -58,6 +58,7 @@ void Rendering_impl::render(const Render_tex& render_tex)
     m_render_target.draw(sprite);
 }
 
+// This is crap :( just make it work for now
 void Rendering_impl::render(const Render_array& render_array)
 {
     // TODO consider hashing / saving the pixels

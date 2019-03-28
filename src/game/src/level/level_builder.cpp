@@ -36,7 +36,7 @@ Level load_debug_level()
             environment.emplace_back(get_environment_type(pixel));
         }
     }
-    return Level{environment, asset::texture::debug_level};
+    return Level{environment, image.get_width(), image.get_height(), asset::texture::debug_level};
 }
 }  // namespace
 
@@ -46,5 +46,5 @@ Level Level_builder::load_level(Level_id level_id)
     {
         return load_debug_level();
     }
-    return Level{{}, asset::texture::invalid_texture_id};
+    return Level{{}, 0U, 0U, asset::texture::invalid_texture_id};
 }
