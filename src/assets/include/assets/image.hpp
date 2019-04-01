@@ -32,7 +32,7 @@ class Image
 {
 public:
     Image(std::vector<Color> pixels, std::uint32_t width, std::uint32_t height);
-    Color get_pixel(std::uint32_t x, std::uint32_t y) const;
+    const Color& get_pixel(std::uint32_t x, std::uint32_t y) const;
 
     std::uint32_t get_width() const
     {
@@ -42,6 +42,11 @@ public:
     std::uint32_t get_height() const
     {
         return m_height;
+    }
+
+    const std::vector<Color>& get_pixels() const
+    {
+        return m_pixels;
     }
 
 private:

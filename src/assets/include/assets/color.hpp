@@ -27,6 +27,9 @@ namespace asset
 {
 struct Color
 {
+    constexpr Color() : r{0}, g{0}, b{0}, a{0}
+    {
+    }
     constexpr Color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a)
         : r{r}, g{g}, b{b}, a{a}
     {
@@ -35,12 +38,13 @@ struct Color
     {
     }
 
-    bool operator==(const Color& other);
+    bool operator==(const Color& other) const;
+    bool operator!=(const Color& other) const;
 
-    std::uint8_t r{0};
-    std::uint8_t g{0};
-    std::uint8_t b{0};
-    std::uint8_t a{0};
+    std::uint8_t r;
+    std::uint8_t g;
+    std::uint8_t b;
+    std::uint8_t a;
 };
 
 }  // namespace asset

@@ -22,9 +22,13 @@
 
 namespace asset
 {
-bool Color::operator==(const Color& other)
+bool Color::operator==(const Color& other) const
 {
     return r == other.r && g == other.g && b == other.b && a == other.a;
 }
 
+bool Color::operator!=(const Color& other) const
+{
+    return !operator==(other);
+}
 }  // namespace asset

@@ -27,7 +27,7 @@ Image::Image(std::vector<Color> pixels, std::uint32_t width, std::uint32_t heigh
 {
 }
 
-Color Image::get_pixel(std::uint32_t x, std::uint32_t y) const
+const Color& Image::get_pixel(std::uint32_t x, std::uint32_t y) const
 {
     return m_pixels[x + m_width * y];
 }
