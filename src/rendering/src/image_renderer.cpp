@@ -18,27 +18,14 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef RENDER_ITEMS_HPP
-#define RENDER_ITEMS_HPP
+#include "image_renderer.hpp"
+#include "SFML/Graphics/RenderTarget.hpp"
 
-#include <cstdint>
-#include <vector>
-#include "assets/color.hpp"
-#include "assets/texture_id.hpp"
-#include "math/rect.hpp"
-
-struct Render_tex
+namespace asset
 {
-    asset::Texture_id texture_id{asset::texture::invalid_texture_id};
-    math::Rect screen_rect;
-    float rotation{0.f};  // < rotation given as [0, 360[ degrees
-};
+    void render_to_target(const asset::Image& image, sf::RenderTarget& target)
+    {
+    }
+}
 
-struct Render_buffer_update
-{
-    int x{-1};
-    int y{-1};
-    asset::Color color{255, 255, 255, 255};
-};
 
-#endif

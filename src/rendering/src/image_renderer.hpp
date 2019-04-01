@@ -18,27 +18,19 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef RENDER_ITEMS_HPP
-#define RENDER_ITEMS_HPP
+#ifndef IMAGE_RENDERER_HPP
+#define IMAGE_RENDERER_HPP
 
-#include <cstdint>
-#include <vector>
-#include "assets/color.hpp"
-#include "assets/texture_id.hpp"
-#include "math/rect.hpp"
+#include "assets/image.hpp"
 
-struct Render_tex
+namespace sf
 {
-    asset::Texture_id texture_id{asset::texture::invalid_texture_id};
-    math::Rect screen_rect;
-    float rotation{0.f};  // < rotation given as [0, 360[ degrees
-};
+class RenderTarget;
+}
 
-struct Render_buffer_update
+namespace asset
 {
-    int x{-1};
-    int y{-1};
-    asset::Color color{255, 255, 255, 255};
-};
+    void render_to_target(const asset::Image& image, sf::RenderTarget& target);
+}
 
 #endif

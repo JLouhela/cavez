@@ -22,6 +22,10 @@
 #define RENDERING_IMPL_HPP
 
 #include <cstdint>
+#include <memory>
+#include <utility>
+#include <vector>
+#include "SFML/Graphics/RenderTexture.hpp"
 #include "rendering/rendering_interface.hpp"
 
 namespace sf
@@ -44,9 +48,22 @@ public:
 
     void render(const Render_tex& render_tex) override;
 
-    void render(const Render_array& render_array) override;
+    std::int32_t init_render_buffer(const asset::Image& image) override;
+
+    void update_render_buffer(std::int32_t buffer_idx,
+                              const std::vector<Render_buffer_update>& updates) override;
+
+    void render(std::int32_t buffer_idx,
+                const math::Rect& buffer_rect,
+                const math::Rect& screen_rect) override;
 
 private:
+    struct Render_buffer
+    {
+        std::int32_t idx{-1};
+        std::unique_ptr<sf::RenderTexture> render_tex{nullptr};
+    };
+    std::vector<Render_buffer> m_render_buffers;
     const asset::Texture_manager_interface& m_texture_manager;
     // TODO change to rendertarget
     // Init RenderWindow in main.cpp and pass rendertarget here

@@ -28,7 +28,7 @@
 
 namespace
 {
-std::vector<bool> get_pixels(const Level& level,  const math::Rect& world_rect)
+std::vector<bool> get_pixels(const Level& level, const math::Rect& world_rect)
 {
     std::vector<bool> pixels;
     pixels.reserve(world_rect.w * world_rect.h);
@@ -92,14 +92,7 @@ void Render_system::render(const Cameras& cameras,
 
 void Render_system::render(const Cameras& cameras, const Level& level)
 {
-    for (const auto& camera : cameras)
-    {
-        const auto& world_rect = camera.get_world_rect();
-        const auto relevant_pixels = get_pixels(level, world_rect);
-        Render_array render_array;
-        render_array.texture_id = level.get_texture_id();
-        render_array.render_pixels = relevant_pixels;
-        render_array.width = world_rect.w;
-        m_rendering_interface.render(render_array);
-    }
+    // TODO get buffer idx
+    // get coordinate rects from camera
+    // render ..
 }

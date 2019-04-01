@@ -2,7 +2,6 @@
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to
-/// deal in the Software without restriction, including without limitation the
 /// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
 /// sell copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
@@ -22,6 +21,7 @@
 #define RENDERING_INTERFACE_HPP
 
 #include <memory>
+#include "assets/image.hpp"
 #include "rendering/render_items.hpp"
 
 namespace asset
@@ -41,11 +41,18 @@ public:
     // TODO consider rendering inot framebuffer and finally render_frame to screen
     virtual void render(const Render_tex& render_tex) = 0;
 
-    virtual void render(const Render_array& render_array) = 0;
+    virtual std::int32_t init_render_buffer(const asset::Image& image) = 0;
 
+    virtual void update_render_buffer(std::int32_t buffer_idx,
+                                      const std::vector<Render_buffer_update>& updates) = 0;
+
+    virtual void render(std::int32_t buffer_idx,
+                        const math::Rect& buffer_rect,
+                        const math::Rect& screen_rect) = 0;
 };
 
 std::unique_ptr<Rendering_interface> make_rendering(
-    const asset::Texture_manager_interface& texture_manager, const Rendering_target& rendering_target);
+    const asset::Texture_manager_interface& texture_manager,
+    const Rendering_target& rendering_target);
 
 #endif

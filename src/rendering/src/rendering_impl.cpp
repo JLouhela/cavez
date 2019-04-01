@@ -25,6 +25,7 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/VertexArray.hpp"
 #include "assets/texture_manager_interface.hpp"
+#include "image_renderer.hpp"
 #include "logger/logger.hpp"
 #include "rendering/rendering_target.hpp"
 
@@ -58,34 +59,29 @@ void Rendering_impl::render(const Render_tex& render_tex)
     m_render_target.draw(sprite);
 }
 
-// This is crap :( just make it work for now
-void Rendering_impl::render(const Render_array& render_array)
+std::int32_t Rendering_impl::init_render_buffer(const asset::Image& image)
 {
-    // TODO consider hashing / saving the pixels
-    const auto& pixels = render_array.render_pixels;
-    const auto& texture = m_texture_manager.get_texture(render_array.texture_id);
-    std::uint32_t pixel_count = 0;
-    for (const auto b : pixels)
+    const auto idx = static_cast<std::int32_t>(m_render_buffers.size());
+    Render_buffer buffer{idx, std::make_unique<sf::RenderTexture>()};
+    if (!buffer.render_tex->create(image.get_width(), image.get_height()))
     {
-        pixel_count += static_cast<std::uint32_t>(b);
+        LOG_ERR << "Could not create render texture for render buffer";
+        return -1;
     }
-    sf::VertexArray vertices(sf::Points, pixel_count);
-    for (std::uint32_t i = 0, vertex_idx = 0; i < pixels.size(); ++i)
-    {
-        if (!pixels[i])
-        {
-            continue;
-        }
-        const uint32_t x = i % render_array.width;
-        const uint32_t y = i / render_array.width;
-        auto& vertex = vertices[vertex_idx++];
-        vertex.position = {static_cast<decltype(vertex.position.x)>(x),
-                           static_cast<decltype(vertex.position.y)>(y)};
-        vertex.texCoords = {static_cast<decltype(vertex.texCoords.x)>(x % texture.getSize().x),
-                            static_cast<decltype(vertex.texCoords.y)>(y % texture.getSize().y)};
-    }
-    // TODO should upscale -> view for that
-    m_render_target.draw(vertices);
+    render_to_target(image, *buffer.render_tex);
+    m_render_buffers.emplace_back(std::move(buffer));
+    return buffer.idx;
+}
+
+void Rendering_impl::update_render_buffer(std::int32_t buffer_idx,
+                                          const std::vector<Render_buffer_update>& updates)
+{
+}
+
+void Rendering_impl::render(std::int32_t buffer_idx,
+                            const math::Rect& buffer_rect,
+                            const math::Rect& screen_rect)
+{
 }
 
 std::unique_ptr<Rendering_interface> make_rendering(
