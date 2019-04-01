@@ -61,19 +61,18 @@ void Rendering_impl::render(const Render_tex& render_tex)
 
 std::int32_t Rendering_impl::init_render_buffer(const asset::Image& image)
 {
-    const auto idx = static_cast<std::int32_t>(m_render_buffers.size());
-    Render_buffer buffer{idx, std::make_unique<sf::RenderTexture>()};
-    if (!buffer.render_tex->create(image.get_width(), image.get_height()))
+    auto render_tex = std::make_unique<sf::RenderTexture>();
+    if (!render_tex->create(image.get_width(), image.get_height()))
     {
         LOG_ERR << "Could not create render texture for render buffer";
         return -1;
     }
-    render_to_target(image, *buffer.render_tex);
-    m_render_buffers.emplace_back(std::move(buffer));
-    return buffer.idx;
+    render_to_target(image, *render_tex);
+    m_render_buffers[m_next_buffer_idx] = std::move(render_tex);
+    return m_next_buffer_idx++;
 }
 
-void Rendering_impl::update_render_buffer(std::int32_t buffer_idx,
+void Rendering_impl::update_render_buffer(const std::int32_t buffer_idx,
                                           const std::vector<Render_buffer_update>& updates)
 {
 }
@@ -82,6 +81,11 @@ void Rendering_impl::render(std::int32_t buffer_idx,
                             const math::Rect& buffer_rect,
                             const math::Rect& screen_rect)
 {
+}
+
+void Rendering_impl::free_render_buffer(const std::int32_t buffer_idx)
+{
+    m_render_buffers.erase(buffer_idx);
 }
 
 std::unique_ptr<Rendering_interface> make_rendering(

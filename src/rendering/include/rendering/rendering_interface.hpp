@@ -35,13 +35,12 @@ class Rendering_interface
 public:
     virtual ~Rendering_interface() = default;
 
-    // TODO define structs for rendering
-    // TODO texture / asset manager between game and rendering
-    // app owns
     // TODO consider rendering inot framebuffer and finally render_frame to screen
     virtual void render(const Render_tex& render_tex) = 0;
 
     virtual std::int32_t init_render_buffer(const asset::Image& image) = 0;
+
+    virtual void free_render_buffer(std::int32_t buffer_idx) = 0;
 
     virtual void update_render_buffer(std::int32_t buffer_idx,
                                       const std::vector<Render_buffer_update>& updates) = 0;

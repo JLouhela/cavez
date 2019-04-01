@@ -24,7 +24,7 @@
 #include <cstdint>
 #include <memory>
 #include <utility>
-#include <vector>
+#include <unordered_map>
 #include "SFML/Graphics/RenderTexture.hpp"
 #include "rendering/rendering_interface.hpp"
 
@@ -50,6 +50,8 @@ public:
 
     std::int32_t init_render_buffer(const asset::Image& image) override;
 
+    void free_render_buffer(std::int32_t buffer_idx) override;
+
     void update_render_buffer(std::int32_t buffer_idx,
                               const std::vector<Render_buffer_update>& updates) override;
 
@@ -58,18 +60,14 @@ public:
                 const math::Rect& screen_rect) override;
 
 private:
-    struct Render_buffer
-    {
-        std::int32_t idx{-1};
-        std::unique_ptr<sf::RenderTexture> render_tex{nullptr};
-    };
-    std::vector<Render_buffer> m_render_buffers;
+    std::unordered_map<std::int32_t, std::unique_ptr<sf::RenderTexture>> m_render_buffers;
     const asset::Texture_manager_interface& m_texture_manager;
     // TODO change to rendertarget
     // Init RenderWindow in main.cpp and pass rendertarget here
     // render Render_tex directly to this target
     sf::RenderTarget& m_render_target;
     // TODO own rendertexture for level rendering
+    std::int32_t m_next_buffer_idx{1};
     std::uint8_t m_scale{1};
 };
 
