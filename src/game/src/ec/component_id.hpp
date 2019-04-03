@@ -28,7 +28,8 @@ enum class Component_id : std::int32_t
     physics = 0,
     render = 1,
     input = 2,
-    throttle = 3
+    throttle = 3,
+    camera_follow = 4
 };
 
 #endif

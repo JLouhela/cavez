@@ -20,6 +20,7 @@ set(GAME_FILES
 	src/ec/entity_factory.hpp
 	src/ec/entity_factory.cpp
     src/ec/static_array/static_array.hpp
+    src/ec/components/camera_follow_component.hpp
     src/ec/components/input_component.hpp
     src/ec/components/physics_component.hpp
     src/ec/components/render_component.hpp

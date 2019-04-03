@@ -22,11 +22,10 @@
 #define ROTATION_COMPONENT_HPP
 
 #include <cstdint>
-#include "math/vector.hpp"
 
-struct Rotation_component
+struct Camera_follow_component 
 {
-    float rotation{0.f};  // < rotation given as [0, 360[ degrees
+    std::int8_t camera_id;
 };
 
 #endif
