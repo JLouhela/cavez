@@ -20,19 +20,14 @@
 
 #include "camera/camera.hpp"
 
-Camera::Camera(const math::Rect& screen_rect, const std::uint8_t scale)
-    : m_screen_rect{screen_rect}, m_world_pos{0, 0}, m_scale{scale}
+Camera::Camera(const std::int8_t id, const math::Rect& screen_rect, const std::uint8_t scale)
+    : m_screen_rect{screen_rect}, m_world_pos{0, 0}, m_id{id}, m_scale{scale}
 {
 }
 
 void Camera::set_position(const math::Vector2I& world_position)
 {
     m_world_pos = world_position;
-}
-
-const math::Rect& Camera::get_screen_rect() const
-{
-    return m_screen_rect;
 }
 
 const math::Rect Camera::get_world_rect() const
@@ -53,7 +48,8 @@ std::pair<bool, math::Vector2I> Camera::get_screen_position(
     return std::make_pair(false, screen_pos);
 }
 
-std::pair<bool, math::Bounding_box> Camera::get_screen_area( const math::Bounding_box& world_area) const
+std::pair<bool, math::Bounding_box> Camera::get_screen_area(
+    const math::Bounding_box& world_area) const
 {
     auto top_left = get_screen_position(world_area.top_left);
     auto bottom_right = get_screen_position(world_area.bottom_right);
