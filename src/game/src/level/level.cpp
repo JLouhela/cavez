@@ -23,10 +23,10 @@
 Level::Level(std::vector<Environment_type> environment,
              std::uint32_t width,
              std::uint32_t height,
-             asset::Texture_id texture_id)
+             std::int32_t buffer_idx)
     : m_environment{std::move(environment)},
       m_width{width},
       m_height{height},
-      m_texture_id{texture_id}
+      m_buffer_idx{buffer_idx}
 {
 }

@@ -23,6 +23,8 @@
 #include <memory>
 #include "assets/image.hpp"
 #include "rendering/render_items.hpp"
+#include "math/rect.hpp"
+#include "math/vector.hpp"
 
 namespace asset
 {
@@ -47,7 +49,7 @@ public:
 
     virtual void render(std::int32_t buffer_idx,
                         const math::Rect& buffer_rect,
-                        const math::Rect& screen_rect) = 0;
+                        const math::Vector2I& screen_topleft) = 0;
 };
 
 std::unique_ptr<Rendering_interface> make_rendering(

@@ -43,9 +43,8 @@ void Rendering_impl::render(const Render_tex& render_tex)
     // TODO consider caching sprites if throttles, should be cheap though
     sf::Sprite sprite;
     sprite.setTexture(m_texture_manager.get_texture(render_tex.texture_id));
-    // TODO scale should be set to view, refactor
+    // TODO scale should be set to view? refactor?
     sprite.setScale({static_cast<float>(m_scale), static_cast<float>(m_scale)});
-
     // TODO set texture rect to render target
     // sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
     sprite.setOrigin(static_cast<float>(render_tex.screen_rect.w / 2.f),
@@ -56,6 +55,7 @@ void Rendering_impl::render(const Render_tex& render_tex)
     sprite.setRotation(render_tex.rotation);
 
     // Draw it
+    m_render_target.setActive(true);
     m_render_target.draw(sprite);
 }
 
@@ -68,6 +68,7 @@ std::int32_t Rendering_impl::init_render_buffer(const asset::Image& image)
         return -1;
     }
     render_to_target(image, *render_tex);
+    render_tex->display();
     m_render_buffers[m_next_buffer_idx] = std::move(render_tex);
     return m_next_buffer_idx++;
 }
@@ -75,12 +76,20 @@ std::int32_t Rendering_impl::init_render_buffer(const asset::Image& image)
 void Rendering_impl::update_render_buffer(const std::int32_t buffer_idx,
                                           const std::vector<Render_buffer_update>& updates)
 {
+    LOG_WARN << "Update render buffer not implemented";
 }
 
-void Rendering_impl::render(std::int32_t buffer_idx,
+void Rendering_impl::render(const std::int32_t buffer_idx,
                             const math::Rect& buffer_rect,
-                            const math::Rect& screen_rect)
+                            const math::Vector2I& screen_topleft)
 {
+    const auto& texture = m_render_buffers[buffer_idx]->getTexture();
+    sf::Sprite sprite(texture);
+    sprite.setPosition(static_cast<float>(screen_topleft.x), static_cast<float>(screen_topleft.y));
+    sprite.setTextureRect({buffer_rect.x, buffer_rect.y, buffer_rect.w, buffer_rect.h});
+     sprite.setScale({static_cast<float>(m_scale), static_cast<float>(m_scale)});
+    m_render_target.setActive(true);
+    m_render_target.draw(sprite);
 }
 
 void Rendering_impl::free_render_buffer(const std::int32_t buffer_idx)

@@ -30,6 +30,11 @@ void Camera::set_position(const math::Vector2I& world_position)
     m_world_pos = world_position;
 }
 
+const math::Rect& Camera::get_screen_rect() const
+{
+    return m_screen_rect;
+}
+
 const math::Rect Camera::get_world_rect() const
 {
     return {m_world_pos.x, m_world_pos.y, m_screen_rect.w / m_scale, m_screen_rect.h / m_scale};
@@ -48,8 +53,7 @@ std::pair<bool, math::Vector2I> Camera::get_screen_position(
     return std::make_pair(false, screen_pos);
 }
 
-std::pair<bool, math::Bounding_box> Camera::get_screen_area(
-    const math::Bounding_box& world_area) const
+std::pair<bool, math::Bounding_box> Camera::get_screen_area( const math::Bounding_box& world_area) const
 {
     auto top_left = get_screen_position(world_area.top_left);
     auto bottom_right = get_screen_position(world_area.bottom_right);

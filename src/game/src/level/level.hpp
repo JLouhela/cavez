@@ -33,16 +33,11 @@ public:
     Level(std::vector<Environment_type> environment,
           std::uint32_t width,
           std::uint32_t height,
-          asset::Texture_id texture_id);
+          std::int32_t buffer_idx);
 
     const std::vector<Environment_type> get_environment() const
     {
         return m_environment;
-    }
-
-    asset::Texture_id get_texture_id() const
-    {
-        return m_texture_id;
     }
 
     std::uint32_t get_width() const
@@ -54,11 +49,17 @@ public:
     {
         return m_height;
     }
+
+    std::int32_t get_buffer_index() const
+    {
+        return m_buffer_idx;
+    }
+
 private:
     std::vector<Environment_type> m_environment;
     std::uint32_t m_width;
     std::uint32_t m_height;
-    asset::Texture_id m_texture_id{asset::texture::invalid_texture_id};
+    std::int32_t m_buffer_idx{-1};
 };
 
 #endif

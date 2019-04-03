@@ -32,10 +32,12 @@ enum class Level_id : std::uint8_t
     Debug_level = 0
 };
 
+class Rendering_interface;
+
 class Level_builder
 {
 public:
-    Level load_level(Level_id level_id);
+    Level load_level(Rendering_interface& rendering_interface, Level_id level_id);
 
 private:
     std::unordered_map<Level_id, std::string> m_levels;

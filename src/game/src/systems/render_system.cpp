@@ -26,27 +26,6 @@
 #include "rendering/render_items.hpp"
 #include "rendering/rendering_interface.hpp"
 
-namespace
-{
-std::vector<bool> get_pixels(const Level& level, const math::Rect& world_rect)
-{
-    std::vector<bool> pixels;
-    pixels.reserve(world_rect.w * world_rect.h);
-    const auto& env = level.get_environment();
-    const std::size_t last_index = world_rect.x + world_rect.w + (level.get_width() * world_rect.h);
-    for (std::size_t i = world_rect.x, w_counter = 0; i < last_index; ++i, ++w_counter)
-    {
-        if (w_counter >= world_rect.w)
-        {
-            i += level.get_width() - world_rect.w;
-            w_counter = 0;
-        }
-        pixels.emplace_back(env[i] != Environment_type::blank);
-    }
-    return pixels;
-}
-}
-
 Render_system::Render_system(Rendering_interface& rendering_interface)
     : m_rendering_interface{rendering_interface}
 {
@@ -95,4 +74,11 @@ void Render_system::render(const Cameras& cameras, const Level& level)
     // TODO get buffer idx
     // get coordinate rects from camera
     // render ..
+    // TODO adapt rendering side
+    for (const auto& camera : cameras)
+    {
+        const auto& screen_rect = camera.get_screen_rect();
+        m_rendering_interface.render(level.get_buffer_index(), camera.get_world_rect(),
+                                     {screen_rect.x, screen_rect.y});
+    }
 }

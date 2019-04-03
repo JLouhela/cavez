@@ -35,8 +35,10 @@ public:
 
     void set_position(const math::Vector2I& world_position);
 
+    const math::Rect& get_screen_rect() const;
+
     const math::Rect get_world_rect() const;
-    
+
     // Return pair: first - within camera, second - translated coords
     std::pair<bool, math::Vector2I> get_screen_position(const math::Vector2I& world_position) const;
 

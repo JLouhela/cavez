@@ -21,30 +21,33 @@
 #include "level/level_builder.hpp"
 #include "assets/image_loader.hpp"
 #include "level/environment_mapping.hpp"
+#include "rendering/rendering_interface.hpp"
 
 namespace
 {
-Level load_debug_level()
+Level load_debug_level(Rendering_interface& rendering_interface)
 {
     std::vector<Environment_type> environment;
-    const auto image = asset::load_image("debug_level.png");
-    for (std::uint32_t x = 0; x < image.get_width(); ++x)
+    const auto lvl_image = asset::load_image("levels/debug_level.png");
+    for (std::uint32_t x = 0; x < lvl_image.get_width(); ++x)
     {
-        for (std::uint32_t y = 0; y < image.get_height(); ++y)
+        for (std::uint32_t y = 0; y < lvl_image.get_height(); ++y)
         {
-            const auto pixel = image.get_pixel(x, y);
+            const auto pixel = lvl_image.get_pixel(x, y);
             environment.emplace_back(get_environment_type(pixel));
         }
     }
-    return Level{environment, image.get_width(), image.get_height(), asset::texture::debug_level};
+    const auto lvl_overlay_img = asset::load_image("levels/debug_level_ol.png"); 
+    const auto buffer_idx = rendering_interface.init_render_buffer(lvl_overlay_img);
+    return Level{environment, lvl_image.get_width(), lvl_image.get_height(), buffer_idx};
 }
 }  // namespace
 
-Level Level_builder::load_level(Level_id level_id)
+Level Level_builder::load_level(Rendering_interface& rendering_interface, Level_id level_id)
 {
     if (level_id == Level_id::Debug_level)
     {
-        return load_debug_level();
+        return load_debug_level(rendering_interface);
     }
     return Level{{}, 0U, 0U, asset::texture::invalid_texture_id};
 }

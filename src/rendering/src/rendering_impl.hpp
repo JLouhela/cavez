@@ -57,7 +57,7 @@ public:
 
     void render(std::int32_t buffer_idx,
                 const math::Rect& buffer_rect,
-                const math::Rect& screen_rect) override;
+                const math::Vector2I& screen_topleft) override;
 
 private:
     std::unordered_map<std::int32_t, std::unique_ptr<sf::RenderTexture>> m_render_buffers;

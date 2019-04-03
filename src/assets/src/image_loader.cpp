@@ -46,7 +46,7 @@ namespace asset
 Image load_image(const std::string& name)
 {
     sf::Image img;
-    if (!img.loadFromFile(resource_path + "levels/" + name))
+    if (!img.loadFromFile(resource_path + name))
     {
         LOG_ERR << "Failed to load file " + name;
         return Image{{}, 0, 0};
