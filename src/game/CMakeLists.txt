@@ -32,6 +32,8 @@ set(GAME_FILES
     src/level/level.cpp
     src/level/level_builder.hpp
     src/level/level_builder.cpp
+    src/systems/camera_follow_system.hpp
+    src/systems/camera_follow_system.cpp
     src/systems/input_system.hpp
     src/systems/input_system.cpp
     src/systems/physics_system.hpp

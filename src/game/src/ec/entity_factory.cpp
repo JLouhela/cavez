@@ -51,6 +51,10 @@ Entity& Entity_factory::create_debug_entity()
     render_comp.second.get().texture_index = asset::texture::ship_tex;
     entity.add_component({Component_id::render, render_comp.first});
 
+    const auto& camera_follow_comp = m_component_container.camera_follow_components.get_free_elem();
+    camera_follow_comp.second.get().camera_id = 1;
+    entity.add_component({Component_id::camera_follow, camera_follow_comp.first});
+
     const auto& throttle_comp = m_component_container.throttle_components.get_free_elem();
     throttle_comp.second.get().thrust_force = 2.f;
     entity.add_component({Component_id::throttle, throttle_comp.first});

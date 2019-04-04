@@ -35,6 +35,19 @@ struct Vector2
 using Vector2I = Vector2<std::int32_t>;
 using Vector2F = Vector2<float>;
 
+// TODO think if implicit cast possible
+template <typename U>
+Vector2<U> vector_cast(const Vector2I& other)
+{
+    return {static_cast<U>(other.x), static_cast<U>(other.y)};
+}
+
+template <typename U>
+Vector2<U> vector_cast(const Vector2F& other)
+{
+    return {static_cast<U>(other.x), static_cast<U>(other.y)};
+}
+
 template <typename T>
 Vector2<T> operator+(const Vector2<T>& lhs, const std::int32_t rhs)
 {

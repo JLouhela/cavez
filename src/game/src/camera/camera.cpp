@@ -25,12 +25,18 @@ Camera::Camera(const std::int8_t id, const math::Rect& screen_rect, const std::u
 {
 }
 
-void Camera::set_position(const math::Vector2I& world_position)
+void Camera::set_position(const math::Vector2I& top_left)
 {
-    m_world_pos = world_position;
+    m_world_pos = {top_left.x, top_left.y};
 }
 
-const math::Rect Camera::get_world_rect() const
+void Camera::center_position(const math::Vector2I& center)
+{
+    m_world_pos = {center.x - m_screen_rect.w / m_scale / 2,
+                   center.y - m_screen_rect.h / m_scale / 2};
+}
+
+math::Rect Camera::get_world_rect() const
 {
     return {m_world_pos.x, m_world_pos.y, m_screen_rect.w / m_scale, m_screen_rect.h / m_scale};
 }
@@ -40,12 +46,15 @@ std::pair<bool, math::Vector2I> Camera::get_screen_position(
 {
     math::Vector2I screen_pos{(world_position.x - m_world_pos.x) * m_scale,
                               (world_position.y - m_world_pos.y) * m_scale};
-    if (screen_pos.x >= m_screen_rect.x && screen_pos.x < m_screen_rect.x + m_screen_rect.w &&
-        screen_pos.y > m_screen_rect.y && screen_pos.y < m_screen_rect.y + m_screen_rect.h)
+
+    const auto world_rect = get_world_rect();
+    if (world_position.x < world_rect.x ||
+        world_position.x > world_rect.x + world_rect.w || world_position.y < world_rect.y ||
+        world_position.y > world_rect.y + world_rect.h)
     {
-        return std::make_pair(true, screen_pos);
+        return std::make_pair(false, screen_pos);
     }
-    return std::make_pair(false, screen_pos);
+    return std::make_pair(true, screen_pos);
 }
 
 std::pair<bool, math::Bounding_box> Camera::get_screen_area(

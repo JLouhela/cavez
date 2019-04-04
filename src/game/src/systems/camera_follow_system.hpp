@@ -18,16 +18,21 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ROTATION_SYSTEM_HPP
-#define ROTATION_SYSTEM_HPP
+#ifndef CAMERA_FOLLOW_SYSTEM_HPP
+#define CAMERA_FOLLOW_SYSTEM_HPP
 
 #include <cstdint>
+#include "camera/cameras.hpp"
 #include "ec/component_container.hpp"
 
-class Rotation_system
+class Entity_container;
+class Camera_follow_system
 {
 public:
-    void update(float delta_time, Component_container& component_container);
+    void update(float delta_time,
+                Cameras& cameras,
+                Entity_container& entity_container,
+                Component_container& component_container);
 };
 
 #endif

@@ -19,8 +19,10 @@
 /// IN THE SOFTWARE.
 
 #include "level/level_builder.hpp"
+#include <type_traits>
 #include "assets/image_loader.hpp"
 #include "level/environment_mapping.hpp"
+#include "logger/logger.hpp"
 #include "rendering/rendering_interface.hpp"
 
 namespace
@@ -37,7 +39,7 @@ Level load_debug_level(Rendering_interface& rendering_interface)
             environment.emplace_back(get_environment_type(pixel));
         }
     }
-    const auto lvl_overlay_img = asset::load_image("levels/debug_level_ol.png"); 
+    const auto lvl_overlay_img = asset::load_image("levels/debug_level_ol.png");
     const auto buffer_idx = rendering_interface.init_render_buffer(lvl_overlay_img);
     return Level{environment, lvl_image.get_width(), lvl_image.get_height(), buffer_idx};
 }
@@ -45,8 +47,10 @@ Level load_debug_level(Rendering_interface& rendering_interface)
 
 Level Level_builder::load_level(Rendering_interface& rendering_interface, Level_id level_id)
 {
+    LOG_INFO << "Loading level"; 
     if (level_id == Level_id::Debug_level)
     {
+        LOG_INFO << "Level loaded";
         return load_debug_level(rendering_interface);
     }
     return Level{{}, 0U, 0U, asset::texture::invalid_texture_id};

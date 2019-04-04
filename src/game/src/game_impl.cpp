@@ -31,7 +31,8 @@ Cameras create_cameras(const Game_config& config)
     Cameras cameras;
     // TODO put constants somewhere
     static constexpr std::int8_t player_1_camera_id = 1;
-    cameras.emplace_back(player_1_camera_id, math::Rect{0, 0, config.resolution.width, config.resolution.height}, 
+    cameras.emplace_back(player_1_camera_id,
+                         math::Rect{0, 0, config.resolution.width, config.resolution.height},
                          config.resolution.scale);
     return cameras;
 }
@@ -41,22 +42,23 @@ Game_impl::Game_impl(const Game_config& config,
                      Rendering_interface& rendering_interface,
                      Input_interface& input_interface)
     : m_config{config},
-      m_system_manager{{config.resolution.width / config.resolution.scale,
-                        config.resolution.height / config.resolution.scale},
-                       rendering_interface,
-                       input_interface},  // TODO provide level size
+      m_system_manager{rendering_interface, input_interface},
       m_state{input_interface},
       m_cameras{create_cameras(config)}
 {
     LOG_DEBUG << "Game running";
-    m_state.initialize(m_level_builder.load_level(rendering_interface, Level_id::Debug_level));
+    auto level = m_level_builder.load_level(rendering_interface, Level_id::Debug_level);
+    m_state.initialize(level);
+    m_system_manager.set_world_bounds(
+        {static_cast<std::int32_t>(level.get_width()), static_cast<int32_t>(level.get_height())});
     // TODO game state manager which wraps up level + game state and handles
     // init
 }
 
 void Game_impl::update(float delta_time)
 {
-    m_system_manager.update(delta_time, m_state.get_entities(), m_state.get_components());
+    m_system_manager.update(delta_time, m_cameras, m_state.get_entities(),
+                            m_state.get_components());
 }
 
 void Game_impl::render(float delta_time)

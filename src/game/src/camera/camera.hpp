@@ -33,14 +33,17 @@ class Camera
 public:
     Camera(std::int8_t id, const math::Rect& screen_rect, std::uint8_t scale);
 
-    void set_position(const math::Vector2I& world_position);
+    void set_position(const math::Vector2I& top_left);
+
+    void center_position(const math::Vector2I& center);
 
     const math::Rect& get_screen_rect() const
     {
         return m_screen_rect;
     }
-    const math::Rect get_world_rect() const;
 
+    math::Rect get_world_rect() const;
+    
     // Return pair: first - within camera, second - translated coords
     std::pair<bool, math::Vector2I> get_screen_position(const math::Vector2I& world_position) const;
 

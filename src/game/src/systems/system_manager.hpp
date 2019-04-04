@@ -21,7 +21,9 @@
 #ifndef SYSTEM_MANAGER_HPP
 #define SYSTEM_MANAGER_HPP
 
+#include "math/vector.hpp"
 #include "camera/cameras.hpp"
+#include "systems/camera_follow_system.hpp"
 #include "systems/input_system.hpp"
 #include "systems/physics_system.hpp"
 #include "systems/render_system.hpp"
@@ -36,20 +38,16 @@ class Rendering_interface;
 class Input_interface;
 class Level;
 
-struct System_manager_config
-{
-    std::int32_t world_width{0};
-    std::int32_t world_height{0};
-};
-
 class System_manager
 {
 public:
-    System_manager(const System_manager_config& cfg,
-                   Rendering_interface& rendering_interface,
+    System_manager(Rendering_interface& rendering_interface,
                    const Input_interface& input_interface);
 
+    void set_world_bounds(const math::Vector2I& bounds);
+
     void update(float delta_time,
+                Cameras& cameras,
                 Entity_container& entities,
                 Component_container& component_container);
 
@@ -63,7 +61,7 @@ private:
     Render_system m_render_system;
     Throttle_system m_throttle_system;
     Physics_system m_physics_system;
-    System_manager_config m_config;
+    Camera_follow_system m_camera_follow_system;
 };
 
 #endif
