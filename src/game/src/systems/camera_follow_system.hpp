@@ -18,39 +18,21 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "systems/rotation_system.hpp"
+#ifndef CAMERA_FOLLOW_SYSTEM_HPP
+#define CAMERA_FOLLOW_SYSTEM_HPP
 
-#include <algorithm>
 #include <cstdint>
+#include "camera/cameras.hpp"
+#include "ec/component_container.hpp"
 
-void Rotation_system::update(float delta_time, Component_container& component_container)
+class Entity_container;
+class Camera_follow_system
 {
-    static constexpr float gravity = 50.0f;
-    for (auto& component : component_container.rotation_components)
-    {
-        if (!component.first)
-        {
-            continue;
-        }
-        component.second.velocity += component.second.force / component.second.mass * delta_time;
-        component.second.velocity += math::Vector2F{0, gravity * delta_time};
-        cap_velocity(component.second.velocity);
-        component.second.pos += (component.second.velocity * delta_time);
-        if (component.second.pos.y > m_world_height)
-        {
-            component.second.pos.y -= m_world_height;
-        }
-        else if (component.second.pos.y < 0)
-        {
-            component.second.pos.y += m_world_height;
-        }
-        if (component.second.pos.x > m_world_width)
-        {
-            component.second.pos.x -= m_world_width;
-        }
-        else if (component.second.pos.x < 0)
-        {
-            component.second.pos.x += m_world_width;
-        }
-    }
-}
+public:
+    void update(float delta_time,
+                Cameras& cameras,
+                Entity_container& entity_container,
+                Component_container& component_container);
+};
+
+#endif

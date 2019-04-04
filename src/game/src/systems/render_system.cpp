@@ -71,10 +71,6 @@ void Render_system::render(const Cameras& cameras,
 
 void Render_system::render(const Cameras& cameras, const Level& level)
 {
-    // TODO get buffer idx
-    // get coordinate rects from camera
-    // render ..
-    // TODO adapt rendering side
     for (const auto& camera : cameras)
     {
         const auto& screen_rect = camera.get_screen_rect();

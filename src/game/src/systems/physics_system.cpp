@@ -65,9 +65,10 @@ void apply_resistance(math::Vector2F& force)
 
 }  // namespace
 
-Physics_system::Physics_system(std::int32_t world_width, std::int32_t world_height)
-    : m_world_width{world_width}, m_world_height{world_height}
+void Physics_system::set_world_bounds(const math::Vector2I& bounds)
 {
+    m_world_width = bounds.x;
+    m_world_height = bounds.y;
 }
 
 void Physics_system::update(float delta_time, Component_container& component_container)

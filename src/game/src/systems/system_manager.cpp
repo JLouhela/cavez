@@ -22,23 +22,26 @@
 #include "ec/component_container.hpp"
 #include "ec/entity_container.hpp"
 
-System_manager::System_manager(const System_manager_config& cfg,
-                               Rendering_interface& rendering_interface,
+System_manager::System_manager(Rendering_interface& rendering_interface,
                                const Input_interface& input_interface)
-    : m_input_system{input_interface},
-      m_render_system{rendering_interface},
-      m_physics_system{cfg.world_width, cfg.world_height},
-      m_config{cfg}
+    : m_input_system{input_interface}, m_render_system{rendering_interface}, m_physics_system{}
 {
 }
 
+void System_manager::set_world_bounds(const math::Vector2I& bounds)
+{
+    m_physics_system.set_world_bounds(bounds);
+}
+
 void System_manager::update(float delta_time,
+                            Cameras& cameras,
                             Entity_container& entities,
                             Component_container& component_container)
 {
     m_input_system.update(delta_time, entities, component_container);
     m_throttle_system.update(delta_time, entities, component_container);
     m_physics_system.update(delta_time, component_container);
+    m_camera_follow_system.update(delta_time, cameras, entities, component_container);
 }
 
 void System_manager::render(Cameras& cameras,

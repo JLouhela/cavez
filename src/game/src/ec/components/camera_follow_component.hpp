@@ -18,16 +18,14 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef ROTATION_SYSTEM_HPP
-#define ROTATION_SYSTEM_HPP
+#ifndef ROTATION_COMPONENT_HPP
+#define ROTATION_COMPONENT_HPP
 
 #include <cstdint>
-#include "ec/component_container.hpp"
 
-class Rotation_system
+struct Camera_follow_component 
 {
-public:
-    void update(float delta_time, Component_container& component_container);
+    std::int8_t camera_id;
 };
 
 #endif

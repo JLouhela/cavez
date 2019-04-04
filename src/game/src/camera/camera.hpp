@@ -31,14 +31,19 @@
 class Camera
 {
 public:
-    Camera(const math::Rect& screen_rect, std::uint8_t scale);
+    Camera(std::int8_t id, const math::Rect& screen_rect, std::uint8_t scale);
 
-    void set_position(const math::Vector2I& world_position);
+    void set_position(const math::Vector2I& top_left);
 
-    const math::Rect& get_screen_rect() const;
+    void center_position(const math::Vector2I& center);
 
-    const math::Rect get_world_rect() const;
+    const math::Rect& get_screen_rect() const
+    {
+        return m_screen_rect;
+    }
 
+    math::Rect get_world_rect() const;
+    
     // Return pair: first - within camera, second - translated coords
     std::pair<bool, math::Vector2I> get_screen_position(const math::Vector2I& world_position) const;
 
@@ -48,9 +53,15 @@ public:
     // Return pair: first - within camera, second - translated area
     std::pair<bool, math::Rect> get_screen_rect(const math::Rect& world_rect) const;
 
+    std::int8_t get_id() const
+    {
+        return m_id;
+    }
+
 private:
     math::Vector2I m_world_pos;
     math::Rect m_screen_rect;
+    std::int8_t m_id;
     std::uint8_t m_scale;
 };
 
