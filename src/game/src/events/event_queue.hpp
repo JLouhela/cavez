@@ -18,20 +18,11 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "systems/terrain_collision_detect_system.hpp"
-#include "level/level.hpp"
-#include "math/bresenham.hpp"
+#ifndef EVENT_QUEUE_HPP
+#define EVENT_QUEUE_HPP
 
-std::vector<Terrain_collision_event> Terrain_collision_detect_system::update(
-    float delta_time,
-    Entity_container& entity_container,
-    Component_container& component_container,
-    const Level& level)
+class Event_queue
 {
-    // TODO find entities with terrain collider + physics
-    // get previous and new locations => calculate line using bresenham
-    // iterate line coords and check for terrain
-    // hope for the best
-    std::vector<Terrain_collision_event> res;
-    return res;
-}
+};
+
+#endif

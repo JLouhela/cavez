@@ -29,6 +29,7 @@
 #include "components/input_component.hpp"
 #include "components/physics_component.hpp"
 #include "components/render_component.hpp"
+#include "components/collider_component.hpp"
 #include "components/throttle_component.hpp"
 #include "static_array/static_array.hpp"
 
@@ -36,6 +37,7 @@ constexpr std::size_t max_components = 1000;
 
 using Physics_components = Static_array<Physics_component, max_components>;
 using Render_components = Static_array<Render_component, max_components>;
+using Collider_components = Static_array<Collider_component, max_components>;
 using Throttle_components = Static_array<Throttle_component, max_components>;
 using Camera_follow_components = Static_array<Camera_follow_component, 8>;
 using Input_components = Static_array<Input_component, 8>;
@@ -46,6 +48,7 @@ struct Component_container
     Render_components render_components;
     Input_components input_components;
     Throttle_components throttle_components;
+    Collider_components collider_components;
     Camera_follow_components camera_follow_components;
 };
 

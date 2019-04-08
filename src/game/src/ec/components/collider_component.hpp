@@ -18,12 +18,20 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef TERRAIN_COLLIDER_COMPONENT_HPP
-#define TERRAIN_COLLIDER_COMPONENT_HPP
+#ifndef COLLIDER_COMPONENT_HPP
+#define COLLIDER_COMPONENT_HPP
 
+#include <limits>
+#include "math/vector.hpp"
 
-struct Terrain_collider_component
+static constexpr std::uint8_t terrain_mask = 1;
+static constexpr std::uint8_t bullet_mask = 2;
+
+struct Collider_component
 {
+    std::uint8_t mask{0};
+    math::Vector2I prev_pos{std::numeric_limits<std::int32_t>::min(),
+                           std::numeric_limits<std::int32_t>::min()};
 };
 
 #endif

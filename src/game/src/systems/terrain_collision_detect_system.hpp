@@ -22,15 +22,28 @@
 #define TERRAIN_COLLISION_DETECT_SYSTEM_HPP
 
 #include <cstdint>
+#include <vector>
 #include "ec/component_container.hpp"
 #include "ec/entity_container.hpp"
 
-class Terrain_collision_detect_system 
+// TODO move to own file under events folder
+struct Terrain_collision_event
+{
+    // TODO use real entity id
+    using Entity_id = std::int32_t;
+    Entity_id entity;
+    std::int32_t x;
+    std::int32_t y;
+};
+
+class Level;
+class Terrain_collision_detect_system
 {
 public:
-    void update(float delta_time,
-                Entity_container& entity_container,
-                Component_container& component_container);
+    std::vector<Terrain_collision_event> update(float delta_time,
+                                                Entity_container& entity_container,
+                                                Component_container& component_container,
+                                                const Level& level);
 };
 
 #endif

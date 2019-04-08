@@ -18,20 +18,18 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "systems/terrain_collision_detect_system.hpp"
-#include "level/level.hpp"
-#include "math/bresenham.hpp"
+#ifndef BRESENHAMN_HPP
+#define BRESENHAMN_HPP
 
-std::vector<Terrain_collision_event> Terrain_collision_detect_system::update(
-    float delta_time,
-    Entity_container& entity_container,
-    Component_container& component_container,
-    const Level& level)
+#include <vector>
+#include "math/vector.hpp"
+
+namespace math
 {
-    // TODO find entities with terrain collider + physics
-    // get previous and new locations => calculate line using bresenham
-    // iterate line coords and check for terrain
-    // hope for the best
-    std::vector<Terrain_collision_event> res;
-    return res;
+namespace bresenhamn
+{
+std::vector<Vector2I> get_line(const Vector2I& from, const Vector2I& to);
 }
+}  // namespace math
+
+#endif

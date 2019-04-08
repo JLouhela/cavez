@@ -21,11 +21,12 @@ set(GAME_FILES
 	src/ec/entity_factory.cpp
     src/ec/static_array/static_array.hpp
     src/ec/components/camera_follow_component.hpp
+    src/ec/components/collider_component.hpp
     src/ec/components/input_component.hpp
     src/ec/components/physics_component.hpp
     src/ec/components/render_component.hpp
     src/ec/components/physics_component.hpp
-    src/ec/components/terrain_collider_component.hpp
+    src/events/event_queue.hpp
     src/ec/components/throttle_component.hpp
     src/level/environment_types.hpp
     src/level/environment_mapping.hpp
