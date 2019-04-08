@@ -24,6 +24,8 @@ set(GAME_FILES
     src/ec/components/input_component.hpp
     src/ec/components/physics_component.hpp
     src/ec/components/render_component.hpp
+    src/ec/components/physics_component.hpp
+    src/ec/components/terrain_collider_component.hpp
     src/ec/components/throttle_component.hpp
     src/level/environment_types.hpp
     src/level/environment_mapping.hpp
@@ -42,6 +44,8 @@ set(GAME_FILES
     src/systems/render_system.cpp
     src/systems/system_manager.hpp
     src/systems/system_manager.cpp
+    src/systems/terrain_collision_detect_system.hpp
+    src/systems/terrain_collision_detect_system.cpp
     src/systems/throttle_system.hpp
     src/systems/throttle_system.cpp)
 

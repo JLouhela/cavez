@@ -18,19 +18,19 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_ID_HPP
-#define COMPONENT_ID_HPP
+#ifndef TERRAIN_COLLISION_DETECT_SYSTEM_HPP
+#define TERRAIN_COLLISION_DETECT_SYSTEM_HPP
 
 #include <cstdint>
+#include "ec/component_container.hpp"
+#include "ec/entity_container.hpp"
 
-enum class Component_id : std::int32_t
+class Terrain_collision_detect_system 
 {
-    physics = 0,
-    render = 1,
-    input = 2,
-    throttle = 3,
-    camera_follow = 4,
-    terrain_collider = 5
+public:
+    void update(float delta_time,
+                Entity_container& entity_container,
+                Component_container& component_container);
 };
 
 #endif

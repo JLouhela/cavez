@@ -18,19 +18,12 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef COMPONENT_ID_HPP
-#define COMPONENT_ID_HPP
+#ifndef TERRAIN_COLLIDER_COMPONENT_HPP
+#define TERRAIN_COLLIDER_COMPONENT_HPP
 
-#include <cstdint>
 
-enum class Component_id : std::int32_t
+struct Terrain_collider_component
 {
-    physics = 0,
-    render = 1,
-    input = 2,
-    throttle = 3,
-    camera_follow = 4,
-    terrain_collider = 5
 };
 
 #endif
