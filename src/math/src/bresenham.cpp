@@ -19,13 +19,55 @@
 /// IN THE SOFTWARE.
 
 #include "math/bresenham.hpp"
+#include <cstdlib>
 
 namespace math
 {
-
 std::vector<Vector2I> get_line(const Vector2I& from, const Vector2I& to)
 {
-    // TODO
-    return {};
+    // From rosettacode: https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C.2B.2B
+    std::int32_t x1 = from.x;
+    std::int32_t y1 = from.y;
+    std::int32_t x2 = to.x;
+    std::int32_t y2 = to.y;
+
+    const bool steep = (abs(y2 - y1) > abs(x2 - x1));
+    if (steep)
+    {
+        std::swap(x1, y1);
+        std::swap(x2, y2);
+    }
+
+    if (x1 > x2)
+    {
+        std::swap(x1, x2);
+        std::swap(y1, y2);
+    }
+
+    const std::int32_t dx = x2 - x1;
+    const std::int32_t dy = abs(y2 - y1);
+
+    float error = static_cast<float>(dx) / 2.0f;
+    const std::int32_t y_step = (y1 < y2) ? 1 : -1;
+
+    std::vector<Vector2I> res;
+    for (std::int32_t x = x1, y = y1; x < x2; ++x)
+    {
+        if (steep)
+        {
+            res.push_back({y, x});
+        }
+        else
+        {
+            res.push_back({x, y});
+        }
+        error -= static_cast<float>(dy);
+        if (error < 0)
+        {
+            y += y_step;
+            error += static_cast<float>(dx);
+        }
+    }
+    return res;
 }
 }  // namespace math
