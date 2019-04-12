@@ -18,18 +18,23 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef BRESENHAM_HPP
-#define BRESENHAM_HPP
+#include "systems/collider_update_system.hpp"
+#include "ec/components/collider_component.hpp"
+#include "ec/components/physics_component.hpp"
 
-#include <vector>
-#include "math/vector.hpp"
+void Collider_update_system::update(Entity_container& entity_container,
+                                    Component_container& component_container)
+{
+    const auto& phys_comps = component_container.physics_components;
+    auto& col_comps = component_container.collider_components;
 
-namespace math
-{
-namespace bresenham
-{
-std::vector<Vector2I> get_line(const Vector2F& from, const Vector2F& to);
+    for (const auto& entity : entity_container)
+    {
+        if (entity.second.has_component(Component_id::physics) &&
+            entity.second.has_component(Component_id::collider))
+        {
+            col_comps[entity.second.get_component_index(Component_id::collider)].prev_pos =
+                phys_comps[entity.second.get_component_index(Component_id::physics)].pos;
+        }
+    }
 }
-}  // namespace math
-
-#endif

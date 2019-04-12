@@ -59,6 +59,9 @@ Entity& Entity_factory::create_debug_entity()
     throttle_comp.second.get().thrust_force = 2.f;
     entity.add_component({Component_id::throttle, throttle_comp.first});
 
+    const auto& collider_comp = m_component_container.collider_components.get_free_elem();
+    entity.add_component({Component_id::collider, collider_comp.first});
+
     const auto& input_comp = m_component_container.input_components.get_free_elem();
     input_comp.second.get().input_id = m_input_interface.register_listener(
         {input::Key::key_w, input::Key::key_d, input::Key::key_a, input::Key::key_l_shift,

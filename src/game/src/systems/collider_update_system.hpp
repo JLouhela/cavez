@@ -18,18 +18,16 @@
 /// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#ifndef BRESENHAM_HPP
-#define BRESENHAM_HPP
+#ifndef COLLIDER_UPDATE_SYSTEM_HPP
+#define COLLIDER_UPDATE_SYSTEM_HPP
 
-#include <vector>
-#include "math/vector.hpp"
+#include "ec/component_container.hpp"
+#include "ec/entity_container.hpp"
 
-namespace math
+class Collider_update_system
 {
-namespace bresenham
-{
-std::vector<Vector2I> get_line(const Vector2F& from, const Vector2F& to);
-}
-}  // namespace math
+public:
+    void update(Entity_container& entity_container, Component_container& component_container);
+};
 
 #endif

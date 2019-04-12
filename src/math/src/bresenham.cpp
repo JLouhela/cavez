@@ -19,19 +19,23 @@
 /// IN THE SOFTWARE.
 
 #include "math/bresenham.hpp"
-#include <cstdlib>
+#include <cmath>
 
 namespace math
 {
-std::vector<Vector2I> get_line(const Vector2I& from, const Vector2I& to)
+namespace bresenham
+{
+// TODO should not swap but orientate from -> to
+// -> study algorithm and adapt, also consider screen wrap (e.g. prev_pos y = 599, cur_pos y = 1)
+std::vector<Vector2I> get_line(const Vector2F& from, const Vector2F& to)
 {
     // From rosettacode: https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C.2B.2B
-    std::int32_t x1 = from.x;
-    std::int32_t y1 = from.y;
-    std::int32_t x2 = to.x;
-    std::int32_t y2 = to.y;
+    float x1 = from.x;
+    float y1 = from.y;
+    float x2 = to.x;
+    float y2 = to.y;
 
-    const bool steep = (abs(y2 - y1) > abs(x2 - x1));
+    const bool steep = (std::fabs(y2 - y1) > std::fabs(x2 - x1));
     if (steep)
     {
         std::swap(x1, y1);
@@ -44,14 +48,15 @@ std::vector<Vector2I> get_line(const Vector2I& from, const Vector2I& to)
         std::swap(y1, y2);
     }
 
-    const std::int32_t dx = x2 - x1;
-    const std::int32_t dy = abs(y2 - y1);
+    const float dx = x2 - x1;
+    const float dy = std::fabs(y2 - y1);
 
     float error = static_cast<float>(dx) / 2.0f;
     const std::int32_t y_step = (y1 < y2) ? 1 : -1;
 
     std::vector<Vector2I> res;
-    for (std::int32_t x = x1, y = y1; x < x2; ++x)
+    for (std::int32_t x = static_cast<std::int32_t>(x1), y = static_cast<std::int32_t>(y1);
+         x < static_cast<std::int32_t>(x2); ++x)
     {
         if (steep)
         {
@@ -61,13 +66,14 @@ std::vector<Vector2I> get_line(const Vector2I& from, const Vector2I& to)
         {
             res.push_back({x, y});
         }
-        error -= static_cast<float>(dy);
+        error -= dy;
         if (error < 0)
         {
             y += y_step;
-            error += static_cast<float>(dx);
+            error += dx;
         }
     }
     return res;
+}
 }
 }  // namespace math

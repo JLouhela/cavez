@@ -57,8 +57,8 @@ Game_impl::Game_impl(const Game_config& config,
 
 void Game_impl::update(float delta_time)
 {
-    m_system_manager.update(delta_time, m_cameras, m_state.get_entities(),
-                            m_state.get_components());
+    m_system_manager.update(delta_time, m_cameras, m_state.get_entities(), m_state.get_components(),
+                            m_state.get_level());
 }
 
 void Game_impl::render(float delta_time)

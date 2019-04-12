@@ -19,8 +19,35 @@
 /// IN THE SOFTWARE.
 
 #include "systems/terrain_collision_detect_system.hpp"
+#include "level/environment_types.hpp"
 #include "level/level.hpp"
 #include "math/bresenham.hpp"
+#include "math/vector.hpp"
+
+namespace
+{
+std::vector<math::Vector2I> collides_with_terrain(const Level& level,
+                                                  const std::vector<math::Vector2I>& ray)
+{
+    const auto level_width = level.get_width();
+    const auto level_height = level.get_height();
+    const auto& env = level.get_environment();
+    std::vector<math::Vector2I> res;
+
+    for (const auto& coord : ray)
+    {
+        if (coord.x < 0 || coord.x > level_width || coord.y < 0 || coord.y > level_height)
+        {
+            continue;
+        }
+        if (env[coord.x + (coord.y * level_width)] != Environment_type::blank)
+        {
+            res.emplace_back(coord);
+        }
+    }
+    return res;
+}
+}
 
 std::vector<Terrain_collision_event> Terrain_collision_detect_system::update(
     float delta_time,
@@ -28,10 +55,27 @@ std::vector<Terrain_collision_event> Terrain_collision_detect_system::update(
     Component_container& component_container,
     const Level& level)
 {
-    // TODO find entities with terrain collider + physics
-    // get previous and new locations => calculate line using bresenham
-    // iterate line coords and check for terrain
-    // hope for the best
+    const auto& phys_comps = component_container.physics_components;
+    const auto& col_comps = component_container.collider_components;
+
     std::vector<Terrain_collision_event> res;
+    for (const auto& entity : entity_container)
+    {
+        if (entity.second.has_component(Component_id::physics) &&
+            entity.second.has_component(Component_id::collider))
+        {
+            const auto& prev_pos =
+                col_comps[entity.second.get_component_index(Component_id::collider)].prev_pos;
+            const auto& cur_pos =
+                phys_comps[entity.second.get_component_index(Component_id::physics)].pos;
+            const auto ray = math::bresenham::get_line(prev_pos, cur_pos);
+            // TODO handle screen wrap
+            const auto collisions = collides_with_terrain(level, ray);
+            for (const auto& c : collisions)
+            {
+                res.emplace_back(Terrain_collision_event{entity.second.get_id(), c.x, c.y});  
+            }
+        }
+    }
     return res;
 }

@@ -30,8 +30,8 @@ static constexpr std::uint8_t bullet_mask = 2;
 struct Collider_component
 {
     std::uint8_t mask{0};
-    math::Vector2I prev_pos{std::numeric_limits<std::int32_t>::min(),
-                           std::numeric_limits<std::int32_t>::min()};
+    math::Vector2F prev_pos{std::numeric_limits<float>::min(),
+                           std::numeric_limits<float>::min()};
 };
 
 #endif

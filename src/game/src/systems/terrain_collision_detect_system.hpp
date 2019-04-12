@@ -31,9 +31,9 @@ struct Terrain_collision_event
 {
     // TODO use real entity id
     using Entity_id = std::int32_t;
-    Entity_id entity;
-    std::int32_t x;
-    std::int32_t y;
+    Entity_id entity{-1};
+    std::int32_t x{-1};
+    std::int32_t y{-1};
 };
 
 class Level;

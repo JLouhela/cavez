@@ -36,12 +36,17 @@ void System_manager::set_world_bounds(const math::Vector2I& bounds)
 void System_manager::update(float delta_time,
                             Cameras& cameras,
                             Entity_container& entities,
-                            Component_container& component_container)
+                            Component_container& component_container,
+                            Level& level)
 {
     m_input_system.update(delta_time, entities, component_container);
     m_throttle_system.update(delta_time, entities, component_container);
     m_physics_system.update(delta_time, component_container);
     m_camera_follow_system.update(delta_time, cameras, entities, component_container);
+
+    // Make sure all collision stuff is handled before running collider update
+    m_terrain_collision_detect_system.update(delta_time, entities, component_container, level);
+    m_collider_update_system.update(entities, component_container);
 }
 
 void System_manager::render(Cameras& cameras,

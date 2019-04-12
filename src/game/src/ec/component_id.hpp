@@ -30,7 +30,7 @@ enum class Component_id : std::int32_t
     input = 2,
     throttle = 3,
     camera_follow = 4,
-    terrain_collider = 5
+    collider = 5
 };
 
 #endif

@@ -21,12 +21,14 @@
 #ifndef SYSTEM_MANAGER_HPP
 #define SYSTEM_MANAGER_HPP
 
-#include "math/vector.hpp"
 #include "camera/cameras.hpp"
+#include "math/vector.hpp"
 #include "systems/camera_follow_system.hpp"
+#include "systems/collider_update_system.hpp"
 #include "systems/input_system.hpp"
 #include "systems/physics_system.hpp"
 #include "systems/render_system.hpp"
+#include "systems/terrain_collision_detect_system.hpp"
 #include "systems/throttle_system.hpp"
 
 #include <cstdint>
@@ -49,7 +51,8 @@ public:
     void update(float delta_time,
                 Cameras& cameras,
                 Entity_container& entities,
-                Component_container& component_container);
+                Component_container& component_container,
+                Level& level);
 
     void render(Cameras& cameras,
                 const Level& level,
@@ -62,6 +65,8 @@ private:
     Throttle_system m_throttle_system;
     Physics_system m_physics_system;
     Camera_follow_system m_camera_follow_system;
+    Terrain_collision_detect_system m_terrain_collision_detect_system;
+    Collider_update_system m_collider_update_system;
 };
 
 #endif
