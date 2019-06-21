@@ -20,6 +20,7 @@
 
 #include "math/bresenham.hpp"
 #include <cmath>
+#include <algorithm>
 
 namespace math
 {
@@ -42,7 +43,8 @@ std::vector<Vector2I> get_line(const Vector2F& from, const Vector2F& to)
         std::swap(x2, y2);
     }
 
-    if (x1 > x2)
+    const bool reverse = (x1 > x2);
+    if (reverse)
     {
         std::swap(x1, x2);
         std::swap(y1, y2);
@@ -72,6 +74,10 @@ std::vector<Vector2I> get_line(const Vector2F& from, const Vector2F& to)
             y += y_step;
             error += dx;
         }
+    }
+    if (reverse)
+    {
+        std::reverse(res.begin(), res.end());
     }
     return res;
 }

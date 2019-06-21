@@ -47,6 +47,17 @@ std::vector<math::Vector2I> collides_with_terrain(const Level& level,
     }
     return res;
 }
+
+std::vector<std::vector<math::Vector2I>> get_lines(const math::Vector2F& from,
+                                                   const math::Vector2F& to,
+                                                   const math::Vector2F& velocity,
+                                                   const Level& level)
+{
+    //TODO split to two cases:
+    // 1. regular
+    // 2. screen wrap
+    // Handle first one now
+}
 }
 
 std::vector<Terrain_collision_event> Terrain_collision_detect_system::update(
@@ -68,12 +79,15 @@ std::vector<Terrain_collision_event> Terrain_collision_detect_system::update(
                 col_comps[entity.second.get_component_index(Component_id::collider)].prev_pos;
             const auto& cur_pos =
                 phys_comps[entity.second.get_component_index(Component_id::physics)].pos;
-            const auto ray = math::bresenham::get_line(prev_pos, cur_pos);
+            const auto rays = get_lines(prev_pos, cur_pos);
             // TODO handle screen wrap
-            const auto collisions = collides_with_terrain(level, ray);
-            for (const auto& c : collisions)
+            for (const auto& ray : rays)
             {
-                res.emplace_back(Terrain_collision_event{entity.second.get_id(), c.x, c.y});  
+                const auto collisions = collides_with_terrain(level, ray);
+                for (const auto& c : collisions)
+                {
+                    res.emplace_back(Terrain_collision_event{entity.second.get_id(), c.x, c.y});
+                }
             }
         }
     }
