@@ -36,7 +36,8 @@ std::vector<math::Vector2I> collides_with_terrain(const Level& level,
 
     for (const auto& coord : ray)
     {
-        if (coord.x < 0 || coord.x > level_width || coord.y < 0 || coord.y > level_height)
+        if (coord.x < 0 || coord.x >= static_cast<std::int32_t>(level_width) || coord.y < 0 ||
+            coord.y >= static_cast<std::int32_t>(level_height))
         {
             continue;
         }
@@ -48,17 +49,13 @@ std::vector<math::Vector2I> collides_with_terrain(const Level& level,
     return res;
 }
 
+// TODO handle object wrapping screen
 std::vector<std::vector<math::Vector2I>> get_lines(const math::Vector2F& from,
-                                                   const math::Vector2F& to,
-                                                   const math::Vector2F& velocity,
-                                                   const Level& level)
+                                                   const math::Vector2F& to)
 {
-    //TODO split to two cases:
-    // 1. regular
-    // 2. screen wrap
-    // Handle first one now
+    return {math::bresenham::get_line(from, to)};
 }
-}
+}  // namespace
 
 std::vector<Terrain_collision_event> Terrain_collision_detect_system::update(
     float delta_time,
@@ -79,13 +76,15 @@ std::vector<Terrain_collision_event> Terrain_collision_detect_system::update(
                 col_comps[entity.second.get_component_index(Component_id::collider)].prev_pos;
             const auto& cur_pos =
                 phys_comps[entity.second.get_component_index(Component_id::physics)].pos;
-            const auto rays = get_lines(prev_pos, cur_pos);
             // TODO handle screen wrap
+            // from -> to is not sufficient as ship can warp
+            const auto rays = get_lines(prev_pos, cur_pos);
             for (const auto& ray : rays)
             {
                 const auto collisions = collides_with_terrain(level, ray);
                 for (const auto& c : collisions)
                 {
+                    LOG_DEBUG << "Collision";
                     res.emplace_back(Terrain_collision_event{entity.second.get_id(), c.x, c.y});
                 }
             }
