@@ -9,7 +9,7 @@ Status (9.3.2019): Renders sprite on screen which can be rotated with A and D, t
 
 ## Building
 
-Currently building is in a funny state. Linux uses shared libraries and windows uses static libraries. Otherwise building works the similar way. Building expects you to download the SFML binaries, they are not part of this repository currently. SFML version 2.5.1 has been used and currently building has been tested with Visual Studio Express 2017 (stock MSVC) and GCC 7.2.0
+Currently building is in a funny state. Linux uses shared libraries and windows uses static libraries. Otherwise building works the similar way. Build procedure expects you to download  SFML binaries, they are not part of this repository. SFML version 2.5.1 has been used and currently building has been tested with Visual Studio Express 2017 (stock MSVC) and GCC 7.2.0
 * run CMake to root folder
 * set SFML_DIR to point into cmake files in SFML binaries
   * e.g. -DSFML_DIR=~/derp/SFML-2.5.1/lib/cmake/SFML
