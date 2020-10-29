@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 project (Cavez VERSION 0.0.1 LANGUAGES CXX)
 
-set(SFML_DIR "SFML_DIR_NOT_SET" CACHE STRING "")
+set(SFML_DIR "SFML_DIR_NOT_SET" CACHE PATH "Path to SFML CMake file directory")
 
 if (${SFML_DIR} MATCHES "SFML_DIR_NOT_SET")
     message( FATAL_ERROR "SFML_DIR not defined, CMake will exit." )
@@ -26,3 +26,6 @@ find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 add_subdirectory(src)
 add_subdirectory(app)
 add_subdirectory(res)
+
+enable_testing()
+add_subdirectory(test)
